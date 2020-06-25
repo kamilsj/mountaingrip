@@ -13,6 +13,7 @@ def index(request):
     if request.user.is_authenticated:
         user = request.user
 
+
         data = {}
 
         '''
