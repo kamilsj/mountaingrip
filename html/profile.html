@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+{% load i18n %}
+{% block title %}
+    {{ data.name }}
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    {% if data.notexists == 1 %}
+    <div class="row mt-5 justify-content-center">
+
+         <div class="alert alert-danger" role="alert">{% trans "Does not exist." %}</div>
+
+    </div>
+    {% else %}
+
+    <div style="background-image: url('{{ data.curl }}'); background-size: cover; background-repeat: no-repeat; background-size: cover; background-position: center center; width: 100%; height: 300px;">
+        <div class="row">
+                <div class="col-sm-3 text-center"><img  src="{{ data.purl }}" class="img-thumbnail rounded mt-3 ml-3"/></div>
+        </div>
+    </div>
+    <div class="row">
+    <div class="col-sm-3"></div>
+               <div class="col-md-7 align-self-end mt-2">
+                    <h2 class="text-muted">{{ data.name }}</h2>
+                </div>
+    </div>
+    <div class="row" style="margin-top: 10%">
+            <div class="col-sm-3">
+            {{ data.message }}
+            </div>
+            <div class="col-md-7">
+                POSTS
+            </div>
+    </div>
+
+    {% endif %}
+</div>
+{% endblock %}

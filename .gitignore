@@ -1,0 +1,8 @@
+.idea
+.nova
+
+__pycache__
+migrations
+.DS_Store
+mountaingrip/config/config.py
+

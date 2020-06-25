@@ -1,0 +1,26 @@
+{% extends 'main.html' %}
+{% load i18n %}
+{% block title %}{% blocktrans %}  Mountains are waiting for you - Mountian Grip{% endblocktrans %}{% endblock %}
+
+
+{% block content %}
+
+<div class="video-background">
+    <div class="video-foreground">
+      <iframe src="https://www.youtube.com/embed/Mo135DGw-Wc?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+<div id="vidtop-content">
+<div class="vid-info">
+	  <h1 class="display-4">{% trans "Everything I love is in the mountains." %}</h1>
+    <p class="lead">{% trans "Mountain Grip is a community dedicated to people who love climbing mountians."  %}</p>
+    <p></p>
+	    <a class="btn-sm" href="/accounts/signup">{% trans "Sign up" %}</a>
+  </div>
+</div>
+
+
+
+
+
+{% endblock %}
