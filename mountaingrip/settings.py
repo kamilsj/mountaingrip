@@ -1,9 +1,9 @@
 import os
 import django_heroku
 
-db = []
-aws = []
-email = []
+db = ['']
+aws = ['']
+email = ['']
 
 if os.getenv('DB_NAME') and os.getenv('AWS_KEY') and os.getenv('EMAIL_HOST'):
     db[0] = os.getenv('DB_NAME')
