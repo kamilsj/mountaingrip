@@ -1,11 +1,29 @@
 import os
 import django_heroku
 
-try:
-    # noinspection PyUnresolvedReferences
-    from .config.config import db, aws, email
-except ImportError:
-    exit('No configuration')
+db = []
+aws = []
+email = []
+
+if os.getenv('DB_NAME') and os.getenv('AWS_KEY') and os.getenv('EMAIL_HOST'):
+    db[0] = os.getenv('DB_NAME')
+    db[1] = os.getenv('DB_USER')
+    db[2] = os.getenv('DB_PASSWORD')
+    db[3] = os.getenv('DB_HOST')
+    db[4] = os.getenv('DB_PORT')
+    aws[0] = os.getenv('AWS_KEY')
+    aws[1] = os.getenv('AWS_PASSWORD')
+    aws[2] = os.getenv('AWS_BOTTLE')
+    email[0] = os.getenv('EMAIL_HOST')
+    email[1] = os.getenv('EMAIL_NAME')
+    email[2] = os.getenv('EMAIL_PASSWORD')
+    email[3] = os.getenv('EMAIL_PORT')
+else:
+    try:
+        from .config.config import db, aws, email
+    except ImportError:
+        exit('No configuration')
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
