@@ -6,6 +6,7 @@ aws = []
 email = []
 
 if os.getenv('DB_NAME') and os.getenv('AWS_KEY') and os.getenv('EMAIL_HOST'):
+  
     db = [os.getenv('DB_NAME'), os.getenv('DB_USER'), os.getenv('DB_PASSWORD'), os.getenv('DB_HOST'), os.getenv('DB_PORT')]
     aws = [os.getenv('AWS_KEY'), os.getenv('AWS_PASSWORD'),  os.getenv('AWS_BOTTLE')]
     email = [os.getenv('EMAIL_HOST'), os.getenv('EMAIL_NAME'), os.getenv('EMAIL_PASSWORD'), os.getenv('EMAIL_PORT')]
