@@ -64,11 +64,22 @@ def profile(request, id=0):
     else:
         user = request.user
         if Profile.objects.filter(userId=user.id).exists():
+            name = user.get_full_name()
             profile = Profile.objects.get(userId=user.id)
-            data ={
-                'name': user.get_full_name(),
-                'curl': profile.coverId.url,
-                'purl': profile.picId.url,
+            if profile.coverId:
+                coverid = profile.coverId.url
+            else:
+                coverid = 'https://mountiangrip.s3.amazonaws.com/media/profile/P1000193_B55pk0B.jpg'
+
+            if profile.picId:
+                picid = profile.picId.url
+            else:
+                picid = 'https://mountiangrip.s3.amazonaws.com/assets/defaultProfilePicture.jpg'
+
+            data = {
+                'name': name,
+                'curl': coverid,
+                'purl': picid
             }
 
     return render(request, 'profile.html', {'data': data})
