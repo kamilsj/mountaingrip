@@ -19,7 +19,6 @@ django_cron = "*"
 django-widget-tweaks = "*"
 cryptography = "*"
 pyOpenSSL = "*"
-six = "*"
 
 
 #upload files
@@ -32,4 +31,4 @@ djangorestframework = "*"
 
 [requires]
 
-python_version = "3.7"
+python_version = "3.8"
