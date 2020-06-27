@@ -6,6 +6,7 @@ verify_ssl = true
 
 
 [packages]
+pip = "20.1.1"
 sentry-sdk = "*"
 django = "*"
 gunicorn = "*"
@@ -28,6 +29,7 @@ django-storages = "*"
 #experimental features
 tensorflow = "*"
 djangorestframework = "*"
+
 
 [requires]
 
