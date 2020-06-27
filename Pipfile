@@ -6,7 +6,6 @@ verify_ssl = true
 
 
 [packages]
-pip = "20.1.1"
 sentry-sdk = "*"
 django = "*"
 gunicorn = "*"
@@ -19,7 +18,6 @@ Pillow = "*"
 django_cron = "*"
 django-widget-tweaks = "*"
 cryptography = "*"
-pyOpenSSL = "*"
 
 
 #upload files
@@ -27,7 +25,6 @@ boto3 = "*"
 django-storages = "*"
 
 #experimental features
-tensorflow = "*"
 djangorestframework = "*"
 
 

@@ -6,5 +6,5 @@ django_heroku==0.3.1
 django_storages==1.9.1
 secrets==1.0.2
 sentry_sdk==0.14.4
-tensorflow==2.2.0
-pip==20.1.1
+
+
