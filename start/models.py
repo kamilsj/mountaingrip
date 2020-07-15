@@ -55,6 +55,7 @@ class Trip(models.Model):
 
 
 class Profile(models.Model):
+    user = models.ManyToManyField(User)
     userId = models.BigIntegerField()
     picId = models.ImageField(upload_to='profile', blank=True)
     coverId = models.ImageField(upload_to='profile', blank=True)

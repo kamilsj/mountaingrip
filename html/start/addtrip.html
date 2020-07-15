@@ -1,23 +1,52 @@
 {% extends 'main.html' %}
-
+{% load i18n %}
 
 {% block content %}
 
  <div class="container">
-        <div class="row justify-content-center align-items-center" style="margin-top: 10%">
-              <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {% for field in form %}
-                  <p>
-                    {{ field.label_tag }}<br>
-                    {{ field }}
-                    {% for error in field.errors %}
-                      <p style="color: red">{{ error }}</p>
+        <div class="row justify-content-center align-items-center" style="margin-top: 8%">
+            <div class="col-md-6">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        {% if field.name == 'title' %}
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="title" id="id_title" placeholder="{% trans "Title" %}" required>
+                            </div>
+                        {% elif field.name == 'description' %}
+                            <div class="form-group">
+                                <textarea class="form-control" rows="5" name="description" id="id_descriptio" placeholder="{% trans "Descriptopn" %}"></textarea>
+                            </div>
+                        {% elif field.name == 'basePlace' %}
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="basePlace" id="id_basePlace" placeholder="{% trans "Base place" %}" required>
+                            </div>
+                        {% elif field.name == 'mountainName' %}
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="mountainName " id="id_mountainName" placeholder="{% trans "Mountain name" %}" required>
+                            </div>
+                        {% elif field.name == 'startDate' %}
+                            <div class="form-group">
+                                <input class="form-control" type="date" name="startDate " id="id_startDate" placeholder="{% trans "Start date" %}" required>
+                            </div>
+                         {% elif field.name == 'endDate' %}
+                            <div class="form-group">
+                                <input class="form-control" type="date" name="endDate " id="id_endDate" placeholder="{% trans "End date" %}" required>
+                            </div>
+                         {% elif field.name == 'coverId' %}
+                            <div class="form-group">
+                                <input class="form-control" type="file" name="coverId" id="id_coverId" placeholder="{% trans "Cover photo" %}" required>
+                            </div>
+                        {% for error in field.errors %}
+
+                            <div class="alert alert-danger" role="alert">{{ error }}</div>
+
+                        {% endfor %}
+                        {% endif %}
                     {% endfor %}
-                  </p>
-                {% endfor %}
-                <button class="btn btn-lg btn-primary btn-block" type="submit">Add trip</button>
-              </form>
+                    <button class="btn btn-lg btn-primary btn-block .w-50" type="submit">Add trip</button>
+                  </form>
+            </div>
         </div>
     </div>
 

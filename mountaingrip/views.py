@@ -17,6 +17,7 @@ from start.models import Tokens, Profile
 import uuid
 from func.tokens import account_activation_token
 
+
 def index(request):
 
     if request.user.is_authenticated:
@@ -24,17 +25,21 @@ def index(request):
     else:
         return render(request, 'index.html')
 
+
 def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=uid)
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
+
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
         login(request, user)
         return redirect('/start/')
+    else:
+        return redirect('/')
 
 
 def signup(request):
@@ -42,7 +47,6 @@ def signup(request):
         if request.method == 'POST':
             form = SignUpForm(request.POST)
             if form.is_valid():
-                #TODO email address has to be unique.
                 to_email = form.cleaned_data.get('email')
                 password1 = form.cleaned_data.get('password1')
                 password2 = form.cleaned_data.get('password2')

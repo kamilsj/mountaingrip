@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-21 14:36+0000\n"
+"POT-Creation-Date: 2020-07-03 09:54+0000\n"
 "PO-Revision-Date: 2018-09-02 08:58+0000\n"
 "Last-Translator: Kamil Boberek <kboberek@gmail.com>, 2020\n"
 "Language-Team: Polish (https://www.transifex.com/mountiangrip/teams/90567/"
@@ -40,57 +40,65 @@ msgid ""
 msgstr ""
 "Witaj w społeczności ludzi dla których góry są czymś więcej niż pasją. "
 
-#: html/main.html:26 html/signup.html:60
+#: html/index.html:18 html/main.html:28 html/signup.html:60
 msgid "Sign up"
 msgstr "Rejestracja"
 
-#: html/main.html:30
+#: html/main.html:32
 msgid "Profile"
 msgstr "Profil"
 
-#: html/main.html:34
+#: html/main.html:36
 msgid "Your trips"
 msgstr "Twoje wycieczki"
 
-#: html/main.html:37
+#: html/main.html:39
 msgid "Add a trip"
 msgstr "Dodaj wycieczkę"
 
-#: html/main.html:38
+#: html/main.html:40
 msgid "Explore"
 msgstr "Odkrywaj"
 
-#: html/main.html:40
+#: html/main.html:42
 msgid "Past activities"
 msgstr "Ostatnie aktywności"
 
-#: html/main.html:45
+#: html/main.html:47
 msgid "Messages"
 msgstr "Wiadomości"
 
-#: html/main.html:48
+#: html/main.html:50
 msgid "New message"
 msgstr "Nowa wiadomość"
 
-#: html/main.html:49
+#: html/main.html:51
 msgid "Inbox"
 msgstr "Skrzynka odbiorcza"
 
-#: html/main.html:58
+#: html/main.html:60
 msgid "Search"
 msgstr "Szukaj"
 
-#: html/main.html:60
+#: html/main.html:62
 msgid "Logout"
 msgstr "Wyloguj"
 
-#: html/main.html:62
+#: html/main.html:64 html/registration/login.html:18
 msgid "Log in"
 msgstr "Zaloguj"
 
-#: html/profile.html:12 html/start/trip.html:10
+#: html/profile.html:12
 msgid "Does not exist."
 msgstr "Użytkownik nie istnieje."
+
+#: html/registration/login.html:12 html/signup.html:22
+msgid "Username"
+msgstr "Nazwa użytkownika."
+
+#: html/registration/login.html:16 html/signup.html:39
+msgid "Password"
+msgstr "Hasło"
 
 #: html/searchresult.html:5
 #, python-format
@@ -100,10 +108,6 @@ msgstr "Wyniki wyszukiwania dla: %(q)s"
 #: html/signup.html:10
 msgid "Activation email was sent to you."
 msgstr "Email aktywacyjny został wysłany."
-
-#: html/signup.html:22
-msgid "Username"
-msgstr "Nazwa użytkownika."
 
 #: html/signup.html:27
 msgid "First name"
@@ -117,51 +121,69 @@ msgstr "Nazwisko"
 msgid "Email"
 msgstr "Email"
 
-#: html/signup.html:39
-msgid "Password"
-msgstr "Hasło"
-
 #: html/signup.html:43
 msgid "Confirm password"
 msgstr "Powtórz hasło"
+
+#: html/start/addtrip.html:14 start/forms.py:25
+msgid "Title"
+msgstr "Tytuł"
+
+#: html/start/addtrip.html:18
+#, fuzzy
+#| msgid "Description"
+msgid "Descriptopn"
+msgstr "Opis"
+
+#: html/start/addtrip.html:22 start/forms.py:27
+msgid "Base place"
+msgstr "Miejsce wyruszenia"
+
+#: html/start/addtrip.html:26
+#, fuzzy
+#| msgid "Mountian name"
+msgid "Mountain name"
+msgstr "Góra na którą chcesz wejść"
+
+#: html/start/addtrip.html:30 start/forms.py:29
+msgid "Start date"
+msgstr "Data rozpoczęcia"
+
+#: html/start/addtrip.html:34 start/forms.py:30
+msgid "End date"
+msgstr "Data zakończenia"
+
+#: html/start/addtrip.html:38 start/forms.py:31
+msgid "Cover photo"
+msgstr "Zdjęcie wyrózniające"
 
 #: html/start/trip.html:8
 msgid "You've just added a new trip."
 msgstr "Dodałeś właśnie nową wycieczkę"
 
-#: mountaingrip/views.py:58
+#: html/start/trip.html:10
+#, fuzzy
+#| msgid "Does not exist."
+msgid "Trip does not exist."
+msgstr "Użytkownik nie istnieje."
+
+#: html/start/trip.html:17
+msgid "Join"
+msgstr ""
+
+#: mountaingrip/views.py:64
 msgid "Activate your Mountain Grip account."
 msgstr "Aktywuj swoje konto na Mountain Grip"
-
-#: start/forms.py:25
-msgid "Title"
-msgstr "Tytuł"
 
 #: start/forms.py:26
 msgid "Description"
 msgstr "Opis"
 
-#: start/forms.py:27
-msgid "Base place"
-msgstr "Miejsce wyruszenia"
-
 #: start/forms.py:28
 msgid "Mountian name"
 msgstr "Góra na którą chcesz wejść"
 
-#: start/forms.py:29
-msgid "Start date"
-msgstr "Data rozpoczęcia"
-
-#: start/forms.py:30
-msgid "End date"
-msgstr "Data zakończenia"
-
-#: start/forms.py:31
-msgid "Cover photo"
-msgstr "Zdjęcie wyrózniające"
-
-#: start/views.py:62 start/views.py:67
+#: start/views.py:62
 #, fuzzy
 #| msgid "Does not exist."
 msgid "User does not exist"
