@@ -5,8 +5,10 @@
 {% block content %}
     <div class="page-background-main">
         <div class="container">
-            <div class="row">
-
+            <div class="row mt-5">
+                <div class="col col-lg-7">
+                    Kamil
+                </div>
             </div>
         </div>
     </div>
@@ -16,8 +18,13 @@
                 HELLO 1
             </div>
             <div class="col col-lg-7">
-                HELLO 2
-
+                <div class="">
+                    {% for trip in data.trips %}
+                    <div id="trip{{ trip.id }}">
+                        <a href="/start/trip/{{ trip.id }}">{{ trip.title }}</a>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
             <div class="col col-sm-3">
                 HELLO 3

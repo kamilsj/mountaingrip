@@ -16,54 +16,60 @@
     <header>
         <nav class="navbar navbar-expand-lg fixed-top navbar-transparent navbar-dark bg-dark">
             <div class="container">
-                  <a class="navbar-brand" href="/">Mountian Grip</a>
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
 
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-                        {% if not user.is_authenticated %}
-                          <li class="nav-item">
-                            <a class="btn btn-outline-primary" href="/accounts/signup/">{% trans "Sign up" %}</a>
-                          </li>
-                        {% else %}
-                           <li class="nav-item">
-                            <a class="nav-link" href="/start/profile/">{%  trans "Profile" %}</a>
-                          </li>
-                          <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              {% trans "Your trips" %}
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <a class="dropdown-item" href="/start/add/">{% trans "Add a trip" %}</a>
-                              <a class="dropdown-item" href="">{% trans "Explore" %}</a>
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#">{% trans "Past activities" %}</a>
-                            </div>
-                          </li>
-                          <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              {% trans "Messages" %}
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <a class="dropdown-item" href="">{% trans "New message" %}</a>
-                              <a class="dropdown-item" href="">{% trans "Inbox" %}</a>
-                            </div>
-                          </li>
-                        {% endif %}
-                    </ul>
-                      {% if user.is_authenticated %}
-                          {% csrf_token %}
-                        <form class="form-inline my-2 my-lg-0" method="get" action="/start/q/">
-                            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0 btn-sm" type="submit">{% trans "Search" %}</button>
-                        </form>
-                        <a class="btn btn-outline-secondary btn-sm ml-2" href="/accounts/logout">{% trans "Logout" %}</a>
-                      {% else %}
-                        <a class="btn btn-outline-secondary btn-sm" href="/accounts/login">{%  trans "Log in" %}</a>
-                      {% endif %}
-                  </div>
+                    <a href="/" class="navbar-brand mt-5" style="position: absolute;">
+                        <img src="{% static 'img/MG.png' %}"  class="img-responsive" style="width: 90px; overflow: hidden; height: auto;" />
+                    </a>
+                    <div style="width: 105px"></div>
+
+                      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+
+                      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                        <ul class="navbar-nav mr-auto">
+                            {% if not user.is_authenticated %}
+                              <li class="nav-item">
+                                <a class="btn btn-outline-primary" href="/accounts/signup/">{% trans "Sign up" %}</a>
+                              </li>
+                            {% else %}
+                               <li class="nav-item">
+                                <a class="nav-link" href="/start/profile/">{%  trans "Profile" %}</a>
+                              </li>
+                              <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  {% trans "Your trips" %}
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                  <a class="dropdown-item" href="/start/add/">{% trans "Add a trip" %}</a>
+                                  <a class="dropdown-item" href="">{% trans "Explore" %}</a>
+                                  <div class="dropdown-divider"></div>
+                                  <a class="dropdown-item" href="#">{% trans "Past activities" %}</a>
+                                </div>
+                              </li>
+                              <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  {% trans "Messages" %}
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                  <a class="dropdown-item" href="">{% trans "New message" %}</a>
+                                  <a class="dropdown-item" href="">{% trans "Inbox" %}</a>
+                                </div>
+                              </li>
+                            {% endif %}
+                        </ul>
+                          {% if user.is_authenticated %}
+                              {% csrf_token %}
+                            <form class="form-inline my-2 my-lg-0" method="get" action="/start/q/">
+                                <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0 btn-sm" type="submit">{% trans "Search" %}</button>
+                            </form>
+                            <a class="btn btn-outline-secondary btn-sm ml-2" href="/accounts/logout">{% trans "Logout" %}</a>
+                          {% else %}
+                            <a class="btn btn-outline-secondary btn-sm" href="/accounts/login">{%  trans "Log in" %}</a>
+                          {% endif %}
+                      </div>
             </div>
         </nav>
     </header>
@@ -73,9 +79,13 @@
 {% endblock %}
 
     <footer class="page-footer">
-        <div class="text-left ml-3 mb-3">
-            <p class="d-inline">2020</p>
-            <p class="d-inline"><a href="https://www.paypal.me/kamilsj" target="_blank">donate</a></p>
+        <div class="container">
+            <div class="">
+                <div class="text-left ml-3 mb-3">
+                    <p class="d-inline">2020</p>
+                    <p class="d-inline"><a href="https://www.paypal.me/kamilsj" target="_blank">donate</a></p>
+                </div>
+            </div>
         </div>
     </footer>
     <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>

@@ -3,10 +3,10 @@ from django.utils import translation
 from django.contrib.auth.models import User
 from django.utils.translation import  gettext as _
 from django.views import View
-from django.views.generic import ListView
 from .models import Trip, Profile
 from .forms import TripForm, SearchForm
 
+import datetime
 
 def index(request):
 
@@ -19,13 +19,23 @@ def index(request):
         '''
         Trips added within last 2 weeks
         if there are not any ... show at least last 10
-        Which are not yet finished         
+        Which are not yet finished
         '''
+        from_date = datetime.datetime.now() - datetime.timedelta(days=14)
+        if Trip.objects.filter(added_at__range=[from_date, datetime.datetime.now()]).count() > 0:
+            trips = Trip.objects.filter(added_at__range=[from_date, datetime.datetime.now()]).all()[:15]
+        else:
+            trips = Trip.objects.all()[:15]
 
-        #Trip.objects.filter(added_at='')
 
 
-        return render(request, 'mountiangrip.html', {user: user})
+        data={
+            'user': user.get_full_name(),
+            'trips': trips
+        }
+
+
+        return render(request, 'mountiangrip.html', {'data': data})
 
     else:
         return redirect('/')
@@ -62,7 +72,10 @@ def profile(request, id=0):
                 'name': _('User does not exist')
             }
     else:
+
         user = request.user
+        print(user)
+
         if Profile.objects.filter(userId=user.id).exists():
             name = user.get_full_name()
             profile = Profile.objects.get(userId=user.id)
@@ -81,6 +94,12 @@ def profile(request, id=0):
                 'curl': coverid,
                 'purl': picid
             }
+        else:
+            data = {
+                'notexists': 1,
+                'name': _('User does not exist')
+            }
+
 
     return render(request, 'profile.html', {'data': data})
 
@@ -163,7 +182,3 @@ class AddTrip(View):
                     return redirect('/start/trip/' + str(obj.id))
                 else:
                     return redirect('/start/trip/')
-
-
-
-
