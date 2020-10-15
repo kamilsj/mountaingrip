@@ -19,3 +19,4 @@ class SignUpForm(UserCreationForm):
         except User.DoesNotExist:
             return email
         raise forms.ValidationError('This email is already in use.')
+
