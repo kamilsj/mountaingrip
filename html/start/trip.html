@@ -1,8 +1,19 @@
 {% extends 'main.html' %}
 {% load i18n %}
+{% block title %}
+    {{ data.title }}
+{% endblock %}
 
 {% block content %}
-<div class="container">
+<style>
+  #map {
+    height: 250px;  /* The height is 400 pixels */
+    width: 100%;  /* The width is the width of the web page */
+   }
+</style>
+
+
+<div class="container" xmlns="http://www.w3.org/1999/html">
     <div class="row mt-5 justify-content-center">
     {% if data.just_added == 1 %}
         <div class="alert alert-success" role="alert">{% trans "You've just added a new trip." %}</div>
@@ -11,24 +22,76 @@
     {% endif %}
     </div>
 {% if data.notrip != 1 %}
+
     <div class="row align-items-start">
         <div class="col col-sm-5">
             <img src="{{ data.url }}" class="img-fluid rounded" /><br>
-            <a href="" class="btn btn-primary btn-sm mt-2">Join
-            <span class="badge badge-light">10</span>
+            <a href="" class="btn btn-primary btn-sm mt-2">{% trans "Join" %}
+            <span class="badge badge-light">{{ data.joined }}</span>
             </a>
+            <a href="#" class="btn btn-secondary btn-sm mt-2 ml-3 show_open">{% trans "Invite" %}
+            </a>
+
         </div>
         <div class="col w-100 mt-3">
-            <h1 class="display-4">{{ data.title }}</h1><br>
+            <h1 class="leader">{{ data.title }}</h1><br>
             <p class="lead">{{ data.description }}</p><br>
-
         </div>
     </div>
-    <div class="row mt-5 justify-content-center">
+    <div class="row mt-5">
+        <div class="col col-sm-5">
+            <div id="map"></div>
+
+        </div>
+        <div class="col col-sm-7">
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-row">
+                    <input type="hidden" id="trip_id" name="trip_id" value="{{ data.id }}" />
+                    <div class="col-10"><textarea class="form-control form-control-sm" id="post_text"></textarea></div>
+                    <div class="col-auto"><button type="submit" class="btn btn-primary">{% trans 'Post' %}</button></div>
+                </div>
+            </form>
+            <div class="row mt-2">
+                <div class="col" id="addpost">
+
+                </div>
+            </div>
+        </div>
+
 
     </div>
+        <div id="show" class="well" style="margin-inside: 5px">
+              <div class="row">
+
+              </div>
+        </div>
+    <script>
+
+    function initMap() {
+        var b_place = {lat: {{ data.basePlace.lat }}, lng: {{ data.basePlace.lng }}};
+        var m_name  = {lat: {{ data.mountainName.lat }}, lng: {{ data.mountainName.lng }}};
+        var map = new google.maps.Map(
+        document.getElementById('map'), {zoom: 7, center: b_place});
+        var miejsce = new google.maps.Marker({position: b_place, map,
+            draggable: false,
+            animation: google.maps.Animation.DROP,
+            title: "{{data.basePlace.name}}"});
+        var gora    = new google.maps.Marker({position: m_name, map,
+            draggable: false,
+            animation: google.maps.Animation.DROP,
+            title: "{{data.mountainName.name}}"});href="https://mountiangrip.s3.amazonaws.com/data/css/mg.css"
+}
+    </script>
+    <script defer
+    src="https://maps.googleapis.com/maps/api/js?key={{ data.gmaps_key }}&callback=initMap">
+    </script>
+
+
+
 {% endif %}
 </div>
+
 
 
 {% endblock %}

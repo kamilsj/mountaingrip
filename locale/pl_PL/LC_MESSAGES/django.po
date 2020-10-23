@@ -3,6 +3,9 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
+# Translators:
+# Kamil Boberek <kboberek@gmail.com>, 2020
+# 
 #, fuzzy
 msgid ""
 msgstr ""
@@ -10,164 +13,166 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-10-15 13:55+0200\n"
 "PO-Revision-Date: 2018-09-02 08:58+0000\n"
-"Language-Team: Chinese (Taiwan) (https://www.transifex.com/mountiangrip/teams/90567/zh_TW/)\n"
+"Last-Translator: Kamil Boberek <kboberek@gmail.com>, 2020\n"
+"Language-Team: Polish (Poland) (https://www.transifex.com/mountiangrip/teams/90567/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_TW\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: pl_PL\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #: html/index.html:3
 msgid "  Mountains are waiting for you - Mountian Grip"
-msgstr ""
+msgstr "Góry czekają na Ciebie - Mountain Grip"
 
 #: html/index.html:15
 msgid "Everything I love is in the mountains."
-msgstr ""
+msgstr "Wszystko, co kocham jest w górach."
 
 #: html/index.html:16
 msgid ""
 "Mountain Grip is a community dedicated to people who love climbing "
 "mountians."
 msgstr ""
+"Mountain Grip to wspólnota ludzi, którzy naprawdę kochają górskie wyprawy. "
 
 #: html/index.html:18 html/main.html:33 html/signup.html:60
 msgid "Sign up"
-msgstr ""
+msgstr "Dołącz"
 
 #: html/main.html:37
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #: html/main.html:41
 msgid "Your trips"
-msgstr ""
+msgstr "Twoje wyprawy"
 
 #: html/main.html:44
 msgid "Add a trip"
-msgstr ""
+msgstr "Dodaj wyprawę"
 
 #: html/main.html:45
 msgid "Explore"
-msgstr ""
+msgstr "Przeszukaj"
 
 #: html/main.html:47
 msgid "Past activities"
-msgstr ""
+msgstr "Ostatnie wyprawy"
 
 #: html/main.html:52
 msgid "Messages"
-msgstr ""
+msgstr "Wiadomości"
 
 #: html/main.html:55
 msgid "New message"
-msgstr ""
+msgstr "Nowa wiadomość"
 
 #: html/main.html:56
 msgid "Inbox"
-msgstr ""
+msgstr "Skrzynka odbiorcza"
 
 #: html/main.html:65
 msgid "Search"
-msgstr ""
+msgstr "Szukaj"
 
 #: html/main.html:67
 msgid "Logout"
-msgstr ""
+msgstr "Wyloguj"
 
 #: html/main.html:69 html/registration/login.html:27
 msgid "Log in"
-msgstr ""
+msgstr "Zaloguj"
 
 #: html/profile.html:12
 msgid "Does not exist."
-msgstr ""
+msgstr "Nie ma takiego użytkownika."
 
 #: html/registration/login.html:12
 msgid "Something is wrong."
-msgstr ""
+msgstr "Coś jest nie tak."
 
 #: html/registration/login.html:21 html/signup.html:22
 msgid "Username"
-msgstr ""
+msgstr "Nazwa użytkownika"
 
 #: html/registration/login.html:25 html/signup.html:39
 msgid "Password"
-msgstr ""
+msgstr "Hasło"
 
 #: html/searchresult.html:5
 #, python-format
 msgid "Search results for: %(q)s "
-msgstr ""
+msgstr "Wyniki wyszukiwania dla: %(q)s"
 
 #: html/signup.html:10
 msgid "Activation email was sent to you."
-msgstr ""
+msgstr "Email aktywacyjny został wysłany."
 
 #: html/signup.html:27
 msgid "First name"
-msgstr ""
+msgstr "Imię"
 
 #: html/signup.html:31
 msgid "Last name"
-msgstr ""
+msgstr "Nazwisko"
 
 #: html/signup.html:35
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: html/signup.html:43
 msgid "Confirm password"
-msgstr ""
+msgstr "Potwierdź hasło"
 
 #: html/start/addtrip.html:14 start/forms.py:25
 msgid "Title"
-msgstr ""
+msgstr "Tytuł"
 
 #: html/start/addtrip.html:18 start/forms.py:26
 msgid "Description"
-msgstr ""
+msgstr "Opis"
 
 #: html/start/addtrip.html:22 start/forms.py:27
 msgid "Base place"
-msgstr ""
+msgstr "Miejse spotkania"
 
 #: html/start/addtrip.html:26 start/forms.py:28
 msgid "Mountain name"
-msgstr ""
+msgstr "Nazwa góry"
 
 #: html/start/addtrip.html:30 start/forms.py:29
 msgid "Start date"
-msgstr ""
+msgstr "Dzień rozpoczęcia"
 
 #: html/start/addtrip.html:34 start/forms.py:30
 msgid "End date"
-msgstr ""
+msgstr "Dzień zakończenia"
 
 #: html/start/addtrip.html:38 start/forms.py:31
 msgid "Cover photo"
-msgstr ""
+msgstr "Zdjęcie wyróżniające"
 
 #: html/start/trip.html:11
 msgid "You've just added a new trip."
-msgstr ""
+msgstr "Właśnie dodałeś nową wyprawę."
 
 #: html/start/trip.html:13
 msgid "Trip does not exist."
-msgstr ""
+msgstr "Nie ma takiej wycieczki."
 
 #: html/start/trip.html:20
 msgid "Join"
-msgstr ""
+msgstr "Dołącz"
 
 #: html/start/trip.html:37
 msgid "Post"
-msgstr ""
+msgstr "Dodaj"
 
 #: mountaingrip/views.py:64
 msgid "Activate your Mountain Grip account."
-msgstr ""
+msgstr "Aktywuj swoje konto na https://mountaingrip.com"
 
 #: start/views.py:73 start/views.py:101
 msgid "User does not exist"
-msgstr ""
+msgstr "Nie ma takiego użytkownika."

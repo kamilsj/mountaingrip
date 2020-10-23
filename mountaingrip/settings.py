@@ -4,17 +4,20 @@ import django_heroku
 db = []
 aws = []
 email = []
+gmaps_key =[]
 
-if os.getenv('DB_NAME') and os.getenv('AWS_KEY') and os.getenv('EMAIL_HOST'):
+if os.getenv('DB_NAME') and os.getenv('AWS_KEY') and os.getenv('EMAIL_HOST') and os.getenv('GMAPS'):
     db = [os.getenv('DB_NAME'), os.getenv('DB_USER'), os.getenv('DB_PASSWORD'), os.getenv('DB_HOST'), os.getenv('DB_PORT')]
     aws = [os.getenv('AWS_KEY'), os.getenv('AWS_PASSWORD'),  os.getenv('AWS_BOTTLE')]
     email = [os.getenv('EMAIL_HOST'), os.getenv('EMAIL_NAME'), os.getenv('EMAIL_PASSWORD'), os.getenv('EMAIL_PORT')]
+    gmaps_key = [os.getenv('GMAPS')]
 else:
     try:
-        from .config.config import db, aws, email
+        from .config.config import db, aws, email, gmaps_key
     except ImportError:
         exit('No configuration')
 
+GKEY = gmaps_key[0]
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -130,9 +133,9 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en'
 USE_I18N = True
 USE_L10N = True
-USE_TZ = True
+USE_TZ = False
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Warsaw'
 
 
 # Static files (CSS, JavaScript, Images)

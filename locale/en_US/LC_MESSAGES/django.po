@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-21 14:36+0000\n"
+"POT-Creation-Date: 2020-10-15 13:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: html/index.html:3
 msgid "  Mountains are waiting for you - Mountian Grip"
@@ -31,56 +30,68 @@ msgid ""
 "Mountain Grip is a community dedicated to people who love climbing mountians."
 msgstr ""
 
-#: html/main.html:26 html/signup.html:60
+#: html/index.html:18 html/main.html:33 html/signup.html:60
 msgid "Sign up"
 msgstr ""
 
-#: html/main.html:30
+#: html/main.html:37
 msgid "Profile"
 msgstr ""
 
-#: html/main.html:34
+#: html/main.html:41
 msgid "Your trips"
 msgstr ""
 
-#: html/main.html:37
+#: html/main.html:44
 msgid "Add a trip"
 msgstr ""
 
-#: html/main.html:38
+#: html/main.html:45
 msgid "Explore"
 msgstr ""
 
-#: html/main.html:40
+#: html/main.html:47
 msgid "Past activities"
 msgstr ""
 
-#: html/main.html:45
+#: html/main.html:52
 msgid "Messages"
 msgstr ""
 
-#: html/main.html:48
+#: html/main.html:55
 msgid "New message"
 msgstr ""
 
-#: html/main.html:49
+#: html/main.html:56
 msgid "Inbox"
 msgstr ""
 
-#: html/main.html:58
+#: html/main.html:65
 msgid "Search"
 msgstr ""
 
-#: html/main.html:60
+#: html/main.html:67
 msgid "Logout"
 msgstr ""
 
-#: html/main.html:62
+#: html/main.html:69 html/registration/login.html:27
 msgid "Log in"
 msgstr ""
 
-#: html/profile.html:12 html/start/trip.html:10
+#: html/profile.html:12
 msgid "Does not exist."
+msgstr ""
+
+#: html/registration/login.html:12
+msgid "Something is wrong."
+msgstr ""
+
+#: html/registration/login.html:21 html/signup.html:22
+msgid "Username"
+msgstr ""
+
+#: html/registration/login.html:25 html/signup.html:39
+msgid "Password"
 msgstr ""
 
 #: html/searchresult.html:5
@@ -90,10 +101,6 @@ msgstr ""
 
 #: html/signup.html:10
 msgid "Activation email was sent to you."
-msgstr ""
-
-#: html/signup.html:22
-msgid "Username"
 msgstr ""
 
 #: html/signup.html:27
@@ -108,50 +115,58 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: html/signup.html:39
-msgid "Password"
-msgstr ""
-
 #: html/signup.html:43
 msgid "Confirm password"
 msgstr ""
 
-#: html/start/trip.html:8
-msgid "You've just added a new trip."
-msgstr ""
-
-#: mountaingrip/views.py:58
-msgid "Activate your Mountain Grip account."
-msgstr ""
-
-#: start/forms.py:25
+#: html/start/addtrip.html:14 start/forms.py:25
 msgid "Title"
 msgstr ""
 
-#: start/forms.py:26
+#: html/start/addtrip.html:18 start/forms.py:26
 msgid "Description"
 msgstr ""
 
-#: start/forms.py:27
+#: html/start/addtrip.html:22 start/forms.py:27
 msgid "Base place"
 msgstr ""
 
-#: start/forms.py:28
-msgid "Mountian name"
+#: html/start/addtrip.html:26 start/forms.py:28
+msgid "Mountain name"
 msgstr ""
 
-#: start/forms.py:29
+#: html/start/addtrip.html:30 start/forms.py:29
 msgid "Start date"
 msgstr ""
 
-#: start/forms.py:30
+#: html/start/addtrip.html:34 start/forms.py:30
 msgid "End date"
 msgstr ""
 
-#: start/forms.py:31
+#: html/start/addtrip.html:38 start/forms.py:31
 msgid "Cover photo"
 msgstr ""
 
-#: start/views.py:62 start/views.py:67
+#: html/start/trip.html:11
+msgid "You've just added a new trip."
+msgstr ""
+
+#: html/start/trip.html:13
+msgid "Trip does not exist."
+msgstr ""
+
+#: html/start/trip.html:20
+msgid "Join"
+msgstr ""
+
+#: html/start/trip.html:37
+msgid "Post"
+msgstr ""
+
+#: mountaingrip/views.py:64
+msgid "Activate your Mountain Grip account."
+msgstr ""
+
+#: start/views.py:73 start/views.py:101
 msgid "User does not exist"
 msgstr ""

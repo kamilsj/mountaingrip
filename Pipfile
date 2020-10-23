@@ -10,15 +10,21 @@ sentry-sdk = "*"
 django = "*"
 gunicorn = "*"
 django-heroku = "*"
+
+#SDK
+
 stravalib = "*"
 facebook-sdk = "*"
+googlemaps = "*"
+
 psycopg2-binary = "*"
 django-countries = "*"
 Pillow = "*"
 django_cron = "*"
 django-widget-tweaks = "*"
+django-birthday = "*"
+
 cryptography = "*"
-pyOpenSSL = "*"
 
 
 #upload files
@@ -26,9 +32,9 @@ boto3 = "*"
 django-storages = "*"
 
 #experimental features
-tensorflow = "*"
 djangorestframework = "*"
+
 
 [requires]
 
-python_version = "3.8"
+python_version = "3.9"
