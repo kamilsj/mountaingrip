@@ -12,3 +12,7 @@ def JoinTrip(request):
 
 def AddPost(request):
     pass
+
+
+def CheckMessages(request):
+    pass

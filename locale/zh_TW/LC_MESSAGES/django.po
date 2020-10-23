@@ -3,17 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
-# Translators:
-# Kamil Boberek <kboberek@gmail.com>, 2020
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-03 09:54+0000\n"
+"POT-Creation-Date: 2020-10-15 13:55+0200\n"
 "PO-Revision-Date: 2018-09-02 08:58+0000\n"
-"Last-Translator: Kamil Boberek <kboberek@gmail.com>, 2020\n"
 "Language-Team: Chinese (Taiwan) (https://www.transifex.com/mountiangrip/teams/90567/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,51 +31,51 @@ msgid ""
 "mountians."
 msgstr ""
 
-#: html/index.html:18 html/main.html:28 html/signup.html:60
+#: html/index.html:18 html/main.html:33 html/signup.html:60
 msgid "Sign up"
-msgstr "加入"
+msgstr ""
 
-#: html/main.html:32
+#: html/main.html:37
 msgid "Profile"
 msgstr ""
 
-#: html/main.html:36
+#: html/main.html:41
 msgid "Your trips"
 msgstr ""
 
-#: html/main.html:39
+#: html/main.html:44
 msgid "Add a trip"
-msgstr "加旅行"
+msgstr ""
 
-#: html/main.html:40
+#: html/main.html:45
 msgid "Explore"
 msgstr ""
 
-#: html/main.html:42
+#: html/main.html:47
 msgid "Past activities"
 msgstr ""
 
-#: html/main.html:47
+#: html/main.html:52
 msgid "Messages"
 msgstr ""
 
-#: html/main.html:50
+#: html/main.html:55
 msgid "New message"
 msgstr ""
 
-#: html/main.html:51
+#: html/main.html:56
 msgid "Inbox"
 msgstr ""
 
-#: html/main.html:60
+#: html/main.html:65
 msgid "Search"
 msgstr ""
 
-#: html/main.html:62
+#: html/main.html:67
 msgid "Logout"
 msgstr ""
 
-#: html/main.html:64 html/registration/login.html:18
+#: html/main.html:69 html/registration/login.html:27
 msgid "Log in"
 msgstr ""
 
@@ -87,11 +83,15 @@ msgstr ""
 msgid "Does not exist."
 msgstr ""
 
-#: html/registration/login.html:12 html/signup.html:22
+#: html/registration/login.html:12
+msgid "Something is wrong."
+msgstr ""
+
+#: html/registration/login.html:21 html/signup.html:22
 msgid "Username"
 msgstr ""
 
-#: html/registration/login.html:16 html/signup.html:39
+#: html/registration/login.html:25 html/signup.html:39
 msgid "Password"
 msgstr ""
 
@@ -124,15 +124,15 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: html/start/addtrip.html:18
-msgid "Descriptopn"
+#: html/start/addtrip.html:18 start/forms.py:26
+msgid "Description"
 msgstr ""
 
 #: html/start/addtrip.html:22 start/forms.py:27
 msgid "Base place"
 msgstr ""
 
-#: html/start/addtrip.html:26
+#: html/start/addtrip.html:26 start/forms.py:28
 msgid "Mountain name"
 msgstr ""
 
@@ -148,30 +148,26 @@ msgstr ""
 msgid "Cover photo"
 msgstr ""
 
-#: html/start/trip.html:8
+#: html/start/trip.html:11
 msgid "You've just added a new trip."
 msgstr ""
 
-#: html/start/trip.html:10
+#: html/start/trip.html:13
 msgid "Trip does not exist."
 msgstr ""
 
-#: html/start/trip.html:17
+#: html/start/trip.html:20
 msgid "Join"
+msgstr ""
+
+#: html/start/trip.html:37
+msgid "Post"
 msgstr ""
 
 #: mountaingrip/views.py:64
 msgid "Activate your Mountain Grip account."
 msgstr ""
 
-#: start/forms.py:26
-msgid "Description"
-msgstr ""
-
-#: start/forms.py:28
-msgid "Mountian name"
-msgstr ""
-
-#: start/views.py:62
+#: start/views.py:73 start/views.py:101
 msgid "User does not exist"
 msgstr ""

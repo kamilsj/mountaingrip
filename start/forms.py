@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Profile, Trip
+from .models import Profile, Trip, Post
 from django_countries.widgets import CountrySelectWidget
 from django.utils.translation import  gettext as _
 
@@ -8,27 +8,38 @@ from django.utils.translation import  gettext as _
 class ProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = ['country', 'coverId', 'picId']
+        fields = ['country', 'birthday', 'cover', 'pic']
         widgets = {'country': CountrySelectWidget}
 
+
+class PostForm(ModelForm):
+    class Meta:
+        model = Post
+        fields = ['trip', 'profile_id', 'text']
+
+    def clean_trip(self):
+        pass
+
+    def clean_profile_id(self):
+        pass
 
 class TripForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ModelForm, self).__init__(*args, **kwargs)
-        self.order_fields(['title', 'description', 'basePlace', 'mountainName', 'startDate', 'endDate', 'coverId'])
+        self.order_fields(['title', 'description', 'basePlace', 'mountainName', 'startDate', 'endDate', 'cover'])
 
     class Meta:
         model = Trip
-        fields = {'title', 'description', 'basePlace', 'mountainName', 'startDate', 'endDate', 'coverId'}
+        fields = {'title', 'description', 'basePlace', 'mountainName', 'startDate', 'endDate', 'cover'}
         labels = {
             'title': _('Title'),
             'description': _('Description'),
             'basePlace': _('Base place'),
-            'mountainName': _('Mountian name'),
+            'mountainName': _('Mountain name'),
             'startDate': _('Start date'),
             'endDate': _('End date'),
-            'coverId': _('Cover photo')
+            'cover': _('Cover photo')
 
         }
         widgets = {

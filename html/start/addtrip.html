@@ -1,7 +1,9 @@
 {% extends 'main.html' %}
 {% load i18n %}
+{% block title %}{% trans 'Look for people ready for an adventure.' %} {% endblock %}
 
 {% block content %}
+
 
  <div class="container" style="margin-top: 8%">
         <div class="row justify-content-center align-items-center">
@@ -15,7 +17,7 @@
                             </div>
                         {% elif field.name == 'description' %}
                             <div class="form-group">
-                                <textarea class="form-control" rows="5" name="description" id="id_descriptio" placeholder="{% trans "Descriptopn" %}"></textarea>
+                                <textarea class="form-control" rows="5" name="description" id="id_description" placeholder="{% trans "Description" %}"></textarea>
                             </div>
                         {% elif field.name == 'basePlace' %}
                             <div class="form-group">
@@ -33,9 +35,9 @@
                             <div class="form-group">
                                 <input class="form-control" type="date" name="endDate " id="id_endDate" placeholder="{% trans "End date" %}" required>
                             </div>
-                         {% elif field.name == 'coverId' %}
+                         {% elif field.name == 'cover' %}
                             <div class="form-group">
-                                <input class="form-control" type="file" name="coverId" id="id_coverId" placeholder="{% trans "Cover photo" %}" required>
+                                <input class="form-control" type="file" name="cover" id="id_cover" placeholder="{% trans "Cover photo" %}" required>
                             </div>
                         {% for error in field.errors %}
 

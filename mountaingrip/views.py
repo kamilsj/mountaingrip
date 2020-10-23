@@ -12,7 +12,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils import translation
 
 from .forms import SignUpForm
-from start.models import Tokens, Profile
+from start.models import Profile, Token
 
 import uuid
 from func.tokens import account_activation_token
@@ -28,7 +28,7 @@ def index(request):
 
 def activate(request, uidb64, token):
     try:
-        uid = force_text(urlsafe_base64_decode(uidb64))
+        uid = urlsafe_base64_decode(uidb64)
         user = User.objects.get(pk=uid)
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
@@ -50,22 +50,19 @@ def signup(request):
                 to_email = form.cleaned_data.get('email')
                 password1 = form.cleaned_data.get('password1')
                 password2 = form.cleaned_data.get('password2')
-
-
-
                 user = form.save(commit=False)
 
                 user.is_active = False
                 user.save()
                 current_site = get_current_site(request)
                 token = str(uuid.uuid4())
-                Tokens(userId=user.pk, token=token, activated=0).save()
-                Profile(userId=user.pk).save()
+                Token(user=user.pk, token=token, activated=0).save()
+                Profile(user_id=user.pk).save()
                 mail_subject = _('Activate your Mountain Grip account.')
                 message = render_to_string('registration/account_activate_email.html', {
                     'name': user.get_full_name(),
                     'domain': current_site.domain,
-                    'uid': urlsafe_base64_encode(force_bytes(user.pk)).encode().decode(),
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                     'token': account_activation_token.make_token(user),
                 })
                 email = EmailMessage(
@@ -73,15 +70,9 @@ def signup(request):
                 )
 
                 if email.send():
-                    #TODO sending emails does not work properly, configuration is fine, most probably sendgrid has some problems
-
-                    data = {
-                        'activation': 1
-                    }
+                    data = {'activation': 1}
                 else:
-                    data = {
-                        'activation': 0
-                    }
+                    data = {'activation': 0}
                 return render(request, 'signup.html', {'data': data})
         else:
             form = SignUpForm()

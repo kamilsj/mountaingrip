@@ -11,19 +11,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-03 09:54+0000\n"
+"POT-Creation-Date: 2020-10-15 13:55+0200\n"
 "PO-Revision-Date: 2018-09-02 08:58+0000\n"
 "Last-Translator: Kamil Boberek <kboberek@gmail.com>, 2020\n"
-"Language-Team: Polish (https://www.transifex.com/mountiangrip/teams/90567/pl/)\n"
+"Language-Team: Polish (Poland) (https://www.transifex.com/mountiangrip/teams/90567/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pl\n"
+"Language: pl_PL\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #: html/index.html:3
 msgid "  Mountains are waiting for you - Mountian Grip"
-msgstr ""
+msgstr "Góry czekają na Ciebie - Mountain Grip"
 
 #: html/index.html:15
 msgid "Everything I love is in the mountains."
@@ -34,65 +34,69 @@ msgid ""
 "Mountain Grip is a community dedicated to people who love climbing "
 "mountians."
 msgstr ""
-"Witaj w społeczności ludzi dla których góry są czymś więcej niż pasją. "
+"Mountain Grip to wspólnota ludzi, którzy naprawdę kochają górskie wyprawy. "
 
-#: html/index.html:18 html/main.html:28 html/signup.html:60
+#: html/index.html:18 html/main.html:33 html/signup.html:60
 msgid "Sign up"
-msgstr "Rejestracja"
+msgstr "Dołącz"
 
-#: html/main.html:32
+#: html/main.html:37
 msgid "Profile"
 msgstr "Profil"
 
-#: html/main.html:36
+#: html/main.html:41
 msgid "Your trips"
-msgstr "Twoje wycieczki"
+msgstr "Twoje wyprawy"
 
-#: html/main.html:39
+#: html/main.html:44
 msgid "Add a trip"
-msgstr "Dodaj wycieczkę"
+msgstr "Dodaj wyprawę"
 
-#: html/main.html:40
+#: html/main.html:45
 msgid "Explore"
-msgstr "Odkrywaj"
-
-#: html/main.html:42
-msgid "Past activities"
-msgstr "Ostatnie aktywności"
+msgstr "Przeszukaj"
 
 #: html/main.html:47
+msgid "Past activities"
+msgstr "Ostatnie wyprawy"
+
+#: html/main.html:52
 msgid "Messages"
 msgstr "Wiadomości"
 
-#: html/main.html:50
+#: html/main.html:55
 msgid "New message"
 msgstr "Nowa wiadomość"
 
-#: html/main.html:51
+#: html/main.html:56
 msgid "Inbox"
 msgstr "Skrzynka odbiorcza"
 
-#: html/main.html:60
+#: html/main.html:65
 msgid "Search"
 msgstr "Szukaj"
 
-#: html/main.html:62
+#: html/main.html:67
 msgid "Logout"
 msgstr "Wyloguj"
 
-#: html/main.html:64 html/registration/login.html:18
+#: html/main.html:69 html/registration/login.html:27
 msgid "Log in"
 msgstr "Zaloguj"
 
 #: html/profile.html:12
 msgid "Does not exist."
-msgstr "Użytkownik nie istnieje."
+msgstr "Nie ma takiego użytkownika."
 
-#: html/registration/login.html:12 html/signup.html:22
+#: html/registration/login.html:12
+msgid "Something is wrong."
+msgstr "Coś jest nie tak."
+
+#: html/registration/login.html:21 html/signup.html:22
 msgid "Username"
 msgstr "Nazwa użytkownika"
 
-#: html/registration/login.html:16 html/signup.html:39
+#: html/registration/login.html:25 html/signup.html:39
 msgid "Password"
 msgstr "Hasło"
 
@@ -119,60 +123,56 @@ msgstr "Email"
 
 #: html/signup.html:43
 msgid "Confirm password"
-msgstr "Powtórz hasło"
+msgstr "Potwierdź hasło"
 
 #: html/start/addtrip.html:14 start/forms.py:25
 msgid "Title"
 msgstr "Tytuł"
 
-#: html/start/addtrip.html:18
-msgid "Descriptopn"
-msgstr ""
-
-#: html/start/addtrip.html:22 start/forms.py:27
-msgid "Base place"
-msgstr "Miejsce wyruszenia"
-
-#: html/start/addtrip.html:26
-msgid "Mountain name"
-msgstr ""
-
-#: html/start/addtrip.html:30 start/forms.py:29
-msgid "Start date"
-msgstr "Data rozpoczęcia"
-
-#: html/start/addtrip.html:34 start/forms.py:30
-msgid "End date"
-msgstr "Data zakończenia"
-
-#: html/start/addtrip.html:38 start/forms.py:31
-msgid "Cover photo"
-msgstr "Zdjęcie wyrózniające"
-
-#: html/start/trip.html:8
-msgid "You've just added a new trip."
-msgstr "Dodałeś właśnie nową wycieczkę"
-
-#: html/start/trip.html:10
-msgid "Trip does not exist."
-msgstr "Nie ma takiej wycieczki."
-
-#: html/start/trip.html:17
-msgid "Join"
-msgstr "Dołącz"
-
-#: mountaingrip/views.py:64
-msgid "Activate your Mountain Grip account."
-msgstr "Aktywuj swoje konto na Mountain Grip"
-
-#: start/forms.py:26
+#: html/start/addtrip.html:18 start/forms.py:26
 msgid "Description"
 msgstr "Opis"
 
-#: start/forms.py:28
-msgid "Mountian name"
-msgstr "Góra na którą chcesz wejść"
+#: html/start/addtrip.html:22 start/forms.py:27
+msgid "Base place"
+msgstr "Miejse spotkania"
 
-#: start/views.py:62
+#: html/start/addtrip.html:26 start/forms.py:28
+msgid "Mountain name"
+msgstr "Nazwa góry"
+
+#: html/start/addtrip.html:30 start/forms.py:29
+msgid "Start date"
+msgstr "Dzień rozpoczęcia"
+
+#: html/start/addtrip.html:34 start/forms.py:30
+msgid "End date"
+msgstr "Dzień zakończenia"
+
+#: html/start/addtrip.html:38 start/forms.py:31
+msgid "Cover photo"
+msgstr "Zdjęcie wyróżniające"
+
+#: html/start/trip.html:11
+msgid "You've just added a new trip."
+msgstr "Właśnie dodałeś nową wyprawę."
+
+#: html/start/trip.html:13
+msgid "Trip does not exist."
+msgstr "Nie ma takiej wycieczki."
+
+#: html/start/trip.html:20
+msgid "Join"
+msgstr "Dołącz"
+
+#: html/start/trip.html:37
+msgid "Post"
+msgstr "Dodaj"
+
+#: mountaingrip/views.py:64
+msgid "Activate your Mountain Grip account."
+msgstr "Aktywuj swoje konto na https://mountaingrip.com"
+
+#: start/views.py:73 start/views.py:101
 msgid "User does not exist"
 msgstr "Nie ma takiego użytkownika."

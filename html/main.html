@@ -8,11 +8,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="google-site-verification" content="DMM_zW6qS2l4D4lCYyH1D7umgBXloekdaFVJAy2nbCw" />
     <title>{% block title %} {% endblock %}</title>
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/mg.css' %}" />
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/gh/vast-engineering/jquery-popup-overlay@2/jquery.popupoverlay.min.js"></script>
 </head>
 <body data-gr-c-s-loaded="true">
+    <div id="page">
     <header>
         <nav class="navbar navbar-expand-lg fixed-top navbar-transparent navbar-dark bg-dark">
             <div class="container">
@@ -20,7 +24,7 @@
                     <a href="/" class="navbar-brand mt-5" style="position: absolute;">
                         <img src="{% static 'img/MG.png' %}"  class="img-responsive" style="width: 90px; overflow: hidden; height: auto;" />
                     </a>
-                    <div style="width: 105px"></div>
+
 
                       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -31,11 +35,11 @@
                         <ul class="navbar-nav mr-auto">
                             {% if not user.is_authenticated %}
                               <li class="nav-item">
-                                <a class="btn btn-outline-primary" href="/accounts/signup/">{% trans "Sign up" %}</a>
+                                <a style="margin-left: 105px;" class="btn btn-outline-primary" href="/accounts/signup/">{% trans "Sign up" %}</a>
                               </li>
                             {% else %}
                                <li class="nav-item">
-                                <a class="nav-link" href="/start/profile/">{%  trans "Profile" %}</a>
+                                <a style="margin-left: 105px;" class="nav-link" href="/start/profile/">{%  trans "Profile" %}</a>
                               </li>
                               <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -50,7 +54,7 @@
                               </li>
                               <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  {% trans "Messages" %}
+                                  {% trans "Messages" %} <span class="badge badge-light">{{ data.joined }}</span>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                   <a class="dropdown-item" href="">{% trans "New message" %}</a>
@@ -69,30 +73,47 @@
                           {% else %}
                             <a class="btn btn-outline-secondary btn-sm" href="/accounts/login">{%  trans "Log in" %}</a>
                           {% endif %}
-                      </div>
-            </div>
-        </nav>
-    </header>
-{% block content %}
-
+                              </div>`
+                    </div>
+                </nav>
+            </header>
+        {% block content %}
+`
 
 {% endblock %}
 
     <footer class="page-footer">
         <div class="container">
             <div class="">
-                <div class="text-left ml-3 mb-3">
-                    <p class="d-inline">2020</p>
+                <div class="text-sm-left ml-3 mb-3 mt-3">
+                    <p class="d-inline text-wrap badge badge-dark">&copy;{% now "Y" %}</p>
                     <p class="d-inline"><a href="https://www.paypal.me/kamilsj" target="_blank">donate</a></p>
                 </div>
             </div>
         </div>
     </footer>
+
+
     <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-    <script src="https://mountiangrip.s3.amazonaws.com/assets/js/parallax.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="{% static 'js/ajax.js' %}"></script>
+    <script src="{% static 'js/mg.js' %}"></script>
+    {% if user.is_authenticated %}
+    <script>
+    $(function (){
+        update({{ user.id }})
+    });
+
+    $(document).ready(function() {
+        $('#show').popup({
+            closebutton: true,
+            transition: 'all 0.3s'
+        });
+
+    });
+
+    </script>
+    {% endif %}
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-124583577-1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -100,6 +121,6 @@
         gtag('js', new Date());
         gtag('config', 'UA-124583577-1');
     </script>
-
+    </div>
 </body>
 </html>
