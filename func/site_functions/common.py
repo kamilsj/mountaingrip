@@ -3,13 +3,13 @@ from start.models import Profile
 
 
 def check_pic(pic):
-    if pic.url:
+    if pic:
         return pic.url
     else:
         return 'https://mountiangrip.s3.amazonaws.com/assets/defaultProfilePicture.jpg'
 
 def check_cover(cover):
-    if cover.url:
+    if cover:
         return cover.url
     else:
         return 'https://mountiangrip.s3.amazonaws.com/media/profile/P1000193_B55pk0B.jpg'

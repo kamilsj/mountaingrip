@@ -80,3 +80,5 @@ def signup(request):
     else:
         return redirect('/start/')
 
+def password_reset(request):
+    pass
