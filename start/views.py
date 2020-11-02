@@ -196,7 +196,7 @@ class AddTrip(View):
 
             if form.is_valid():
                 #check if form was already added
-                #TODO request files of paricular size and order
+                #TODO request files of particular size and order
                 obj = form.save(commit=False)
                 obj.user = user
                 if not Trip.objects.filter(title=obj.title, user=user, endDate=obj.endDate, startDate=obj.startDate).exists():
@@ -213,8 +213,13 @@ def addpost(requst):
         user = requst.user
         form = PostForm(requst.POST)
         if form.is_valid():
-            pass
-
+            obj = form.save(commit=False)
+            obj.user = user
+            if not Post.object.filter(text=obj.text, user=obj.user).exists():
+                obj.save()
+                return redirect('/start/trip/'+str(requst.POST['trip_id']))
+            else:
+                return redirect('/start/trip/')
 
 def addfriend(request):
     pass
