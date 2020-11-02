@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 from birthday import fields
+from django.utils import timezone
 
 
 class Login(models.Model):
@@ -65,7 +66,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=False)
     pic = models.ImageField(upload_to='profile', blank=True)
     cover = models.ImageField(upload_to='profile', blank=True)
-    birthday = fields.BirthdayField()
+    birthday = fields.BirthdayField(default=timezone.now)
     country = CountryField(blank=True)
     
 

@@ -17,6 +17,14 @@ class PostForm(ModelForm):
         model = Post
         fields = ['trip', 'profile_id', 'text']
 
+    def clean_text(self):
+        text = self.cleaned_data.get('text')
+        if len(text)>0:
+            return text
+        else:
+            return forms.ValidationError('Error')
+
+
     def clean_trip(self):
         pass
 

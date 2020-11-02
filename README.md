@@ -1,3 +1,3 @@
-#  Searching for the buddies to climb mountain together.
+#  Mountain grip - for people who love mountains
+Source code of https://mountaingrip.com. 
 
- 
