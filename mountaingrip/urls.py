@@ -18,5 +18,6 @@ urlpatterns += i18n_patterns(
     path('messages/', include('messages.urls')),
     path('admin/', admin.site.urls),
     path('accounts/signup/', views.signup, name='signup'),
+    path('accounts/password_reset/', views.password_reset, name="password_reset"),
     path('accounts/', include('django.contrib.auth.urls')),
 )
