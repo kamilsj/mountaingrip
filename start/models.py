@@ -64,11 +64,11 @@ class Comment(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=False)
-    pic = models.ImageField(upload_to='profile', blank=True)
-    cover = models.ImageField(upload_to='profile', blank=True)
+    pic = models.ImageField(upload_to='profile', null=True)
+    cover = models.ImageField(upload_to='profile', null=True)
+    gender = models.BooleanField(choices=((0, "Male"), (1, "Female")), default=0)
     birthday = fields.BirthdayField(default=timezone.now)
     country = CountryField(blank=True)
-    
 
     def __str__(self):
         return self.user.get_full_name()+' ('+self.user.username+')'

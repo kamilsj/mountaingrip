@@ -2,14 +2,25 @@ from django import forms
 from django.forms import ModelForm
 from .models import Profile, Trip, Post
 from django_countries.widgets import CountrySelectWidget
-from django.utils.translation import  gettext as _
+from django.utils.translation import gettext as _
 
 
-class ProfileForm(ModelForm):
+class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['country', 'birthday', 'cover', 'pic']
-        widgets = {'country': CountrySelectWidget}
+        fields = ['pic', 'cover', 'birthday', 'gender', 'country']
+        labels = {
+            'pic': _('Your profile photo'),
+            'cover': _('Your cover photo'),
+            'birthday': _('Birthday'),
+            'gender': _('Gender'),
+            'country': _('Country')
+        }
+        widgets = {
+            'birthday': forms.DateInput(attrs={'type': 'date'}),
+            'country': CountrySelectWidget(),
+
+        }
 
 
 class PostForm(ModelForm):
@@ -19,17 +30,25 @@ class PostForm(ModelForm):
 
     def clean_text(self):
         text = self.cleaned_data.get('text')
-        if len(text)>0:
+        if len(text) > 1:
             return text
         else:
             return forms.ValidationError('Error')
 
 
     def clean_trip(self):
-        pass
+        trip = self.cleaned_data.get('trip')
+        if trip > 0:
+            return trip
+        else:
+            return 0
 
     def clean_profile_id(self):
-        pass
+        profile_id = self.cleaned_data.get('profile_id')
+        if profile_id > 0:
+            return profile_id
+        else:
+            return 0
 
 class TripForm(ModelForm):
 

@@ -22,7 +22,7 @@
             <div class="container">
 
                     <a href="/" class="navbar-brand mt-5" style="position: absolute;">
-                        <img src="{% static 'img/MG.png' %}"  class="img-responsive" style="width: 90px; overflow: hidden; height: auto;" />
+                        <img class="d-none d-sm-none d-md-none d-lg-block" src="{% static 'img/MG.png' %}"  class="img-responsive" style="width: 90px; overflow: hidden; height: auto;" />
                     </a>
 
 
@@ -52,14 +52,10 @@
                                   <a class="dropdown-item" href="#">{% trans "Past activities" %}</a>
                                 </div>
                               </li>
-                              <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  {% trans "Messages" %} <span class="badge badge-light">{{ data.joined }}</span>
+                              <li class="nav-item">
+                                <a class="nav-link" href="/inbox/">
+                                  {% trans "Messages" %} <span class="badge badge-light">5</span>
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                  <a class="dropdown-item" href="">{% trans "New message" %}</a>
-                                  <a class="dropdown-item" href="">{% trans "Inbox" %}</a>
-                                </div>
                               </li>
                             {% endif %}
                         </ul>
