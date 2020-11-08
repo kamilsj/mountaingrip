@@ -1,11 +1,12 @@
 from django.shortcuts import redirect, render
+from django.http import HttpResponse
 from django.utils import translation
 from django.contrib.auth.models import User
-from django.utils.translation import  gettext as _
+from django.utils.translation import gettext as _
 from django.views import View
 
 from .models import Trip, Profile, Post, Comment
-from .forms import TripForm, SearchForm, PostForm
+from .forms import TripForm, SearchForm, PostForm, ProfileForm
 
 from func.site_functions import common
 
@@ -32,10 +33,10 @@ def index(request):
         Which are not yet finished
         '''
         from_date = date - datetime.timedelta(days=14)
-        if Trip.objects.filter(added_at__range=[from_date, date]).count() > 0:
-            trips = Trip.objects.filter(added_at__range=[from_date, date]).all()[:15]
+        if Trip.objects.filter(added_at__range=[from_date, date]).count() > 15:
+            trips = Trip.objects.filter(added_at__range=[from_date, date]).all()[:16]
         else:
-            trips = Trip.objects.all()[:15]
+            trips = Trip.objects.all()[:16]
 
         data = {
             'user': user.get_full_name(),
@@ -71,7 +72,6 @@ def profile(request, id=0):
                 'name': _('User does not exist')
             }
     else:
-
         user = request.user
         if Profile.objects.filter(user_id=user.id).exists():
             name = user.get_full_name()
@@ -100,14 +100,34 @@ def profile(request, id=0):
 
 
 class ProfileUpdate(View):
-    form = Profile
+    form_class = ProfileForm
     template_name = 'start/profile_update.html'
 
     def get(self, request):
-        pass
+        init_data = Profile.objects.get(user=request.user)
+        form = self.form_class(initial={'pic': init_data.pic, 'cover': init_data.cover, 'birthday': init_data.birthday,
+                                        'gender': init_data.gender, 'country': init_data.country})
+        return render(request, 'start/profile_update.html', {'form': form})
 
-    def post(self, request, id=0):
-        pass
+    def post(self, request):
+        if request.method == 'POST':
+            user = request.user
+            form = self.form_class(request.POST, request.FILES)
+            if form.is_valid():
+                if Profile.objects.filter(user=user).exists():
+                    Profile.objects.filter(user=user).update(
+                        pic=form.cleaned_data.get('pic'),
+                        cover=form.cleaned_data.get('cover'),
+                        gender=form.cleaned_data.get('gender'),
+                        birthday=form.cleaned_data.get('birthday'),
+                        country=form.cleaned_data.get('country'),
+                    )
+                else:
+                    pass
+                return redirect('/start/profile/')
+            else:
+                return redirect('/start/profile/update')
+
 
 
 def explore(reqest):
@@ -115,55 +135,65 @@ def explore(reqest):
     return render(reqest, 'start/explore.html', {'data': data})
 
 
-def trip(request, id=0):
+class TripView(View):
 
-    data = {}
-    location_m_name = {}
-    location_b_place = {}
-    if id and id != 0:
-        if Trip.objects.filter(id=id).exists():
-            trip = Trip.objects.get(id=id)
-            if trip:
-                if Post.objects.filter(trip_id=id).count()>0:
-                    posts = Post.objects.filter(trip_id=id).all()
-                    if Comment.objects.filter(trip_id=id).count()>0:
-                        pass
+    def get(self, request, id=0):
+        data = {}
+        location_m_name = {}
+        location_b_place = {}
+        if id and id != 0:
+            if Trip.objects.filter(id=id).exists():
+                trip = Trip.objects.get(id=id)
+                if trip:
+                    if Post.objects.filter(trip_id=id).count()>0:
+                        posts = Post.objects.filter(trip_id=id).all()
+                        if Comment.objects.filter(trip_id=id).count()>0:
+                            pass
 
-                b_place = gmaps.geocode(trip.basePlace)
-                m_name = gmaps.geocode(trip.mountainName)
+                    b_place = gmaps.geocode(trip.basePlace)
+                    m_name = gmaps.geocode(trip.mountainName)
 
-                location_b_place = {
-                    'name': b_place[0]['formatted_address'],
-                    'lat': b_place[0]['geometry']['location']['lat'],
-                    'lng': b_place[0]['geometry']['location']['lng']
-                }
-                location_m_name = {
-                    'name': m_name[0]['formatted_address'],
-                    'lat': m_name[0]['geometry']['location']['lat'],
-                    'lng': m_name[0]['geometry']['location']['lng']
-                }
+                    location_b_place = {
+                        'name': b_place[0]['formatted_address'],
+                        'lat': b_place[0]['geometry']['location']['lat'],
+                        'lng': b_place[0]['geometry']['location']['lng']
+                    }
+                    location_m_name = {
+                        'name': m_name[0]['formatted_address'],
+                        'lat': m_name[0]['geometry']['location']['lat'],
+                        'lng': m_name[0]['geometry']['location']['lng']
+                    }
 
-                data = {
-                    'id': trip.id,
-                    'gmaps_key': gkey,
-                    'basePlace': location_b_place,
-                    'mountainName': location_m_name,
-                    'url': trip.cover.url,
-                    'title': trip.title,
-                    'description': trip.description,
-                    'startDate': trip.startDate,
-                    'endDate': trip.endDate
-                }
+                    data = {
+                        'id': trip.id,
+                        'gmaps_key': gkey,
+                        'basePlace': location_b_place,
+                        'mountainName': location_m_name,
+                        'url': trip.cover.url,
+                        'title': trip.title,
+                        'description': trip.description,
+                        'startDate': trip.startDate,
+                        'endDate': trip.endDate
+                    }
 
+                else:
+                    data = {'notrip': 1}
             else:
                 data = {'notrip': 1}
+
         else:
             data = {'notrip': 1}
 
-    else:
-        data = {'notrip': 1}
+        return render(request, 'start/trip.html', {'data': data})
 
-    return render(request, 'start/trip.html', {'data': data})
+
+    def post(self, request, id=0):
+        form = PostForm(request.POST)
+        if request.method == 'POST' and request.user.is_authenticated:
+
+            print('I am here')
+        else:
+            return HttpResponse('nothing')
 
 
 def q(request):
@@ -208,18 +238,6 @@ class AddTrip(View):
                     return redirect('/start/trip/')
 
 
-def addpost(requst):
-    if requst.method == 'POST' and requst.user.is_authenticated:
-        user = requst.user
-        form = PostForm(requst.POST)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.user = user
-            if not Post.object.filter(text=obj.text, user=obj.user).exists():
-                obj.save()
-                return redirect('/start/trip/'+str(requst.POST['trip_id']))
-            else:
-                return redirect('/start/trip/')
 
 def addfriend(request):
     pass

@@ -19,18 +19,22 @@ else:
 
 GKEY = gmaps_key[0]
 
+if os.getenv('PROD'):
+    prod = os.getenv('PROD')
+else:
+    prod = 0
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'q4nyffh4o&gd^=s-rkkc^fw%^k(0u#f7#fk=5+6bjz-hjom27y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if prod == 0:
+    DEBUG = True
+else:
+    DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -38,10 +42,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'inbox',
     'start',
     'api',
     'rest_framework',
     'django_countries',
+    'birthday',
     'django_cron',
     'widget_tweaks',
     'storages',
@@ -97,7 +103,6 @@ WSGI_APPLICATION = 'mountaingrip.wsgi.application'
 
 # Database
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -151,7 +156,6 @@ sentry_sdk.init(
 )
 
 
-
 # My settings
 
 AUTHENTICATION_BACKENDS = {
@@ -163,6 +167,7 @@ LOGIN_REDIRECT_URL = '/start/'
 LOGOUT_REDIRECT_URL = '/'
 
 #S3
+
 AWS_DEFAULT_ACL = 'public-read'
 AWS_AUTO_CREATE_BUCKET = True
 AWS_ACCESS_KEY_ID = aws[0]
