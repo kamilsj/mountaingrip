@@ -54,7 +54,12 @@
                               </li>
                               <li class="nav-item">
                                 <a class="nav-link" href="/inbox/">
-                                  {% trans "Messages" %} <span class="badge badge-light">5</span>
+                                  {% trans "Messages" %}
+                                </a>
+                              </li>
+                               <li class="nav-item">
+                                <a class="nav-link ml-5" href="/start/notification/">
+                                  <span class="badge badge-info">0</span>
                                 </a>
                               </li>
                             {% endif %}
@@ -88,7 +93,6 @@
             </div>
         </div>
     </footer>
-
 
     <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
     <script src="{% static 'js/ajax.js' %}"></script>

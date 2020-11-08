@@ -19,6 +19,11 @@ else:
 
 GKEY = gmaps_key[0]
 
+if os.getenv('PROD'):
+    prod = os.getenv('PROD')
+else:
+    prod = 0
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -26,7 +31,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'q4nyffh4o&gd^=s-rkkc^fw%^k(0u#f7#fk=5+6bjz-hjom27y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if prod == 0:
+    DEBUG = True
+else:
+    DEBUG = False
 
 ALLOWED_HOSTS = []
 
