@@ -26,8 +26,8 @@
     <div class="row align-items-start">
         <div class="col col-sm-5">
             <img src="{{ data.url }}" class="img-fluid rounded" /><br>
-            <a href="" class="btn btn-primary btn-sm mt-2">{% trans "Join" %}
-            <span class="badge badge-light">{{ data.joined }}</span>
+            <a href="#" onclick="jointrip({{ data.id }});" class="btn btn-primary btn-sm mt-2">{% trans "Join" %}
+            <span class="badge badge-light" id="trip_joined">{{ data.joined }}</span>
             </a>
             <a href="#" class="btn btn-secondary btn-sm mt-2 ml-3 show_open">{% trans "Invite" %}
             </a>
@@ -48,6 +48,7 @@
                 {% csrf_token %}
                 <div class="form-row">
                     <input type="hidden" id="id_trip" name="trip" value="{{ data.id }}" />
+                    <input type="hidden" id="id_profile_id" name="profile_id" value="0" />
                     <div class="col-10"><textarea class="form-control form-control-sm" id="id_text" name="text"></textarea></div>
                     <div class="col-auto"><button type="submit" class="btn btn-primary">{% trans 'Post' %}</button></div>
                 </div>
@@ -62,9 +63,14 @@
 
     </div>
         <div id="show" class="well" style="margin-inside: 5px">
-              <div class="row">
-                <div class="col">
-                    KAMIL
+              <div class="row m-2">
+                <div class="col col-sm-7" style="background-color:#ffffff">
+                    <form method="post">
+                        <br />
+                        <input type="text" name="" class="form-control form-control-lg" /><br />
+                        <input type="text" name="" class="form-control form-control-lg" /><br />
+                        <br />
+                    </form>
                 </div>
               </div>
         </div>

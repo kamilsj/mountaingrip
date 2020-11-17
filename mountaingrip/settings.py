@@ -24,24 +24,23 @@ if os.getenv('PROD'):
 else:
     prod = 0
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'q4nyffh4o&gd^=s-rkkc^fw%^k(0u#f7#fk=5+6bjz-hjom27y'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 if prod == 0:
     DEBUG = True
 else:
     DEBUG = False
+    import sentry_sdk
+    from sentry_sdk.integrations.django import DjangoIntegration
+    sentry_sdk.init(
+        dsn="https://ed78ed6f47e44d95b3fe18f9bf3c5cc1@sentry.io/1377157",
+        integrations=[DjangoIntegration()]
+    )
 
 ALLOWED_HOSTS = []
-
-
-# Application definition
-
 INSTALLED_APPS = [
+    'notifications',
     'inbox',
     'start',
     'api',
@@ -146,14 +145,6 @@ TIME_ZONE = 'Europe/Warsaw'
 # Static files (CSS, JavaScript, Images)
 
 django_heroku.settings(locals())
-
-import sentry_sdk
-from sentry_sdk.integrations.django import DjangoIntegration
-
-sentry_sdk.init(
-    dsn="https://ed78ed6f47e44d95b3fe18f9bf3c5cc1@sentry.io/1377157",
-    integrations=[DjangoIntegration()]
-)
 
 
 # My settings

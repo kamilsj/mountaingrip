@@ -1,11 +1,25 @@
 
-function addPost(profile_id=0, trip_id=0){
+function jointrip(id = 0){
+
+    if(id>0) {
+        $.ajax({
+            url: '/ajax/jointrip/'+id+'/',
+            success: function (response) {
+                alert('coś tam')
+            }
+        });
+    }else{
+        alert('error')
+    }
+}
+
+function addpost(profile_id=0, trip_id=0){
 
         $.ajax({
         type: 'POST',
         data:{'profile_id': profile_id, 'trip_id': trip_id},
         url: 'ajax/addpost/',
-        sukcess: function (response){
+        success: function (response){
             alert('coś tam')
         }
     });
@@ -13,14 +27,14 @@ function addPost(profile_id=0, trip_id=0){
 
 }
 
-function addFriend(profile_id) {
+function addfriend(profile_id) {
 
     $.ajax({
         type: 'POST',
         url: 'ajax/addfriend/'+user_id+'/',
         success: function (response) {
 
-            alert('kamil')
+
 
         }
     });
@@ -31,8 +45,8 @@ function checkMessages(user_id) {
 
     $.ajax({
         type: 'POST',
-        url: 'ajax/checkmessages/'+user_id+'/',
-        sukcess: function (response){
+        url: '/ajax/checkmessages/'+user_id+'/',
+        success: function (response){
             alert('coś tam')
         }
     });

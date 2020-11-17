@@ -19,7 +19,6 @@ class ProfileForm(forms.ModelForm):
         widgets = {
             'birthday': forms.DateInput(attrs={'type': 'date'}),
             'country': CountrySelectWidget(),
-
         }
 
 
@@ -35,10 +34,9 @@ class PostForm(ModelForm):
         else:
             return forms.ValidationError('Error')
 
-
     def clean_trip(self):
         trip = self.cleaned_data.get('trip')
-        if trip > 0:
+        if trip.id > 0:
             return trip
         else:
             return 0
@@ -49,6 +47,7 @@ class PostForm(ModelForm):
             return profile_id
         else:
             return 0
+
 
 class TripForm(ModelForm):
 

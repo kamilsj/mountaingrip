@@ -1,0 +1,20 @@
+{% extends 'main.html' %}
+{% load i18n %}
+{% block title %}{% blocktrans %}Inbox - Mountain Grip{% endblocktrans %}{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 70px;">
+    <div class="row">
+        <div style="margin-left: 110px;"></div>
+        <div class="col">
+            <a href="" class="btn btn-secondary btn-sm">{% trans 'Read all' %}</a>
+            <a href="" class="btn btn-secondary btn-sm disabled">{% trans 'Posts' %}</a>
+            <a href="" class="btn btn-secondary btn-sm disabled">{% trans 'Comments' %}</a>
+        </div>
+    </div>
+    <div class="row mt-5">
+
+
+    </div>
+</div>
+{% endblock %}

@@ -1,3 +1,12 @@
 from django.shortcuts import render
+from django.views import View
 
-# Create your views here.
+
+class Inbox(View):
+    def get(self, request):
+        data = {}
+        return render(request, 'notifications/notifications.html', {'data': data})
+
+    def post(self, request):
+        pass
+

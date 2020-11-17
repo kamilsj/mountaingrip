@@ -2,10 +2,11 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.utils import translation
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.utils.translation import gettext as _
 from django.views import View
 
-from .models import Trip, Profile, Post, Comment
+from .models import Trip, Profile, Post, Comment, TripJoined
 from .forms import TripForm, SearchForm, PostForm, ProfileForm
 
 from func.site_functions import common
@@ -49,55 +50,59 @@ def index(request):
         return redirect('/')
 
 
-def profile(request, id=0):
+class ProfileView(View):
 
-    data = {}
-    if id and id != 0:
-        try:
-            user = User.objects.get(id=id)
-            if user:
-                name = user.get_full_name()
-                if Profile.objects.filter(user_id=id).exists():
-                    profile = Profile.objects.get(user_id=id)
-                    pic = common.check_pic(profile.cover.url)
-                    cover = common.check_cover(profile.pic.url)
-                    data = {
-                        'name': name,
-                        'curl': cover,
-                        'purl': pic
-                    }
-        except User.DoesNotExist:
-            data = {
-                'notexists': 1,
-                'name': _('User does not exist')
-            }
-    else:
-        user = request.user
-        if Profile.objects.filter(user_id=user.id).exists():
-            name = user.get_full_name()
-            profile = Profile.objects.get(user_id=user.id)
-            if profile.cover:
-                cover = profile.cover.url
-            else:
-                cover = 'https://mountiangrip.s3.amazonaws.com/media/profile/P1000193_B55pk0B.jpg'
+    def get(self, request, id=0):
 
-            if profile.pic:
-                pic = profile.pic.url
-            else:
-                pic = 'https://mountiangrip.s3.amazonaws.com/assets/defaultProfilePicture.jpg'
-
-            data = {
-                'name': name,
-                'curl': cover,
-                'purl': pic
-            }
+        data = {}
+        if id and id != 0:
+            try:
+                user = User.objects.get(id=id)
+                if user:
+                    name = user.get_full_name()
+                    if Profile.objects.filter(user_id=id).exists():
+                        profile = Profile.objects.get(user_id=id)
+                        pic = common.check_pic(profile.cover.url)
+                        cover = common.check_cover(profile.pic.url)
+                        data = {
+                            'name': name,
+                            'curl': cover,
+                            'purl': pic
+                        }
+            except User.DoesNotExist:
+                data = {
+                    'notexists': 1,
+                    'name': _('User does not exist')
+                }
         else:
-            data = {
-                'notexists': 1,
-                'name': _('User does not exist')
-            }
-    return render(request, 'profile.html', {'data': data})
+            user = request.user
+            if Profile.objects.filter(user_id=user.id).exists():
+                name = user.get_full_name()
+                profile = Profile.objects.get(user_id=user.id)
+                if profile.cover:
+                    cover = profile.cover.url
+                else:
+                    cover = 'https://mountiangrip.s3.amazonaws.com/media/profile/P1000193_B55pk0B.jpg'
 
+                if profile.pic:
+                    pic = profile.pic.url
+                else:
+                    pic = 'https://mountiangrip.s3.amazonaws.com/assets/defaultProfilePicture.jpg'
+
+                data = {
+                    'name': name,
+                    'curl': cover,
+                    'purl': pic
+                }
+            else:
+                data = {
+                    'notexists': 1,
+                    'name': _('User does not exist')
+                }
+        return render(request, 'profile.html', {'data': data})
+
+    def post(self, request):
+        pass
 
 class ProfileUpdate(View):
     form_class = ProfileForm
@@ -112,27 +117,41 @@ class ProfileUpdate(View):
     def post(self, request):
         if request.method == 'POST':
             user = request.user
-            form = self.form_class(request.POST, request.FILES)
+            form = self.form_class(request.POST or None, request.FILES or None)
             if form.is_valid():
                 if Profile.objects.filter(user=user).exists():
+                    profile = Profile.objects.get(user=user)
+                    if not form.cleaned_data.get('pic'):
+                        pic = profile.pic
+                    else:
+                        pic = form.cleaned_data.get('pic').url
+                    if not form.cleaned_data.get('cover'):
+                        cover = profile.cover.url
+                    else:
+                        cover = form.cleaned_data.get('cover')
+
                     Profile.objects.filter(user=user).update(
-                        pic=form.cleaned_data.get('pic'),
-                        cover=form.cleaned_data.get('cover'),
+                        pic=pic,
+                        cover=cover,
                         gender=form.cleaned_data.get('gender'),
                         birthday=form.cleaned_data.get('birthday'),
                         country=form.cleaned_data.get('country'),
                     )
+                    return redirect('start/profile')
                 else:
                     pass
-                return redirect('/start/profile/')
             else:
-                return redirect('/start/profile/update')
+                return render(request, 'start/profile_update.html', {'form': form})
 
 
+class Explore(View):
 
-def explore(reqest):
-    data = {}
-    return render(reqest, 'start/explore.html', {'data': data})
+    def get(self,request):
+        data = {}
+        return render(request, 'start/explore.html', {'data': data})
+
+    def post(self, request):
+        pass
 
 
 class TripView(View):
@@ -141,31 +160,53 @@ class TripView(View):
         data = {}
         location_m_name = {}
         location_b_place = {}
+        user = request.user
         if id and id != 0:
             if Trip.objects.filter(id=id).exists():
                 trip = Trip.objects.get(id=id)
                 if trip:
+                    joined = TripJoined.objects.filter(user=user, trip=trip).count()
                     if Post.objects.filter(trip_id=id).count()>0:
                         posts = Post.objects.filter(trip_id=id).all()
                         if Comment.objects.filter(trip_id=id).count()>0:
                             pass
+                    if trip.blat == 0 and trip.blng == 0 and trip.mlat == 0 and trip.mlng == 0:
 
-                    b_place = gmaps.geocode(trip.basePlace)
-                    m_name = gmaps.geocode(trip.mountainName)
+                        b_place = gmaps.geocode(trip.basePlace)
+                        m_name = gmaps.geocode(trip.mountainName)
 
-                    location_b_place = {
-                        'name': b_place[0]['formatted_address'],
-                        'lat': b_place[0]['geometry']['location']['lat'],
-                        'lng': b_place[0]['geometry']['location']['lng']
-                    }
-                    location_m_name = {
-                        'name': m_name[0]['formatted_address'],
-                        'lat': m_name[0]['geometry']['location']['lat'],
-                        'lng': m_name[0]['geometry']['location']['lng']
-                    }
+                        location_b_place = {
+                            'name': b_place[0]['formatted_address'],
+                            'lat': b_place[0]['geometry']['location']['lat'],
+                            'lng': b_place[0]['geometry']['location']['lng']
+                        }
+                        location_m_name = {
+                            'name': m_name[0]['formatted_address'],
+                            'lat': m_name[0]['geometry']['location']['lat'],
+                            'lng': m_name[0]['geometry']['location']['lng']
+                        }
+
+                        Trip.objects.filter(id=id).update(
+                            blat=b_place[0]['geometry']['location']['lat'],
+                            blng=b_place[0]['geometry']['location']['lng'],
+                            mlat=m_name[0]['geometry']['location']['lat'],
+                            mlng=m_name[0]['geometry']['location']['lng']
+                        )
+                    else:
+                        location_b_place = {
+                            'name': trip.basePlace,
+                            'lat': trip.blat,
+                            'lng': trip.blng
+                        }
+                        location_m_name = {
+                            'name': trip.mountainName,
+                            'lat': trip.mlat,
+                            'lng': trip.mlng
+                        }
 
                     data = {
                         'id': trip.id,
+                        'joined': joined,
                         'gmaps_key': gkey,
                         'basePlace': location_b_place,
                         'mountainName': location_m_name,
@@ -182,7 +223,7 @@ class TripView(View):
                 data = {'notrip': 1}
 
         else:
-            data = {'notrip': 1}
+            return redirect('/start/trip/explore/')
 
         return render(request, 'start/trip.html', {'data': data})
 
@@ -190,8 +231,21 @@ class TripView(View):
     def post(self, request, id=0):
         form = PostForm(request.POST)
         if request.method == 'POST' and request.user.is_authenticated:
+            if form.is_valid():
+                trip = form.clean_trip()
+                text = form.clean_text()
+                profile_id = form.clean_profile_id()
+                user = request.user
+                if Post.objects.create(
+                    user=user,
+                    profile_id=profile_id,
+                    trip=trip,
+                    text=text
+                ):
+                        return redirect('start/trip'+str(trip.id)+'/')
+            else:
+                return HttpResponse(form.errors)
 
-            print('I am here')
         else:
             return HttpResponse('nothing')
 
@@ -199,10 +253,10 @@ class TripView(View):
 def q(request):
 
     if request.method == 'GET':
-        q = request.GET['q']
+        q = request.GET['what']
         #finding stuff and memorizing search query
 
-
+        print(q)
 
         result = ''
         return render(request, 'searchresult.html', {'result': result, 'q': q})
@@ -227,6 +281,7 @@ class AddTrip(View):
             if form.is_valid():
                 #check if form was already added
                 #TODO request files of particular size and order
+
                 obj = form.save(commit=False)
                 obj.user = user
                 if not Trip.objects.filter(title=obj.title, user=user, endDate=obj.endDate, startDate=obj.startDate).exists():
@@ -237,7 +292,3 @@ class AddTrip(View):
                 else:
                     return redirect('/start/trip/')
 
-
-
-def addfriend(request):
-    pass

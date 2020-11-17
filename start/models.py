@@ -37,6 +37,14 @@ class Trip(models.Model):
     def __str__(self):
         return self.title
 
+class TripJoined(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_joined_trip", blank=False)
+    trip = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name="trip_joined", default=0)
+    added_at = models.DateTimeField(auto_now_add=True)
+
+    def __int__(self):
+        return self.trip
+
 
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="post_author", blank=False)
@@ -64,8 +72,8 @@ class Comment(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=False)
-    pic = models.ImageField(upload_to='profile', null=True)
-    cover = models.ImageField(upload_to='profile', null=True)
+    pic = models.ImageField(upload_to='profile', null=True, blank=True)
+    cover = models.ImageField(upload_to='profile', null=True, blank=True)
     gender = models.BooleanField(choices=((0, "Male"), (1, "Female")), default=0)
     birthday = fields.BirthdayField(default=timezone.now)
     country = CountryField(blank=True)
