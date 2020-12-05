@@ -1,3 +1,8 @@
-#  Mountain grip - for people who love mountains
-Source code of https://mountaingrip.com. 
+#  Mountain grip - space for people who love outdoor activities
+#####(Basically it's a source code of https://mountaingrip.com.)
+
+#### Introduction
+
+
+
 

@@ -22,9 +22,11 @@ def JoinTrip(request, id):
         return False
 
 
-def AddPost(request):
+def AddPost(request, id):
     pass
 
 
-def CheckMessages(request):
-    pass
+def CheckMessages(request, id):
+    user = request.user
+    if id > 0:
+        return True

@@ -44,7 +44,6 @@ function addfriend(profile_id) {
 function checkMessages(user_id) {
 
     $.ajax({
-        type: 'POST',
         url: '/ajax/checkmessages/'+user_id+'/',
         success: function (response){
             alert('coś tam')

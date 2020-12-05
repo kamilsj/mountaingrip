@@ -1,5 +1,6 @@
 {% extends 'main.html' %}
 {% load i18n %}
+{% load add_func %}
 {% block title %}
     {{ data.title }}
 {% endblock %}
@@ -53,9 +54,22 @@
                     <div class="col-auto"><button type="submit" class="btn btn-primary">{% trans 'Post' %}</button></div>
                 </div>
             </form>
-            <div class="row mt-2">
-                <div class="col" id="trip_posts">
-
+            <div class="row mt-3">
+                <div id="trip_posts">
+                {% for post in data.posts %}
+                    <div class="col mb-2" id="post{{ post.id }}">
+                        <table>
+                            <tr class="d-flex">
+                                <td class="col-xs-2 mr-2">
+                                    {%  show_avatar_small post.user.id %}
+                                </td>
+                                <td class="col-xs-8 small">
+                                    {{ post.text }}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                {% endfor %}
                 </div>
             </div>
         </div>

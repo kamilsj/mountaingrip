@@ -7,7 +7,7 @@
  <div class="container">
             <div class="row justify-content-center align-items-center" style="margin-top: 10%">
             {% if data.activation == 1 %}
-                <div class="alert alert-success" role="alert">{% trans "Activation email was sent to you." %}</div>
+                <div class="alert alert-success" role="alert">{% trans "Activation email was sent to you. Check your SPAM box as well." %}</div>
             {% else %}
               <form method="post">
                 {% csrf_token %}
