@@ -29,17 +29,17 @@ class PostForm(ModelForm):
 
     def clean_text(self):
         text = self.cleaned_data.get('text')
-        if len(text) > 1:
+        if len(text) > 1 and len(text) < 4096:
             return text
+        elif len(text) > 4096:
+            return forms.ValidationError(_('Your post is too long.'))
         else:
-            return forms.ValidationError('Error')
+            return forms.ValidationError(_('You have to write something :)'))
 
     def clean_trip(self):
         trip = self.cleaned_data.get('trip')
         if trip.id > 0:
             return trip
-        else:
-            return 0
 
     def clean_profile_id(self):
         profile_id = self.cleaned_data.get('profile_id')

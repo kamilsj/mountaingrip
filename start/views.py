@@ -62,12 +62,16 @@ class ProfileView(View):
                     name = user.get_full_name()
                     if Profile.objects.filter(user_id=id).exists():
                         profile = Profile.objects.get(user_id=id)
-                        pic = common.check_pic(profile.cover.url)
-                        cover = common.check_cover(profile.pic.url)
+                        pic = common.check_pic(profile.pic)
+                        cover = common.check_cover(profile.cover)
+                        if Post.objects.filter(profile_id=id).count() > 0:
+                            posts = Post.objects.filter(profile_id=id).order_by('-added_at').all()
                         data = {
+                            'id': id,
                             'name': name,
                             'curl': cover,
-                            'purl': pic
+                            'purl': pic,
+                            'posts': posts
                         }
             except User.DoesNotExist:
                 data = {
@@ -79,20 +83,16 @@ class ProfileView(View):
             if Profile.objects.filter(user_id=user.id).exists():
                 name = user.get_full_name()
                 profile = Profile.objects.get(user_id=user.id)
-                if profile.cover:
-                    cover = profile.cover.url
-                else:
-                    cover = 'https://mountiangrip.s3.amazonaws.com/media/profile/P1000193_B55pk0B.jpg'
-
-                if profile.pic:
-                    pic = profile.pic.url
-                else:
-                    pic = 'https://mountiangrip.s3.amazonaws.com/assets/defaultProfilePicture.jpg'
-
+                pic = common.check_pic(profile.pic)
+                cover = common.check_cover(profile.cover)
+                if Post.objects.filter(profile_id=user.id).count() > 0:
+                    posts = Post.objects.filter(profile_id=user.id).order_by('-added_at').all()
                 data = {
+                    'id': user.id,
                     'name': name,
                     'curl': cover,
-                    'purl': pic
+                    'purl': pic,
+                    'posts': posts
                 }
             else:
                 data = {
@@ -101,8 +101,26 @@ class ProfileView(View):
                 }
         return render(request, 'profile.html', {'data': data})
 
+
     def post(self, request):
-        pass
+        form = PostForm(request.POST)
+        if request.method == 'POST' and request.user.is_authenticated:
+            if form.is_valid():
+                text = form.clean_text()
+                profile_id = form.clean_profile_id()
+                user = request.user
+                if Post.objects.create(
+                        user=user,
+                        profile_id=profile_id,
+                        text=text
+                ):
+                    return redirect('/start/profile/' + str(profile_id) + '/')
+            else:
+                return HttpResponse(form.errors)
+
+        else:
+            return HttpResponse('nothing')
+
 
 class ProfileUpdate(View):
     form_class = ProfileForm
@@ -160,16 +178,20 @@ class TripView(View):
         data = {}
         location_m_name = {}
         location_b_place = {}
+        comments = ''
+        posts = ''
         user = request.user
         if id and id != 0:
             if Trip.objects.filter(id=id).exists():
                 trip = Trip.objects.get(id=id)
                 if trip:
-                    joined = TripJoined.objects.filter(user=user, trip=trip).count()
-                    if Post.objects.filter(trip_id=id).count()>0:
-                        posts = Post.objects.filter(trip_id=id).all()
-                        if Comment.objects.filter(trip_id=id).count()>0:
-                            pass
+                    joined = TripJoined.objects.filter(trip=trip).count()
+                    if Post.objects.filter(trip_id=id).count() > 0:
+                        posts = Post.objects.filter(trip_id=id).order_by('-added_at').all()
+                        if Comment.objects.filter(trip_id=id).count() > 0:
+                            comments = ''
+
+
                     if trip.blat == 0 and trip.blng == 0 and trip.mlat == 0 and trip.mlng == 0:
 
                         b_place = gmaps.geocode(trip.basePlace)
@@ -206,6 +228,8 @@ class TripView(View):
 
                     data = {
                         'id': trip.id,
+                        'posts': posts,
+                        'comments': comments,
                         'joined': joined,
                         'gmaps_key': gkey,
                         'basePlace': location_b_place,
@@ -242,7 +266,7 @@ class TripView(View):
                     trip=trip,
                     text=text
                 ):
-                        return redirect('start/trip'+str(trip.id)+'/')
+                        return redirect('/start/trip/'+str(trip.id)+'/')
             else:
                 return HttpResponse(form.errors)
 

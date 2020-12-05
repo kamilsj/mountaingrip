@@ -48,7 +48,7 @@ class TripJoined(models.Model):
 
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="post_author", blank=False)
-    trip = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name="posted_on_trip", default=0)
+    trip = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name="posted_on_trip", blank=True, null=True)
     profile_id = models.BigIntegerField(default=0)
     text = models.TextField(max_length=4096, blank=False)
     added_at = models.DateTimeField(auto_now_add=True)

@@ -6,6 +6,7 @@ from .ajax import func
 
 urlpatterns = [
     path('api/', include('api.urls')),
+    path('ajax/checkmessages/<int:id>/', func.CheckMessages, name='check_messages'),
     path('ajax/addfriend/<int:id>/', func.AddFriend, name=''),
     path('ajax/jointrip/<int:id>/', func.JoinTrip, name=''),
     path('ajax/addpost/<int:id>/', func.AddPost, name=''),

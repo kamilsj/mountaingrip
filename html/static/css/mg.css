@@ -3,7 +3,7 @@ html, body{
 
 .page-background-main{
     width: 100%;
-    height: 500px;
+    height: 300px;
     background-image:url('https://mountiangrip.s3.amazonaws.com/assets/index.jpg');
     background-repeat: no-repeat;
     background-size: cover;
