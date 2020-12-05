@@ -5,7 +5,7 @@ function jointrip(id = 0){
         $.ajax({
             url: '/ajax/jointrip/'+id+'/',
             success: function (response) {
-                alert('coś tam')
+
             }
         });
     }else{
@@ -20,7 +20,7 @@ function addpost(profile_id=0, trip_id=0){
         data:{'profile_id': profile_id, 'trip_id': trip_id},
         url: 'ajax/addpost/',
         success: function (response){
-            alert('coś tam')
+
         }
     });
 
@@ -46,7 +46,7 @@ function checkMessages(user_id) {
     $.ajax({
         url: '/ajax/checkmessages/'+user_id+'/',
         success: function (response){
-            alert('coś tam')
+
         }
     });
 

@@ -16,6 +16,7 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path('', views.index, name='index'),
     path('start/', include('start.urls')),
+    path('groups/', include('groups.urls')),
     path('inbox/', include('inbox.urls')),
     path('notifications/', include('notifications.urls')),
     path('admin/', admin.site.urls),
