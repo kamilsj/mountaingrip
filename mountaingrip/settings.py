@@ -40,6 +40,7 @@ else:
 
 ALLOWED_HOSTS = []
 INSTALLED_APPS = [
+    'groups',
     'notifications',
     'inbox',
     'start',

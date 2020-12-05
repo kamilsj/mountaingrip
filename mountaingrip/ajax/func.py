@@ -28,5 +28,6 @@ def AddPost(request, id):
 
 def CheckMessages(request, id):
     user = request.user
+    data = []
     if id > 0:
-        return True
+       return JsonResponse(data, safe=False)
