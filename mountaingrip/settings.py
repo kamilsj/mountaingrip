@@ -13,7 +13,7 @@ if os.getenv('DB_NAME') and os.getenv('AWS_KEY') and os.getenv('EMAIL_HOST') and
     gmaps_key = [os.getenv('GMAPS')]
 else:
     try:
-        from .config.config import db, aws, email, gmaps_key
+        from .config.config import db, aws, email, gmaps_key, secret_key
     except ImportError:
         exit('No configuration')
 
@@ -24,8 +24,13 @@ if os.getenv('PROD'):
 else:
     prod = 0
 
+if os.getenv('SECRET_KEY'):
+    SECRET_KEY = os.getenv('SECRET_KEY')
+else:
+    SECRET_KEY = secret_key[0]
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = 'q4nyffh4o&gd^=s-rkkc^fw%^k(0u#f7#fk=5+6bjz-hjom27y'
+
 
 if prod == 0:
     DEBUG = True

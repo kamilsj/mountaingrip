@@ -28,21 +28,22 @@ class PostForm(ModelForm):
         fields = ['trip', 'profile_id', 'text']
 
     def clean_text(self):
-        text = self.cleaned_data.get('text')
+        text = self.cleaned_data['text']
         if len(text) > 1 and len(text) < 4096:
             return text
         elif len(text) > 4096:
-            return forms.ValidationError(_('Your post is too long.'))
+            raise forms.ValidationError(_('Your post is too long.'))
         else:
-            return forms.ValidationError(_('You have to write something :)'))
+            raise forms.ValidationError(_('You have to write something :)'))
+
 
     def clean_trip(self):
-        trip = self.cleaned_data.get('trip')
+        trip = self.cleaned_data['trip']
         if trip.id > 0:
             return trip
 
     def clean_profile_id(self):
-        profile_id = self.cleaned_data.get('profile_id')
+        profile_id = self.cleaned_data['profile_id']
         if profile_id > 0:
             return profile_id
         else:
@@ -73,6 +74,14 @@ class TripForm(ModelForm):
             'startDate': forms.DateInput(attrs={'type': 'date'}),
             'endDate': forms.DateInput(attrs={'type': 'date'}),
         }
+
+
+    
+    def clean_dates(self):
+        start_date = self.cleaned_data['startDate']
+        end_date = self.cleaned_data['endDate']
+        if end_date < start_date:
+            raise forms.ValidationError(_('Something is wrong'))
 
 
 class SearchForm(ModelForm):
