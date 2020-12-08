@@ -1,0 +1,25 @@
+{% extends 'main.html' %}
+{% load i18n %}
+{% block title %}{% blocktrans %}Groups - Mountain Grip{% endblocktrans %}{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 10%;">
+      {% if form.errors %}
+          <div class="row justify-content-center align-items-center">
+              <div class="alert alert-danger" role="alert">
+              {% trans "Something is wrong." %}
+              </div>
+          </div>
+      {% endif %}
+    <div class="row justify-content-center align-items-center">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" size="40" id="id_name" name="name" class="form-control form-control-lg" maxlength="256" placeholder="{% trans 'Group name'  %}" required/><br />
+                <textarea type="text" size="40" id="id_description" name="description" class="form-control" maxlength="4096" placeholder="Description"></textarea><br />
+                <input type="file" id="id_pic" name="pic" class="form-control-file" /><br><br>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans "Add" %}</button>
+            </div>
+    </div>
+</div>
+{% endblock %}

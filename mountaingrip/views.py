@@ -78,6 +78,3 @@ def signup(request):
         return render(request, 'signup.html', {'form': form})
     else:
         return redirect('/start/')
-
-def password_reset(request):
-    pass

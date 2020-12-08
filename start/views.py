@@ -1,8 +1,6 @@
 from django.shortcuts import redirect, render
 from django.http import HttpResponse
-from django.utils import translation
 from django.contrib.auth.models import User
-from django.contrib import messages
 from django.utils.translation import gettext as _
 from django.views import View
 
@@ -53,7 +51,7 @@ def index(request):
 class ProfileView(View):
 
     def get(self, request, id=0):
-
+        form = PostForm()
         data = {}
         if id and id != 0:
             try:
@@ -99,16 +97,16 @@ class ProfileView(View):
                     'notexists': 1,
                     'name': _('User does not exist')
                 }
-        return render(request, 'profile.html', {'data': data})
+        return render(request, 'profile.html', {'data': data, 'form': form})
 
 
     def post(self, request):
         form = PostForm(request.POST)
-        if request.method == 'POST' and request.user.is_authenticated:
+        user = request.user
+        if request.method == 'POST' and user.is_authenticated:
             if form.is_valid():
                 text = form.clean_text()
                 profile_id = form.clean_profile_id()
-                user = request.user
                 if Post.objects.create(
                         user=user,
                         profile_id=profile_id,
@@ -116,11 +114,7 @@ class ProfileView(View):
                 ):
                     return redirect('/start/profile/' + str(profile_id) + '/')
             else:
-                return HttpResponse(form.errors)
-
-        else:
-            return HttpResponse('nothing')
-
+                return redirect('/start/profile/')
 
 class ProfileUpdate(View):
     form_class = ProfileForm
@@ -140,7 +134,7 @@ class ProfileUpdate(View):
                 if Profile.objects.filter(user=user).exists():
                     profile = Profile.objects.get(user=user)
                     if not form.cleaned_data.get('pic'):
-                        pic = profile.pic
+                        pic = profile.pic.url
                     else:
                         pic = form.cleaned_data.get('pic').url
                     if not form.cleaned_data.get('cover'):

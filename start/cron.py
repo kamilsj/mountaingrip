@@ -1,5 +1,4 @@
 from django_cron import CronJobBase, Schedule
-import tensorflow
 
 
 class LearnYourself(CronJobBase):

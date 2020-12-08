@@ -22,8 +22,8 @@ class Token(models.Model):
 class Trip(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="trip_author", blank=False)
     title = models.CharField(max_length=256, blank=False)
-    cover = models.ImageField(upload_to='trip', blank=True)
-    description = models.TextField(max_length=4096, blank=True)
+    cover = models.ImageField(upload_to='trip', blank=True, null=True)
+    description = models.TextField(max_length=4096, blank=True, null=True)
     basePlace = models.CharField(max_length=256, blank=False)
     mountainName = models.CharField(max_length=256, blank=False)
     blat = models.FloatField(default=0)
@@ -58,7 +58,6 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comment_author", blank=False)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="commented_post", default=0)
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name="commented_trip", default=0)
