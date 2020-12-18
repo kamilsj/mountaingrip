@@ -41,6 +41,18 @@ function addfriend(profile_id) {
 
 }
 
+function addthread(group_id){
+    $.ajax({
+        type: 'POST',
+        url: 'ajax/addthred/'+group_id+'/',
+        success: function (response) {
+
+
+
+        }
+    });
+}
+
 function checkMessages(user_id) {
 
     $.ajax({

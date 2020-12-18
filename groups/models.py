@@ -7,19 +7,38 @@ class Group(models.Model):
     name = models.CharField(max_length=256, blank=False)
     description = models.TextField(max_length=1024, blank=True, null=True)
     pic = models.ImageField(upload_to='group', null=True, blank=True)
+    private = models.BooleanField(blank=False, default=False)
     added_at = models.DateTimeField(auto_now_add=True)
 
 
-class GroupPost(models.Model):
+class Thread(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="thread_author", blank=False)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name="thread_in_group", blank=False)
+    name = models.CharField(max_length=256, blank=False)
+    description = models.TextField(max_length=1024, blank=True, null=True)
+    added_at = models.DateTimeField(auto_now_add=True)
+
+
+class ThreadPost(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="group_post_author", blank=False)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name="posted_in_group", blank=False)
+    thread = models.ForeignKey(Thread, on_delete=models.CASCADE, related_name="posted_in_thread", blank=False)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name="thread_post_in_group", blank=False)
     text = models.TextField(max_length=4096, blank=False)
     added_at = models.DateTimeField(auto_now_add=True)
 
 
-class GroupPic(models.Model):
+class ThreadPic(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="group_pic_author", blank=False)
     group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name="pic_in_group", blank=False)
-    post = models.ForeignKey(GroupPost, on_delete=models.CASCADE, related_name="pic_in_post", blank=False)
+    thread = models.ForeignKey(Thread, on_delete=models.CASCADE, related_name="pic_in_thread", blank=False)
+    post = models.ForeignKey(ThreadPost, on_delete=models.CASCADE, related_name="pic_in_post", blank=False)
     pic = models.ImageField(upload_to='group_post', null=True, blank=True)
     added_at = models.DateTimeField(auto_now_add=True)
+
+
+class Followed(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_followed_group", blank=False)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name="group_followed", blank=True, null=True)
+    thread = models.ForeignKey(Thread, on_delete=models.CASCADE, related_name="thread_followed", blank=True, null=True)
+
+

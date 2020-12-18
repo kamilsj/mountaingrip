@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Group, GroupPic, GroupPost
+from .models import Group
 
 
 @admin.register(Group)

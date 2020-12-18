@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'django_cron',
     'widget_tweaks',
     'storages',
+    'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -144,17 +145,14 @@ LANGUAGE_CODE = 'en'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = False
-
 TIME_ZONE = 'Europe/Warsaw'
 
 
 # Static files (CSS, JavaScript, Images)
-
 django_heroku.settings(locals())
 
 
 # My settings
-
 AUTHENTICATION_BACKENDS = {
     'django.contrib.auth.backends.ModelBackend',
 }

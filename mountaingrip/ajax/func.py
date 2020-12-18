@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.core import serializers
 from start.models import TripJoined, Trip
+from groups.models import Thread
 
 
 def AddFriend(request, id):
