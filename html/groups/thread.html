@@ -1,0 +1,61 @@
+{% extends 'main.html' %}
+{% load i18n %}
+{% load add_func %}
+{% load humanize %}
+{% block title %}{% blocktrans %}{{ data.thread.name }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+<div class="container" style="margin-top: 70px;">
+    {% if data.nogroup == 1 %}
+        <div class="row mt-5 justify-content-center"><div class="alert alert-danger" role="alert">{% trans "Group does not exist." %}</div></div>
+    {% else %}
+
+    <div class="row">
+        <div style="margin-left: 110px;"></div>
+        <div class="col">
+            <a href="/groups/create/" class="btn btn-secondary btn-sm">{% trans 'Create group' %}</a>
+            <a class="btn btn-secondary btn-sm" href="#id_text">{% trans 'Add a post' %}</a>
+
+        </div>
+    </div>
+    <div class="row  justify-content-left mt-5">
+
+        <div class="col">
+
+            <h5><button type="button" onclick="location.href='/groups/{{ data.thread.group.id }}/'" class="btn btn-dark" href="/groups/{{ data.group.id }}/">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z"></path>
+</svg>
+
+              </button>
+                {{ data.thread.name }}
+            </h5>
+        {{ data.thred.description }}
+        </div>
+        <div class="col"></div>
+
+    </div>
+    <div class="row mt-5">
+        <div class="col">
+            <div class="list-group">
+                {% for post in data.posts %}
+                <div class="row">
+                    <div class="col-2 text-wrap align-middle">{% show_avatar post.user.id %}</div>
+                    <div class="col-8 border rounded">{{ post.text }}</div>
+                    <div class="col-2 justify-content-right mb-2"><small>{{ post.added_at|naturaltime }}</small></div>
+                </div>
+                {% endfor %}
+
+                <div class="row mt-5">
+                        <div class="col-2 text-wrap align-middle">{% show_avatar data.user.id %}</div>
+                        <input type="hidden" id="id_thread" name="thread" value="data.thread.">
+                        <input type="hidden" id="id_group" name="group" value="">
+                        <div class="col-8"><textarea class="border rounded w-100" id="id_text" name="text"></textarea></div>
+                        <div class="col-2"><button class="btn btn-dark">{% trans 'Submit' %}</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

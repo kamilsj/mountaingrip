@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 from django.views import View
+from django.contrib.auth.decorators import login_required
 
 from .models import Trip, Profile, Post, Comment, TripJoined
 from .forms import TripForm, SearchForm, PostForm, ProfileForm

@@ -31,7 +31,7 @@ class Trip(models.Model):
     mlat = models.FloatField(default=0)
     mlng = models.FloatField(default=0)
     startDate = models.DateField(blank=False)
-    endDate = models.DateField(blank=False)
+    endDate = models.DateField(blank=True, null=True)
     added_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

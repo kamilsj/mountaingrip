@@ -32,12 +32,16 @@
                                 <input class="form-control" type="date" name="startDate " id="id_startDate" placeholder="{% trans "Start date" %}" required>
                             </div>
                          {% elif field.name == 'endDate' %}
-                            <div class="form-group">
-                                <input class="form-control" type="date" name="endDate " id="id_endDate" placeholder="{% trans "End date" %}" required>
+                            <div class="form-group form-check">
+                                <input class="form-check-input" type="checkbox" id="oneday">
+                                <label class="form-check-label" >{% trans 'One day trip' %}</label>
+                            </div>
+                            <div class="form-group align-left">
+                                <input class="form-control" type="date" name="endDate " id="id_endDate" placeholder="{% trans "End date" %}">
                             </div>
                          {% elif field.name == 'cover' %}
                             <div class="form-group">
-                                <input class="form-control" type="file" name="cover" id="id_cover" placeholder="{% trans "Cover photo" %}" required>
+                                <input class="form-control-file" type="file" name="cover" id="id_cover" placeholder="{% trans "Cover photo" %}" required>
                             </div>
                         {% for error in field.errors %}
 
@@ -51,6 +55,15 @@
             </div>
         </div>
     </div>
+<script>
+$('#oneday').click(function(){
+    if($(this.checked)){
+        $('#id_endDate').prop('disabled', true);
+    }else{
+        $('#id_endDate').prop('disabled', false);
+    }
+})
 
+</script>
 
 {% endblock %}

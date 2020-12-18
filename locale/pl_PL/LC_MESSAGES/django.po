@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-15 13:55+0200\n"
+"POT-Creation-Date: 2020-12-18 15:10+0100\n"
 "PO-Revision-Date: 2018-09-02 08:58+0000\n"
 "Last-Translator: Kamil Boberek <kboberek@gmail.com>, 2020\n"
 "Language-Team: Polish (Poland) (https://www.transifex.com/mountiangrip/teams/90567/pl_PL/)\n"
@@ -20,6 +20,106 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pl_PL\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#: groups/forms.py:16 groups/forms.py:35 groups/forms.py:72
+msgid "Your description is a little bit too long."
+msgstr "Twój opis jest za długi."
+
+#: groups/forms.py:28 groups/forms.py:65
+msgid "Groups has to have a name :)"
+msgstr "Twoja grupa musi mieć jakaś nazwę :)"
+
+#: groups/forms.py:55
+msgid "Group does not exists."
+msgstr "Taka grupa nie istnieje. "
+
+#: groups/forms.py:57
+msgid "Invalid groud code"
+msgstr "Kod grupy jest nieprawidłowy. "
+
+#: groups/views.py:141 html/groups/create.html:10
+#: html/registration/login.html:12
+msgid "Something is wrong."
+msgstr "Coś jest nie tak."
+
+#: groups/views.py:143
+msgid "Form is not valid."
+msgstr "Dane w formularzu nie są prawidłowe. "
+
+#: html/groups/create.html:3
+msgid "Groups - Mountain Grip"
+msgstr "Grupy - Mountain Grip"
+
+#: html/groups/create.html:18
+msgid "Group name"
+msgstr "Nazwa grupy"
+
+#: html/groups/create.html:21
+msgid "Add"
+msgstr "Dodaj"
+
+#: html/groups/index.html:4 html/groups/index.html:11
+#: html/groups/thread.html:16 html/groups/view.html:15
+msgid "Create group"
+msgstr "Utwórz grupę"
+
+#: html/groups/index.html:16
+msgid "Your groups"
+msgstr "Twoje grupy"
+
+#: html/groups/index.html:35
+msgid "Recent groups"
+msgstr "Ostatnio dodane grupy"
+
+#: html/groups/thread.html:5
+#, python-format
+msgid "%(data.thread.name)s"
+msgstr ""
+
+#: html/groups/thread.html:10 html/groups/view.html:9
+msgid "Group does not exist."
+msgstr "Taka grupa nie istnieje. "
+
+#: html/groups/thread.html:17
+msgid "Add a post"
+msgstr "Dodaj posta"
+
+#: html/groups/thread.html:54 html/groups/view.html:37
+msgid "Submit"
+msgstr "Dodaj"
+
+#: html/groups/view.html:4
+#, python-format
+msgid "%(data.group.name)s"
+msgstr ""
+
+#: html/groups/view.html:16
+msgid "Add a thread"
+msgstr "Dodaj wątek. "
+
+#: html/groups/view.html:31 html/start/addtrip.html:16 start/forms.py:63
+msgid "Title"
+msgstr "Tytuł"
+
+#: html/groups/view.html:34
+msgid "First post"
+msgstr "Pierwszy post. "
+
+#: html/inbox/inbox.html:3 html/notifications/notifications.html:3
+msgid "Inbox - Mountain Grip"
+msgstr "Skrzynka odbiorcza - Mountain Grip"
+
+#: html/inbox/inbox.html:10
+msgid "New message"
+msgstr "Nowa wiadomość"
+
+#: html/inbox/inbox.html:11
+msgid "Chat"
+msgstr "Czat"
+
+#: html/inbox/inbox.html:12
+msgid "Sent"
+msgstr "Wysłane"
 
 #: html/index.html:3
 msgid "  Mountains are waiting for you - Mountian Grip"
@@ -36,61 +136,77 @@ msgid ""
 msgstr ""
 "Mountain Grip to wspólnota ludzi, którzy naprawdę kochają górskie wyprawy. "
 
-#: html/index.html:18 html/main.html:33 html/signup.html:60
+#: html/index.html:18 html/main.html:38 html/signup.html:60
 msgid "Sign up"
 msgstr "Dołącz"
 
-#: html/main.html:37
+#: html/main.html:42
 msgid "Profile"
 msgstr "Profil"
 
-#: html/main.html:41
+#: html/main.html:46
 msgid "Your trips"
 msgstr "Twoje wyprawy"
 
-#: html/main.html:44
+#: html/main.html:49
 msgid "Add a trip"
 msgstr "Dodaj wyprawę"
 
-#: html/main.html:45
+#: html/main.html:50
 msgid "Explore"
 msgstr "Przeszukaj"
 
-#: html/main.html:47
+#: html/main.html:51
 msgid "Past activities"
 msgstr "Ostatnie wyprawy"
 
-#: html/main.html:52
+#: html/main.html:56
 msgid "Messages"
 msgstr "Wiadomości"
 
-#: html/main.html:55
-msgid "New message"
-msgstr "Nowa wiadomość"
+#: html/main.html:61
+msgid "Groups"
+msgstr "Grupy"
 
-#: html/main.html:56
-msgid "Inbox"
-msgstr "Skrzynka odbiorcza"
-
-#: html/main.html:65
+#: html/main.html:75
 msgid "Search"
 msgstr "Szukaj"
 
-#: html/main.html:67
+#: html/main.html:77
 msgid "Logout"
 msgstr "Wyloguj"
 
-#: html/main.html:69 html/registration/login.html:27
+#: html/main.html:79 html/registration/login.html:27
 msgid "Log in"
 msgstr "Zaloguj"
 
-#: html/profile.html:12
+#: html/mountiangrip.html:4
+msgid "Start searching for people"
+msgstr ""
+
+#: html/notifications/notifications.html:10
+msgid "Read all"
+msgstr ""
+
+#: html/notifications/notifications.html:11
+msgid "Posts"
+msgstr ""
+
+#: html/notifications/notifications.html:12
+msgid "Comments"
+msgstr ""
+
+#: html/profile.html:13
 msgid "Does not exist."
 msgstr "Nie ma takiego użytkownika."
 
-#: html/registration/login.html:12
-msgid "Something is wrong."
-msgstr "Coś jest nie tak."
+#: html/profile.html:21
+msgid "Update your profile"
+msgstr ""
+
+#: html/profile.html:45 html/start/trip.html:52
+msgid "Post"
+msgstr "Dodaj"
 
 #: html/registration/login.html:21 html/signup.html:22
 msgid "Username"
@@ -106,8 +222,9 @@ msgid "Search results for: %(q)s "
 msgstr "Wyniki wyszukiwania dla: %(q)s"
 
 #: html/signup.html:10
-msgid "Activation email was sent to you."
-msgstr "Email aktywacyjny został wysłany."
+msgid "Activation email was sent to you. Check your SPAM box as well."
+msgstr ""
+"Email z linkiem aktywacyjnym został wysłany. Sprawdź również swój SPAM."
 
 #: html/signup.html:27
 msgid "First name"
@@ -125,54 +242,94 @@ msgstr "Email"
 msgid "Confirm password"
 msgstr "Potwierdź hasło"
 
-#: html/start/addtrip.html:14 start/forms.py:25
-msgid "Title"
-msgstr "Tytuł"
+#: html/start/addtrip.html:3
+msgid "Look for people ready for an adventure."
+msgstr ""
 
-#: html/start/addtrip.html:18 start/forms.py:26
+#: html/start/addtrip.html:20 start/forms.py:64
 msgid "Description"
 msgstr "Opis"
 
-#: html/start/addtrip.html:22 start/forms.py:27
+#: html/start/addtrip.html:24 start/forms.py:65
 msgid "Base place"
 msgstr "Miejse spotkania"
 
-#: html/start/addtrip.html:26 start/forms.py:28
+#: html/start/addtrip.html:28 start/forms.py:66
 msgid "Mountain name"
 msgstr "Nazwa góry"
 
-#: html/start/addtrip.html:30 start/forms.py:29
+#: html/start/addtrip.html:32 start/forms.py:67
 msgid "Start date"
 msgstr "Dzień rozpoczęcia"
 
-#: html/start/addtrip.html:34 start/forms.py:30
+#: html/start/addtrip.html:37
+msgid "One day trip"
+msgstr "Jednodniowa wyczieczka"
+
+#: html/start/addtrip.html:40 start/forms.py:68
 msgid "End date"
 msgstr "Dzień zakończenia"
 
-#: html/start/addtrip.html:38 start/forms.py:31
+#: html/start/addtrip.html:44 start/forms.py:69
 msgid "Cover photo"
 msgstr "Zdjęcie wyróżniające"
 
-#: html/start/trip.html:11
+#: html/start/trip.html:20
 msgid "You've just added a new trip."
 msgstr "Właśnie dodałeś nową wyprawę."
 
-#: html/start/trip.html:13
+#: html/start/trip.html:22
 msgid "Trip does not exist."
 msgstr "Nie ma takiej wycieczki."
 
-#: html/start/trip.html:20
+#: html/start/trip.html:30
 msgid "Join"
 msgstr "Dołącz"
 
-#: html/start/trip.html:37
-msgid "Post"
-msgstr "Dodaj"
+#: html/start/trip.html:33
+msgid "Invite"
+msgstr ""
 
-#: mountaingrip/views.py:64
+#: html/start/trip.html:82
+msgid "Invite your friends"
+msgstr ""
+
+#: mountaingrip/views.py:60
 msgid "Activate your Mountain Grip account."
 msgstr "Aktywuj swoje konto na https://mountaingrip.com"
 
-#: start/views.py:73 start/views.py:101
+#: start/forms.py:13
+msgid "Your profile photo"
+msgstr "Zdjęcie profilowe"
+
+#: start/forms.py:14
+msgid "Your cover photo"
+msgstr "Zdjęcie w tle"
+
+#: start/forms.py:15
+msgid "Birthday"
+msgstr "Urodziny"
+
+#: start/forms.py:16
+msgid "Gender"
+msgstr "Płeć"
+
+#: start/forms.py:17
+msgid "Country"
+msgstr "Państwo"
+
+#: start/forms.py:35
+msgid "Your post is too long."
+msgstr "Twój post jest za długi. "
+
+#: start/forms.py:37
+msgid "You have to write something :)"
+msgstr "Napisz coś :)"
+
+#: start/forms.py:84
+msgid "Something is wrong"
+msgstr "Coś jest nie tak."
+
+#: start/views.py:78 start/views.py:99
 msgid "User does not exist"
 msgstr "Nie ma takiego użytkownika."

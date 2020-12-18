@@ -1,5 +1,6 @@
 {% extends 'main.html' %}
 {% load i18n %}
+{% load humanize %}
 {% block title %}{% blocktrans %}Create group{% endblocktrans %}{% endblock %}
 
 {% block content %}
@@ -7,15 +8,41 @@
     <div class="row">
         <div style="margin-left: 110px;"></div>
         <div class="col">
-            <a href="create/" class="btn btn-secondary btn-sm">{% trans 'Create group' %}</a>
+            <a href="/groups/create/" class="btn btn-secondary btn-sm">{% trans 'Create group' %}</a>
         </div>
     </div>
     <div class="row mt-5">
+        <div class="col">
+            <h6 class="mt-3">{% trans 'Your groups' %}</h6>
+            <div class="list-group">
+                {% for your in data.yours %}
+                <a href="/groups/{{ your.id }}/" class="list-group-item list-group-item-action flex-column align-items-start
+                {% if your.private == 1 %}
+                active
+                {% endif %}
+                ">
+                {{ your.name }}
+                </a>
+                {% endfor %}
 
-        <div class="row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-5"></div>
-            <div class="col-sm-5"></div>
+            </div>
+        </div>
+        <div class="col-5">
+        <!-- middle column --->
+        </div>
+        <div class="col">
+            <div class="list-group">
+                <h6 class="mt-3">{% trans 'Recent groups' %}</h6>
+            {% for group in data.groups %}
+            <a href="/groups/{{ group.id }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ group.name }}</h5>
+                    <small>{{ group.added_at|naturaltime }}</small>
+                </div>
+                <p class="mb-1">{{ group.description }}</p>
+            </a>
+            {% endfor %}
+            </div>
         </div>
 
     </div>
