@@ -30,7 +30,7 @@
               </button>
                 {{ data.thread.name }}
             </h5>
-        {{ data.thred.description }}
+        {{ data.thread.description }}
         </div>
         <div class="col"></div>
 
@@ -48,9 +48,9 @@
 
                 <div class="row mt-5">
                         <div class="col-2 text-wrap align-middle">{% show_avatar data.user.id %}</div>
-                        <input type="hidden" id="id_thread" name="thread" value="data.thread.">
-                        <input type="hidden" id="id_group" name="group" value="">
-                        <div class="col-8"><textarea class="border rounded w-100" id="id_text" name="text"></textarea></div>
+                        <input type="hidden" id="id_thread" name="thread" value="{{ data.thread.thread.id }}">
+                        <input type="hidden" id="id_group" name="group" value="{{ data.thread.group.id }}">
+                        <div class="col-8"><textarea class="border rounded w-100" id="id_text" name="text" required></textarea></div>
                         <div class="col-2"><button class="btn btn-dark">{% trans 'Submit' %}</button></div>
                 </div>
             </div>

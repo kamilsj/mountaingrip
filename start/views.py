@@ -79,6 +79,7 @@ class ProfileView(View):
                 }
         else:
             user = request.user
+
             if Profile.objects.filter(user_id=user.id).exists():
                 name = user.get_full_name()
                 profile = Profile.objects.get(user_id=user.id)
@@ -86,6 +87,8 @@ class ProfileView(View):
                 cover = common.check_cover(profile.cover)
                 if Post.objects.filter(profile_id=user.id).count() > 0:
                     posts = Post.objects.filter(profile_id=user.id).order_by('-added_at').all()
+                else:
+                    posts = ''
                 data = {
                     'id': user.id,
                     'name': name,
@@ -93,6 +96,7 @@ class ProfileView(View):
                     'purl': pic,
                     'posts': posts
                 }
+
             else:
                 data = {
                     'notexists': 1,
