@@ -182,19 +182,19 @@ msgstr "Zaloguj"
 
 #: html/mountiangrip.html:4
 msgid "Start searching for people"
-msgstr ""
+msgstr "Znajdź ludzi do wspólnych wypraw"
 
 #: html/notifications/notifications.html:10
 msgid "Read all"
-msgstr ""
+msgstr "Przeczytaj wszystkie"
 
 #: html/notifications/notifications.html:11
 msgid "Posts"
-msgstr ""
+msgstr "Posty"
 
 #: html/notifications/notifications.html:12
 msgid "Comments"
-msgstr ""
+msgstr "Komentarze"
 
 #: html/profile.html:13
 msgid "Does not exist."
@@ -202,7 +202,7 @@ msgstr "Nie ma takiego użytkownika."
 
 #: html/profile.html:21
 msgid "Update your profile"
-msgstr ""
+msgstr "Zaktualizuj swój profil "
 
 #: html/profile.html:45 html/start/trip.html:52
 msgid "Post"
@@ -244,7 +244,7 @@ msgstr "Potwierdź hasło"
 
 #: html/start/addtrip.html:3
 msgid "Look for people ready for an adventure."
-msgstr ""
+msgstr "Znajdź nową przygodę dla siebie"
 
 #: html/start/addtrip.html:20 start/forms.py:64
 msgid "Description"
@@ -288,11 +288,11 @@ msgstr "Dołącz"
 
 #: html/start/trip.html:33
 msgid "Invite"
-msgstr ""
+msgstr "Zaproś"
 
 #: html/start/trip.html:82
 msgid "Invite your friends"
-msgstr ""
+msgstr "Zaproś swoich przyjaciół"
 
 #: mountaingrip/views.py:60
 msgid "Activate your Mountain Grip account."

@@ -18,10 +18,11 @@
     </div>
     <div class="container">
         <div class="row mt-3">
-            <div class="col-sm-2 d-none d-sm-none d-md-none d-lg-block">
+            <div class="col d-none d-sm-none d-md-none d-lg-block">
 
             </div>
-            <div class="col-md-8">
+            <div class="col"></div>
+            <div class="col">
                     {% for trip in data.trips %}
                     <div id="trip{{ trip.id }}" class="row border border-dark rounded"
 
@@ -46,9 +47,7 @@
                         <br>
                     {% endfor %}
             </div>
-            <div class="col-sm-2 d-none d-sm-none d-md-none d-lg-block">
-                <p></p>
-            </div>
+
         </div>
     </div>
 

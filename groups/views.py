@@ -7,14 +7,13 @@ from django.utils.translation import gettext as _
 import datetime
 
 
-
 class GroupExplore(View):
 
     def get(self, request):
         data = {}
 
         groups = Group.objects.filter(private=False).order_by('-added_at').all()[:20]
-        yours = Group.objects.filter(user=request.user).order_by('-added_at')
+        yours = Group.objects.filter(user=request.user).order_by('-added_at').all()[:20]
         data = {
             'groups': groups,
             'yours': yours
@@ -84,32 +83,43 @@ class GroupView(View):
 
 class ThreadView(View):
     form_class = PostForm
+    data = {}
 
     def get(self, request, gid=0, tid=0):
         user = request.user
-        data = {}
         page = 20
         if gid > 0 and tid > 0:
             thread = Thread.objects.get(id=tid)
             group = Group.objects.get(id=gid)
             if ThreadPost.objects.filter(thread=thread, group=group).count() > 0:
                 posts = ThreadPost.objects.filter(thread=thread, group=group).all()[:page]
-                data ={
+                self.data ={
                     'user': user,
                     'thread': thread,
                     'posts': posts,
                 }
 
-            return render(request, 'groups/thread.html', {'data': data, 'from': self.form_class})
+            return render(request, 'groups/thread.html', {'data': self.data, 'from': self.form_class})
 
     def post(self, request, gid=0, tid=0):
          user = request.user
+
          if request.method == 'POST' and user.is_authenticated:
-            form = self.form(request.POST or None)
+            form = self.form_class(request.POST or None)
             if form.is_valid():
                 if gid > 0 and tid > 0:
                     text = form.clean_text()
-
+                    group = form.clean_group()
+                    thread = form.clean_thread()
+                    created_time = datetime.datetime.now() - datetime.timedelta(minutes=10)
+                    if not ThreadPost.objects.filter(group=group, thread=thread, text=text, added_at__lte=created_time).exists():
+                        post = ThreadPost.objects.create(user=user, group=group,  thread=thread, text=text)
+                        if post:
+                            return redirect('/groups/'+str(group.id)+'/'+str(thread.id)+'/')
+                        else:
+                            pass
+                else:
+                    pass
 
 
 class GroupCreate(View):
