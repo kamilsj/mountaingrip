@@ -6,7 +6,7 @@ from django.utils.translation import gettext as _
 class PostForm(forms.ModelForm):
     class Meta:
         model = ThreadPost
-        fields = ['text']
+        fields = ['thread', 'group', 'text']
 
     def clean_text(self):
         text = self.cleaned_data['text']
@@ -14,6 +14,29 @@ class PostForm(forms.ModelForm):
             return text
         else:
             raise forms.ValidationError(_('Your description is a little bit too long.'))
+
+    def clean_group(self):
+        group = self.cleaned_data['group']
+        if group.id > 0:
+            if Group.objects.filter(id=group.id).exists():
+                return Group.objects.get(id=group.id)
+            else:
+                raise forms.ValidationError(_('Cannot add post to this group.'))
+        else:
+            raise forms.ValidationError(_('There is a problem with this group'))
+
+
+    def clean_thread(self):
+        thread = self.cleaned_data['thread']
+        if thread.id > 0:
+            if Thread.objects.filter(id=thread.id).exists():
+                return Thread.objects.get(id=thread.id)
+            else:
+                raise forms.ValidationError(_('Cannot add post to this group.'))
+        else:
+            raise forms.ValidationError(_('There is a problem with this group'))
+
+
 
 class GroupForm(forms.ModelForm):
     class Meta:
@@ -29,7 +52,7 @@ class GroupForm(forms.ModelForm):
 
     def clean_description(self):
         desc = self.cleaned_data['description']
-        if len(desc)<1024:
+        if len(desc) < 1024:
             return desc
         else:
             raise forms.ValidationError(_('Your description is a little bit too long.'))
@@ -48,14 +71,13 @@ class ThreadForm(forms.ModelForm):
 
     def clean_group(self):
         group = self.cleaned_data['group']
-        if group.id>0:
+        if group.id > 0:
             if Group.objects.filter(id=group.id).exists:
                 return group
             else:
                 raise forms.ValidationError(_('Group does not exists.'))
         else:
             raise forms.ValidationError(_('Invalid groud code'))
-
 
     def clean_name(self):
         name = self.cleaned_data['name']

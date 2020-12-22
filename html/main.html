@@ -82,8 +82,9 @@
                     </div>
                 </nav>
             </header>
-        {% block content %}
-`
+        <div id="root"></div>
+{% block content %}
+
 
 {% endblock %}
 
@@ -100,7 +101,9 @@
         </div>
     </footer>
 
-    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="{% static 'js/ui.js' %}"></script>
     <script src="{% static 'js/ajax.js' %}"></script>
     <script src="{% static 'js/mg.js' %}"></script>
     <script src="{% static 'js/tipped.js' %}"></script>

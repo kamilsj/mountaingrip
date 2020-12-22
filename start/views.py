@@ -18,8 +18,12 @@ from django.conf import settings
 gkey = settings.GKEY
 gmaps = googlemaps.Client(key=gkey)
 
-def index(request):
 
+def tensorflow():
+    pass
+
+
+def index(request):
     if request.user.is_authenticated:
         user = request.user
         date = datetime.datetime.now(tz=timezone.utc)
@@ -65,6 +69,8 @@ class ProfileView(View):
                         cover = common.check_cover(profile.cover)
                         if Post.objects.filter(profile_id=id).count() > 0:
                             posts = Post.objects.filter(profile_id=id).order_by('-added_at').all()
+                        else:
+                            posts = ''
                         data = {
                             'id': id,
                             'name': name,
@@ -89,6 +95,7 @@ class ProfileView(View):
                     posts = Post.objects.filter(profile_id=user.id).order_by('-added_at').all()
                 else:
                     posts = ''
+
                 data = {
                     'id': user.id,
                     'name': name,
@@ -274,15 +281,20 @@ class TripView(View):
 
 
 def q(request):
-
+    groups = {}
+    trips = {}
+    profile = {}
+    posts = {}
+    
+    
     if request.method == 'GET':
         q = request.GET['what']
         #finding stuff and memorizing search query
+        
 
-        print(q)
 
-        result = ''
-        return render(request, 'searchresult.html', {'result': result, 'q': q})
+        
+        return render(request, 'searchresult.html', {'data': data, 'q': q})
     else:
         return None
 
