@@ -285,8 +285,8 @@ def q(request):
     trips = {}
     profile = {}
     posts = {}
-    
-    
+    data = {}
+
     if request.method == 'GET':
         q = request.GET['what']
         #finding stuff and memorizing search query

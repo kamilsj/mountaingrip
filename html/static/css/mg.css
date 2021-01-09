@@ -1,4 +1,6 @@
 html, body{
+    margin: 0;
+    background-color: #ecf0f1;
 }
 
 .page-background-main{

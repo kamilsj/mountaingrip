@@ -76,6 +76,9 @@ class Profile(models.Model):
     gender = models.BooleanField(choices=((0, "Male"), (1, "Female")), default=0)
     birthday = fields.BirthdayField(default=timezone.now)
     country = CountryField(blank=True)
+    public_key = models.CharField(max_length=1024, blank=False, default='')
+    private_key = models.CharField(max_length=1024, blank=False, default='')
+
 
     def __str__(self):
         return self.user.get_full_name()+' ('+self.user.username+')'
