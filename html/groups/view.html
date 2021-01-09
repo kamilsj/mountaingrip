@@ -47,19 +47,18 @@
     <div class="row justify-content-center mt-5">
         <div class="col">
             <div class="d-flex">
-                <h4><b>{{ data.group.name }}</b><br>
+                <h4 ><b class="badge badge-dark">{{ data.group.name }}</b><br>
                 <small>{{ data.group.description }}</small>
                 </h4>
 
             </div>
 
         </div>
-        <div class="col"></div>
 
     </div>
     <div class="row mt-3">
         <div class="col">
-            <div class="list-group list-group-flush">
+            <div class="list-group list-group-flush ">
             {% for thread in data.threads %}
             <a href="/groups/{{ data.group.id }}/{{ thread.id }}/" class="list-group-item list-group-item-action flex-column align-items-start border-bottom border-secondary">
                 <div class="d-flex w-100 justify-content-between">

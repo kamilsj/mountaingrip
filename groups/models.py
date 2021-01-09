@@ -10,6 +10,9 @@ class Group(models.Model):
     private = models.BooleanField(blank=False, default=False)
     added_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.name[:50]
+
 
 class Thread(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="thread_author", blank=False)
@@ -18,6 +21,8 @@ class Thread(models.Model):
     description = models.TextField(max_length=1024, blank=True, null=True)
     added_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.name[:50]
 
 class ThreadPost(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="group_post_author", blank=False)
@@ -25,6 +30,9 @@ class ThreadPost(models.Model):
     group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name="thread_post_in_group", blank=False)
     text = models.TextField(max_length=4096, blank=False)
     added_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.text[:50]
 
 
 class ThreadPic(models.Model):

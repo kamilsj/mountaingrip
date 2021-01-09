@@ -41,8 +41,8 @@
                 {% for post in data.posts %}
                 <div class="row mt-3">
                     <div class="col-auto align-middle">{% show_avatar_small post.user.id %}</div>
-                    <div class="col-9 border rounded">{{ post.text }}</div>
-                    <div class="col-2 mb-2"><small>{{ post.added_at|naturaltime }}</small></div>
+                    <div class="col-9 border rounded" style="background-color: white;">{{ post.text }}</div>
+                    <div class="col-2 mb-2"><small class="badge badge-sm badge-light">{{ post.added_at|naturaltime }}</small></div>
                 </div>
                 {% endfor %}
                 <form method="post" enctype="multipart/form-data">
