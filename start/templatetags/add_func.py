@@ -8,6 +8,7 @@ register = template.Library()
 def show_avatar(user_id):
     avatar = common.show_user_avatar(user_id)
     return{
+        'id': user_id,
         'name': avatar[0],
         'pic': avatar[1]
     }
@@ -17,6 +18,7 @@ def show_avatar(user_id):
 def show_avatar_small(user_id):
     avatar = common.show_user_avatar(user_id)
     return {
+        'id': user_id,
         'name': avatar[0],
         'pic': avatar[1]
     }
