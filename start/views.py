@@ -30,7 +30,7 @@ def index(request):
 
         data = {}
         addedby = {}
-
+        posts = {}
         '''
         Trips added within last 2 weeks
         if there are not any ... show at least last 10
@@ -44,7 +44,8 @@ def index(request):
 
         data = {
             'user': user.get_full_name(),
-            'trips': trips
+            'trips': trips,
+            'posts': posts,
         }
 
         return render(request, 'mountiangrip.html', {'data': data})
@@ -112,7 +113,7 @@ class ProfileView(View):
         return render(request, 'profile.html', {'data': data, 'form': form})
 
 
-    def post(self, request):
+    def post(self, request, id=0):
         form = PostForm(request.POST)
         user = request.user
         if request.method == 'POST' and user.is_authenticated:
@@ -135,7 +136,7 @@ class ProfileUpdate(View):
     def get(self, request):
         init_data = Profile.objects.get(user=request.user)
         form = self.form_class(initial={'pic': init_data.pic, 'cover': init_data.cover, 'birthday': init_data.birthday,
-                                        'gender': init_data.gender, 'country': init_data.country})
+                                        'gender': init_data.gender, 'country': init_data.country, 'height': init_data.height})
         return render(request, 'start/profile_update.html', {'form': form})
 
     def post(self, request):
@@ -146,11 +147,11 @@ class ProfileUpdate(View):
                 if Profile.objects.filter(user=user).exists():
                     profile = Profile.objects.get(user=user)
                     if not form.cleaned_data.get('pic'):
-                        pic = profile.pic.url
+                        pic = profile.pic
                     else:
                         pic = form.cleaned_data.get('pic').url
                     if not form.cleaned_data.get('cover'):
-                        cover = profile.cover.url
+                        cover = profile.cover
                     else:
                         cover = form.cleaned_data.get('cover')
 
@@ -161,7 +162,7 @@ class ProfileUpdate(View):
                         birthday=form.cleaned_data.get('birthday'),
                         country=form.cleaned_data.get('country'),
                     )
-                    return redirect('start/profile')
+                    return redirect('/start/profile/')
                 else:
                     pass
             else:

@@ -4,20 +4,22 @@ import django_heroku
 db = []
 aws = []
 email = []
-gmaps_key =[]
+gmaps_key = []
 
-if os.getenv('DB_NAME') and os.getenv('AWS_KEY') and os.getenv('EMAIL_HOST') and os.getenv('GMAPS'):
+if os.getenv('DB_NAME') and os.getenv('AWS_KEY') and os.getenv('EMAIL_HOST') and os.getenv('GMAPS') and os.getenv('STRAVA_ID'):
     db = [os.getenv('DB_NAME'), os.getenv('DB_USER'), os.getenv('DB_PASSWORD'), os.getenv('DB_HOST'), os.getenv('DB_PORT')]
     aws = [os.getenv('AWS_KEY'), os.getenv('AWS_PASSWORD'),  os.getenv('AWS_BOTTLE')]
     email = [os.getenv('EMAIL_HOST'), os.getenv('EMAIL_NAME'), os.getenv('EMAIL_PASSWORD'), os.getenv('EMAIL_PORT')]
     gmaps_key = [os.getenv('GMAPS')]
+    strava_api = [os.getenv('STRAVA_ID'), os.getenv('STRAVA_KEY')]
 else:
     try:
-        from .config.config import db, aws, email, gmaps_key, secret_key
+        from .config.config import db, aws, email, gmaps_key, secret_key, strava_api
     except ImportError:
         exit('No configuration')
 
 GKEY = gmaps_key[0]
+STRAVA_DATA = strava_api
 
 if os.getenv('PROD'):
     prod = os.getenv('PROD')
@@ -46,6 +48,7 @@ else:
 ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'groups',
+    'health',
     'notifications',
     'inbox',
     'start',

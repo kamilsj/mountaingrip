@@ -8,13 +8,14 @@ from django.utils.translation import gettext as _
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['pic', 'cover', 'birthday', 'gender', 'country']
+        fields = ['pic', 'cover', 'birthday', 'gender', 'country', 'height']
         labels = {
             'pic': _('Your profile photo'),
             'cover': _('Your cover photo'),
             'birthday': _('Birthday'),
             'gender': _('Gender'),
-            'country': _('Country')
+            'country': _('Country'),
+            'height': _('Height')
         }
         widgets = {
             'birthday': forms.DateInput(attrs={'type': 'date'}),
@@ -35,7 +36,6 @@ class PostForm(ModelForm):
             raise forms.ValidationError(_('Your post is too long.'))
         else:
             raise forms.ValidationError(_('You have to write something :)'))
-
 
     def clean_trip(self):
         trip = self.cleaned_data['trip']

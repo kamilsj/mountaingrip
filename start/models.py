@@ -37,6 +37,7 @@ class Trip(models.Model):
     def __str__(self):
         return self.title
 
+
 class TripJoined(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_joined_trip", blank=False)
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name="trip_joined", default=0)
@@ -76,9 +77,9 @@ class Profile(models.Model):
     gender = models.BooleanField(choices=((0, "Male"), (1, "Female")), default=0)
     birthday = fields.BirthdayField(default=timezone.now)
     country = CountryField(blank=True)
+    height = models.IntegerField(blank=True, default=0)
     public_key = models.CharField(max_length=1024, blank=False, default='')
     private_key = models.CharField(max_length=1024, blank=False, default='')
-
 
     def __str__(self):
         return self.user.get_full_name()+' ('+self.user.username+')'

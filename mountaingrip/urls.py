@@ -18,6 +18,7 @@ urlpatterns += i18n_patterns(
     path('start/', include('start.urls')),
     path('groups/', include('groups.urls')),
     path('inbox/', include('inbox.urls')),
+    path('health/', include('health.urls')),
     path('notifications/', include('notifications.urls')),
     path('admin/', admin.site.urls),
     path('accounts/signup/', views.signup, name='signup'),
