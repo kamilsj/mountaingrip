@@ -32,7 +32,6 @@ django-storages = "*"
 
 #experimental features
 djangorestframework = "*"
-bokeh = "*"
 
 [requires]
 
