@@ -11,6 +11,13 @@ from datetime import datetime
 from func.AI.learn import WeightCalculations, CalcuclateChanges
 
 
+class Suggestions(APIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        pass
+
 class ActivitieData(APIView):
     pass
 

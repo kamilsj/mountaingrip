@@ -46,14 +46,6 @@ class Index(View):
         return redirect('health/')
 
 
-def activities(request):
-    from bokeh.io import output_notebook
-
-    data = {}
-
-    return render(request, 'start/activities.html', {'data': data})
-
-
 class ImportActivities(View):
 
     def get(self, request):
@@ -70,18 +62,27 @@ class ImportActivities(View):
             athlete = strava.get_athlete()
             activities = strava.get_activities()
             imported = ImportStravaDataApi()
-            imported.AddApi(request.user.id, activities)
+            imported.AddApi(request.user, activities)
 
             data = {
                 'athlete': athlete.firstname,
 
             }
 
-        return render(request, 'start/import_activities.html', {
+        return render(request, 'health/import_activities.html', {
             'data': data,
             'strava_url': strava_url
         })
 
     def post(self, request):
         pass
+
+
+def activities(request):
+    from bokeh.io import output_notebook
+
+    data = {}
+
+    return render(request, 'health/activities.html', {'data': data})
+
 

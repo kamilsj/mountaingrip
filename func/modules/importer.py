@@ -6,8 +6,8 @@ class ImportStravaDataApi:
     def __init__(self):
         pass
 
-    def AddApi(self, usrId, activities):
-        if usrId > 0 and activities:
+    def AddApi(self, user, activities):
+        if user.id > 0 and activities:
             for activity in activities:
                 if not ActivitiesStravaData.objects.filter(activity_id=activity.id):
 
@@ -43,6 +43,11 @@ class ImportStravaDataApi:
                             average_speed = float(activity.average_speed)
                         else:
                             average_speed = 0
+
+                        if activity.start_date is not None:
+                            start_date = str(activity.start_date)
+                        else:
+                            start_date = 0
 
                         if activity.max_speed is not None:
                             max_speed = float(activity.max_speed)
@@ -80,9 +85,10 @@ class ImportStravaDataApi:
                             calories = 0
 
                         ac = ActivitiesStravaData(
-                            usrId=usrId,
+                            user=user,
                             activity_id=activity_id,
                             name=name,
+                            start_date=start_date,
                             distance=distance,
                             moving_time=moving_time,
                             elapsed_time=elapsed_time,

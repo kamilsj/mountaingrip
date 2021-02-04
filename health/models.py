@@ -29,6 +29,7 @@ class ActivitiesStravaData(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_strava_activities", blank=False)
     activity_id = models.BigIntegerField(null=True)
     name = models.CharField(max_length=1024)
+    start_date = models.CharField(max_length=256, default='')
     distance = models.FloatField(null=True)
     moving_time = models.CharField(max_length=128)
     elapsed_time = models.CharField(max_length=128)
