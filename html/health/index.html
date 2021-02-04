@@ -2,8 +2,14 @@
 {% load i18n %}
 {% block title %}{% endblock %}
 {% block content %}
-<div class="container">
-    <div class="row align-items-left" style="margin-top: 10%">
+<div class="container" >
+    <div class="row" style="margin-top:9%">
+        <div style="margin-left: 110px;"></div>
+        <div class="col">
+            <a href="/health/import/" class="btn btn-secondary btn-sm">{% trans 'Import your activities' %}</a>
+        </div>
+    </div>
+    <div class="row align-items-left">
 
         {% if data.added == 1 %}
         <div class="col-sm-12">

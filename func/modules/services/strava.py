@@ -10,7 +10,7 @@ def CheckApiTokens(user):
         pass
 
 
-def StravaUrl(client_id=strava_data[0], redirect_url='http://127.0.0.1:8000/start/activities/import'):
+def StravaUrl(client_id=strava_data[0], redirect_url='http://127.0.0.1:8000/health/import'):
     client = Client()
     url = client.authorization_url(client_id=client_id, redirect_uri=redirect_url)
 

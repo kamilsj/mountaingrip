@@ -1,8 +1,6 @@
 .idea
 .nova
 .vs
-
-
 __pycache__
 migrations
 venv
