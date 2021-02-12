@@ -78,8 +78,8 @@ class Profile(models.Model):
     birthday = fields.BirthdayField(default=timezone.now)
     country = CountryField(blank=True)
     height = models.IntegerField(blank=True, default=0)
-    public_key = models.CharField(max_length=1024, blank=False, default='')
-    private_key = models.CharField(max_length=1024, blank=False, default='')
+    public_key = models.CharField(max_length=1024, blank=True, default='')
+    private_key = models.CharField(max_length=1024, blank=True, default='')
 
     def __str__(self):
         return self.user.get_full_name()+' ('+self.user.username+')'
