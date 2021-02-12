@@ -146,14 +146,15 @@ class ProfileUpdate(View):
             if form.is_valid():
                 if Profile.objects.filter(user=user).exists():
                     profile = Profile.objects.get(user=user)
+
                     if not form.cleaned_data.get('pic'):
                         pic = profile.pic
                     else:
-                        pic = form.cleaned_data.get('pic').url
+                        pic = 'profile/'.form.cleaned_data.get('pic')
                     if not form.cleaned_data.get('cover'):
                         cover = profile.cover
                     else:
-                        cover = form.cleaned_data.get('cover')
+                        cover = 'profile/'.form.cleaned_data.get('cover')
 
                     Profile.objects.filter(user=user).update(
                         pic=pic,
@@ -161,6 +162,7 @@ class ProfileUpdate(View):
                         gender=form.cleaned_data.get('gender'),
                         birthday=form.cleaned_data.get('birthday'),
                         country=form.cleaned_data.get('country'),
+                        height=form.cleaned_data.get('height')
                     )
                     return redirect('/start/profile/')
                 else:

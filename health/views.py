@@ -43,7 +43,7 @@ class Index(View):
                 obj.user = user
                 obj.save()
 
-        return redirect('health/')
+        return redirect('/health/')
 
 
 class ImportActivities(View):
@@ -79,7 +79,7 @@ class ImportActivities(View):
 
 
 def activities(request):
-    from bokeh.io import output_notebook
+    #from bokeh.io import output_notebook
 
     data = {}
 

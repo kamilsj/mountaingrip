@@ -1,6 +1,6 @@
 <table style="height: 100%">
     <tr>
-      <td class="align-middle"><img href="/start/profile/{{ id }}/" src="{{ pic }}" class="img-rounded rounded-circle border border-dark" style="width:40px; height: 40px; object-fit: cover;" /></td>
-      <td class="align-middle" style="width:30px"><a href="/start/profile/{{ id }}/" class="text-wrap btn btn-sm btn-light"> {{ name }} </a></td>
+        <td class="align-middle"><a href="{% url 'start:user_profile' id %}"><img  src="{{ pic }}" class="img-rounded rounded-circle border border-dark" style="width:40px; height: 40px; object-fit: cover;" /></a></td>
+      <td class="align-middle" style="width:30px"><a href="{% url 'start:user_profile' id %}" class="text-wrap btn btn-sm btn-light"> {{ name }} </a></td>
     </tr>
 </table>
