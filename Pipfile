@@ -21,7 +21,7 @@ Pillow = "*"
 django_cron = "*"
 django-widget-tweaks = "*"
 django-birthday = "*"
-#bokeh = "*"                #this package cannot be added by pip on heroku
+bokeh = "*"
 cryptography = "*"
 
 #upload files

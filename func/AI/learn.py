@@ -1,6 +1,6 @@
 from . import ml
 import math
-
+import numpy
 
 class CalcuclateChanges:
     

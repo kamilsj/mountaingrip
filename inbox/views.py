@@ -10,3 +10,11 @@ class Inbox(View):
     def post(self, request):
         pass
 
+
+class NewMessage(View):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        pass
+
