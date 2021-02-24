@@ -1,7 +1,7 @@
 '''Local config'''
 
-db = []
-aws = []
-email = []
+db = ['']
+aws = ['']
+email = ['']
 gmaps_key = ['GOOGLE MAPS API KEY']
 secret_key = ['']

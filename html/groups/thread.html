@@ -40,20 +40,20 @@
             <div class="list-group">
                 {% for post in data.posts %}
                 <div class="row mt-3">
-                    <div class="col-auto align-middle">{% show_avatar_small post.user.id %}</div>
-                    <div class="col-9 border rounded" style="background-color: white;">{{ post.text }}</div>
-                    <div class="col-2 mb-2"><small class="badge badge-sm badge-light">{{ post.added_at|naturaltime }}</small></div>
+                    <div class="col align-middle">{% show_avatar_small post.user.id %}</div>
+                    <div class="col-10 border rounded" style="background-color: white;">{{ post.text }}</div>
+                    <div class="col mb-2"><small class="badge badge-sm badge-light">{{ post.added_at|naturaltime }}</small></div>
                 </div>
                 {% endfor %}
                 <form method="post" enctype="multipart/form-data">
                 <div class="row form-group mt-5">
 
                         {% csrf_token %}
-                        <div class="col-auto text-wrap align-middle">{% show_avatar_small data.user.id %}</div>
+                        <div class="col text-wrap align-middle">{% show_avatar_small data.user.id %}</div>
                         <input type="hidden" id="id_thread" name="thread" value="{{ data.thread.id }}">
                         <input type="hidden" id="id_group" name="group" value="{{ data.thread.group.id }}">
-                        <div class="col-9"><textarea class="border rounded w-100" id="id_text" name="text" required></textarea></div>
-                        <div class="col-2"><button type="submit" class="btn btn-dark">{% trans 'Submit' %}</button></div>
+                        <div class="col-10"><textarea class="border rounded w-100" id="id_text" name="text" required></textarea></div>
+                        <div class="col-1"><button type="submit" class="btn btn-dark">{% trans 'Submit' %}</button></div>
 
                 </div>
                 </form>

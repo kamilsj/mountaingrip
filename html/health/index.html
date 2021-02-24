@@ -3,13 +3,14 @@
 {% block title %}{% endblock %}
 {% block content %}
 <div class="container" >
-    <div class="row" style="margin-top:9%">
+    <div class="row" style="margin-top: 70px;">
         <div style="margin-left: 110px;"></div>
         <div class="col">
+            <a href="/health/analytics/" class="btn btn-secondary btn-sm">{% trans 'Analiza' %}</a>
             <a href="/health/import/" class="btn btn-secondary btn-sm">{% trans 'Import your activities' %}</a>
         </div>
     </div>
-    <div class="row align-items-left">
+    <div class="row align-items-left mt-5">
 
         {% if data.added == 1 %}
         <div class="col-sm-12">

@@ -35,6 +35,7 @@ def index(request):
         Trips added within last 2 weeks
         if there are not any ... show at least last 10
         Which are not yet finished
+        Hide trips, which are already gone/past/only in memory of some people
         '''
         from_date = date - datetime.timedelta(days=14)
         if Trip.objects.filter(added_at__range=[from_date, date]).count() > 15:

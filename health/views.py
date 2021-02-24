@@ -78,11 +78,16 @@ class ImportActivities(View):
         pass
 
 
-def activities(request):
-    #from bokeh.io import output_notebook
+class Analytics(View):
 
-    data = {}
+    def get(self, request):
+        from bokeh.io import output_notebook
+        data = {}
 
-    return render(request, 'health/activities.html', {'data': data})
+        return render(request, 'health/activities.html', {'data': data})
+
+
+    def post(self, request):
+        pass
 
 
