@@ -2,13 +2,34 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import authentication, permissions
+from rest_framework import viewsets
+from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
 from health.models import HealthData
 from start.models import Profile
+from notifications.models import Notification
 from datetime import datetime
 
+from .serializers import UserSerializer
 from func.AI.learn import WeightCalculations, CalcuclateChanges
+
+class Notifications(APIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, id):
+        pass
+
+    def post(self, request, id):
+        pass
+
+class Autocomplete(APIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, query):
+        pass
+
 
 
 class Suggestions(APIView):
@@ -16,7 +37,15 @@ class Suggestions(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        pass
+        '''showing users nice suggestions of what to do, to read, to ask in the website'''
+        data = {
+            'works': 1,
+        }
+
+
+        return Response(data)
+
+
 
 class ActivitieData(APIView):
     pass
@@ -67,3 +96,7 @@ class ChartData(APIView):
         return Response(data)
 
 
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all().order_by('-date_joined')
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]

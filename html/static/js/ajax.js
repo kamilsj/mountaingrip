@@ -63,3 +63,12 @@ function checkMessages(user_id) {
     });
 
 }
+
+function checkNotifications(user_id){
+    $.ajax({
+        url: '/ajax/checknotifications/'+user_id+'/',
+        sucess: function (response){
+
+        }
+    })
+}

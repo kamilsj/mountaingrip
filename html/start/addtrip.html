@@ -40,9 +40,10 @@
                                 <input class="form-control" type="date" name="endDate " id="id_endDate" placeholder="{% trans "End date" %}">
                             </div>
                          {% elif field.name == 'cover' %}
-                            <div class="form-group">
-                                <input class="form-control-file" type="file" name="cover" id="id_cover" placeholder="{% trans "Cover photo" %}" required>
-                            </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="id_cover" name="cover" />
+                                <label class="custom-file-label" for="id_cover">{% trans 'Choose a file' %}</label>
+                            </div><br><br>
                         {% for error in field.errors %}
 
                             <div class="alert alert-danger" role="alert">{{ error }}</div>
@@ -56,6 +57,11 @@
         </div>
     </div>
 <script>
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
+
 $('#oneday').click(function(){
     if($(this.checked)){
         $('#id_endDate').prop('disabled', true);

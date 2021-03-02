@@ -47,6 +47,7 @@ else:
 
 ALLOWED_HOSTS = []
 INSTALLED_APPS = [
+    'shop',
     'groups',
     'health',
     'notifications',
@@ -59,6 +60,7 @@ INSTALLED_APPS = [
     'django_cron',
     'widget_tweaks',
     'storages',
+    'corsheaders',
     'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -75,7 +77,9 @@ LOCALE_PATHS = (
     os.path.join(BASE_DIR, 'locale'),
 )
 
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', #added
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -150,6 +154,13 @@ USE_L10N = True
 USE_TZ = False
 TIME_ZONE = 'Europe/Warsaw'
 
+#CORS HEADERS FOR WORKING WITH REACTJS
+CORS_ORIGIN_ALLOW_ALL = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
 
 # Static files (CSS, JavaScript, Images)
 django_heroku.settings(locals())

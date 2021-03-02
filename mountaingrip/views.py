@@ -17,12 +17,15 @@ import uuid
 from func.tokens import account_activation_token
 
 
+def about(request):
+    return render(request, 'about.html')
+
 def index(request):
 
     if request.user.is_authenticated:
         return redirect('/start/')
     else:
-        return render(request, 'index.html')
+        return render(request, 'start/index.html')
 
 
 def activate(request, uidb64, token):
@@ -72,9 +75,9 @@ def signup(request):
                     data = {'activation': 1}
                 else:
                     data = {'activation': 0}
-                return render(request, 'signup.html', {'data': data})
+                return render(request, 'start/signup.html', {'data': data})
         else:
             form = SignUpForm()
-        return render(request, 'signup.html', {'form': form})
+        return render(request, 'start/signup.html', {'form': form})
     else:
         return redirect('/start/')

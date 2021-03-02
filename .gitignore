@@ -4,6 +4,8 @@
 __pycache__
 migrations
 venv
+
+
 .DS_Store
 mountaingrip/config/config.py
 wing.wpr

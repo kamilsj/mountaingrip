@@ -1,0 +1,35 @@
+{% extends 'main.html' %}
+{% load i18n %}
+{% load humanize %}
+{% block title %}{% blocktrans %}Analyse your data{% endblocktrans %}{% endblock %}
+{% block content %}
+<style>
+.bk-logo, .bk-tool-icon-help {
+    display:none !important;
+}
+</style>
+<div class="container" style="margin-top:70px;">
+    <div class="row">
+        <div style="margin-left: 110px;"></div>
+        <div class="col">
+            <a href="/health/summary/" class="btn btn-secondary btn-sm">{% trans 'Summary' %}</a>
+            <a href="/health/import/" class="btn btn-secondary btn-sm">{% trans 'Import your activities' %}</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col mt-5">
+            <h5>{% trans 'Weight calculations' %}</h5>
+            {{ div|safe }}
+            {{ script|safe }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col mt-5">
+            <h5>{% trans 'Activities calculation' %}</h5>
+            {{ div2|safe }}
+            {{ script2|safe }}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -25,11 +25,19 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-4"></div>
-                   <div class="col-md-7 align-self-end mt-2">
-                        <h2 class="text-muted">{{ data.name }}</h2>
-                    </div>
+        <div class="col-3"></div>
+        <div class="col-9 mt-2">
+            <div class="ml-5">
+                <h2 class="text-muted">{{ data.name }} <b>({{ data.age }})</b></h2>
+                <small></small>
+            </div>
+         </div>
+    </div>
+    <div class="row">
+        <div class="col">
+
         </div>
+    </div>
     <div class="row" style="margin-top: 10%">
             <div class="col-sm-4">
             {{ data.message }}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-18 15:10+0100\n"
+"POT-Creation-Date: 2021-02-24 08:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,28 +17,36 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: groups/forms.py:16 groups/forms.py:35 groups/forms.py:72
+#: groups/forms.py:16 groups/forms.py:58 groups/forms.py:94
 msgid "Your description is a little bit too long."
 msgstr ""
 
-#: groups/forms.py:28 groups/forms.py:65
+#: groups/forms.py:24 groups/forms.py:35
+msgid "Cannot add post to this group."
+msgstr ""
+
+#: groups/forms.py:26 groups/forms.py:37
+msgid "There is a problem with this group"
+msgstr ""
+
+#: groups/forms.py:51 groups/forms.py:87
 msgid "Groups has to have a name :)"
 msgstr ""
 
-#: groups/forms.py:55
+#: groups/forms.py:78
 msgid "Group does not exists."
 msgstr ""
 
-#: groups/forms.py:57
+#: groups/forms.py:80
 msgid "Invalid groud code"
 msgstr ""
 
-#: groups/views.py:141 html/groups/create.html:10
+#: groups/views.py:151 html/groups/create.html:10
 #: html/registration/login.html:12
 msgid "Something is wrong."
 msgstr ""
 
-#: groups/views.py:143
+#: groups/views.py:153
 msgid "Form is not valid."
 msgstr ""
 
@@ -56,14 +64,14 @@ msgstr ""
 
 #: html/groups/index.html:4 html/groups/index.html:11
 #: html/groups/thread.html:16 html/groups/view.html:15
-msgid "Create group"
+msgid "Create a group"
 msgstr ""
 
-#: html/groups/index.html:16
+#: html/groups/index.html:20
 msgid "Your groups"
 msgstr ""
 
-#: html/groups/index.html:35
+#: html/groups/index.html:37
 msgid "Recent groups"
 msgstr ""
 
@@ -80,7 +88,7 @@ msgstr ""
 msgid "Add a post"
 msgstr ""
 
-#: html/groups/thread.html:54 html/groups/view.html:37
+#: html/groups/thread.html:56 html/groups/view.html:37
 msgid "Submit"
 msgstr ""
 
@@ -99,6 +107,18 @@ msgstr ""
 
 #: html/groups/view.html:34
 msgid "First post"
+msgstr ""
+
+#: html/health/index.html:9
+msgid "Analytics"
+msgstr ""
+
+#: html/health/index.html:10
+msgid "Import your activities"
+msgstr ""
+
+#: html/health/index.html:24
+msgid "add"
 msgstr ""
 
 #: html/inbox/inbox.html:3 html/notifications/notifications.html:3
@@ -130,48 +150,72 @@ msgid ""
 "Mountain Grip is a community dedicated to people who love climbing mountians."
 msgstr ""
 
-#: html/index.html:18 html/main.html:38 html/signup.html:60
+#: html/index.html:18 html/main.html:39 html/signup.html:60
 msgid "Sign up"
 msgstr ""
 
-#: html/main.html:42
+#: html/main.html:44
+msgid "Account"
+msgstr ""
+
+#: html/main.html:47
 msgid "Profile"
 msgstr ""
 
-#: html/main.html:46
+#: html/main.html:48
+msgid "Health"
+msgstr ""
+
+#: html/main.html:53
 msgid "Your trips"
 msgstr ""
 
-#: html/main.html:49
+#: html/main.html:56
 msgid "Add a trip"
 msgstr ""
 
-#: html/main.html:50
+#: html/main.html:57
 msgid "Explore"
 msgstr ""
 
-#: html/main.html:51
+#: html/main.html:58
 msgid "Past activities"
 msgstr ""
 
-#: html/main.html:56
+#: html/main.html:63
 msgid "Messages"
 msgstr ""
 
-#: html/main.html:61
+#: html/main.html:68
 msgid "Groups"
 msgstr ""
 
-#: html/main.html:75
+#: html/main.html:82
 msgid "Search"
 msgstr ""
 
-#: html/main.html:77
+#: html/main.html:84
 msgid "Logout"
 msgstr ""
 
-#: html/main.html:79 html/registration/login.html:27
+#: html/main.html:86 html/registration/login.html:27
 msgid "Log in"
+msgstr ""
+
+#: html/main.html:105
+msgid "about"
+msgstr ""
+
+#: html/main.html:106
+msgid "donate"
+msgstr ""
+
+#: html/main.html:107
+msgid "bugs"
+msgstr ""
+
+#: html/main.html:112
+msgid "Buy me a coffee"
 msgstr ""
 
 #: html/mountiangrip.html:4
@@ -311,11 +355,15 @@ msgstr ""
 msgid "Country"
 msgstr ""
 
-#: start/forms.py:35
+#: start/forms.py:18
+msgid "Height"
+msgstr ""
+
+#: start/forms.py:36
 msgid "Your post is too long."
 msgstr ""
 
-#: start/forms.py:37
+#: start/forms.py:38
 msgid "You have to write something :)"
 msgstr ""
 
@@ -323,6 +371,6 @@ msgstr ""
 msgid "Something is wrong"
 msgstr ""
 
-#: start/views.py:78 start/views.py:99
+#: start/views.py:86 start/views.py:112
 msgid "User does not exist"
 msgstr ""
