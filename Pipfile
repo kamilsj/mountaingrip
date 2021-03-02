@@ -8,6 +8,7 @@ sentry-sdk = "*"
 django = "*"
 gunicorn = "*"
 django-heroku = "*"
+django-cors-headers = "*"
 
 #SDK
 stravalib = "*"
