@@ -41,11 +41,11 @@ class PostForm(forms.ModelForm):
 class GroupForm(forms.ModelForm):
     class Meta:
         model = Group
-        fields = ['name', 'description', 'pic']
+        fields = ['name', 'description', 'pic', 'private']
 
     def clean_name(self):
         name = self.cleaned_data['name']
-        if len(name) > 1 and len(name) < 296:
+        if len(name) > 1 and len(name) < 256:
             return name
         else:
             raise forms.ValidationError(_('Groups has to have a name :)'))

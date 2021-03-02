@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Kamil Boberek <kboberek@gmail.com>, 2020
+# Kamil Boberek <kboberek@gmail.com>, 2021
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-18 15:10+0100\n"
+"POT-Creation-Date: 2021-02-24 08:07+0100\n"
 "PO-Revision-Date: 2018-09-02 08:58+0000\n"
-"Last-Translator: Kamil Boberek <kboberek@gmail.com>, 2020\n"
+"Last-Translator: Kamil Boberek <kboberek@gmail.com>, 2021\n"
 "Language-Team: Polish (Poland) (https://www.transifex.com/mountiangrip/teams/90567/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,28 +21,36 @@ msgstr ""
 "Language: pl_PL\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: groups/forms.py:16 groups/forms.py:35 groups/forms.py:72
+#: groups/forms.py:16 groups/forms.py:58 groups/forms.py:94
 msgid "Your description is a little bit too long."
 msgstr "Twój opis jest za długi."
 
-#: groups/forms.py:28 groups/forms.py:65
+#: groups/forms.py:24 groups/forms.py:35
+msgid "Cannot add post to this group."
+msgstr "Nie mogę dodać posta do tej grupy "
+
+#: groups/forms.py:26 groups/forms.py:37
+msgid "There is a problem with this group"
+msgstr "Jest jakiś problem z tą grupą"
+
+#: groups/forms.py:51 groups/forms.py:87
 msgid "Groups has to have a name :)"
 msgstr "Twoja grupa musi mieć jakaś nazwę :)"
 
-#: groups/forms.py:55
+#: groups/forms.py:78
 msgid "Group does not exists."
 msgstr "Taka grupa nie istnieje. "
 
-#: groups/forms.py:57
+#: groups/forms.py:80
 msgid "Invalid groud code"
 msgstr "Kod grupy jest nieprawidłowy. "
 
-#: groups/views.py:141 html/groups/create.html:10
+#: groups/views.py:151 html/groups/create.html:10
 #: html/registration/login.html:12
 msgid "Something is wrong."
 msgstr "Coś jest nie tak."
 
-#: groups/views.py:143
+#: groups/views.py:153
 msgid "Form is not valid."
 msgstr "Dane w formularzu nie są prawidłowe. "
 
@@ -60,14 +68,14 @@ msgstr "Dodaj"
 
 #: html/groups/index.html:4 html/groups/index.html:11
 #: html/groups/thread.html:16 html/groups/view.html:15
-msgid "Create group"
-msgstr "Utwórz grupę"
+msgid "Create a group"
+msgstr "Stwórz grupę"
 
-#: html/groups/index.html:16
+#: html/groups/index.html:20
 msgid "Your groups"
 msgstr "Twoje grupy"
 
-#: html/groups/index.html:35
+#: html/groups/index.html:37
 msgid "Recent groups"
 msgstr "Ostatnio dodane grupy"
 
@@ -84,7 +92,7 @@ msgstr "Taka grupa nie istnieje. "
 msgid "Add a post"
 msgstr "Dodaj posta"
 
-#: html/groups/thread.html:54 html/groups/view.html:37
+#: html/groups/thread.html:56 html/groups/view.html:37
 msgid "Submit"
 msgstr "Dodaj"
 
@@ -104,6 +112,18 @@ msgstr "Tytuł"
 #: html/groups/view.html:34
 msgid "First post"
 msgstr "Pierwszy post. "
+
+#: html/health/index.html:9
+msgid "Analytics"
+msgstr "Analiza"
+
+#: html/health/index.html:10
+msgid "Import your activities"
+msgstr "Importuj swoje aktywności"
+
+#: html/health/index.html:24
+msgid "add"
+msgstr "dodaj"
 
 #: html/inbox/inbox.html:3 html/notifications/notifications.html:3
 msgid "Inbox - Mountain Grip"
@@ -136,49 +156,73 @@ msgid ""
 msgstr ""
 "Mountain Grip to wspólnota ludzi, którzy naprawdę kochają górskie wyprawy. "
 
-#: html/index.html:18 html/main.html:38 html/signup.html:60
+#: html/index.html:18 html/main.html:39 html/signup.html:60
 msgid "Sign up"
 msgstr "Dołącz"
 
-#: html/main.html:42
+#: html/main.html:44
+msgid "Account"
+msgstr "Konto"
+
+#: html/main.html:47
 msgid "Profile"
 msgstr "Profil"
 
-#: html/main.html:46
+#: html/main.html:48
+msgid "Health"
+msgstr "Zdrowie"
+
+#: html/main.html:53
 msgid "Your trips"
 msgstr "Twoje wyprawy"
 
-#: html/main.html:49
+#: html/main.html:56
 msgid "Add a trip"
 msgstr "Dodaj wyprawę"
 
-#: html/main.html:50
+#: html/main.html:57
 msgid "Explore"
 msgstr "Przeszukaj"
 
-#: html/main.html:51
+#: html/main.html:58
 msgid "Past activities"
 msgstr "Ostatnie wyprawy"
 
-#: html/main.html:56
+#: html/main.html:63
 msgid "Messages"
 msgstr "Wiadomości"
 
-#: html/main.html:61
+#: html/main.html:68
 msgid "Groups"
 msgstr "Grupy"
 
-#: html/main.html:75
+#: html/main.html:82
 msgid "Search"
 msgstr "Szukaj"
 
-#: html/main.html:77
+#: html/main.html:84
 msgid "Logout"
 msgstr "Wyloguj"
 
-#: html/main.html:79 html/registration/login.html:27
+#: html/main.html:86 html/registration/login.html:27
 msgid "Log in"
 msgstr "Zaloguj"
+
+#: html/main.html:105
+msgid "about"
+msgstr "o nas"
+
+#: html/main.html:106
+msgid "donate"
+msgstr "dotacja"
+
+#: html/main.html:107
+msgid "bugs"
+msgstr "błędy"
+
+#: html/main.html:112
+msgid "Buy me a coffee"
+msgstr "Zaproś mnie na kawę"
 
 #: html/mountiangrip.html:4
 msgid "Start searching for people"
@@ -318,11 +362,15 @@ msgstr "Płeć"
 msgid "Country"
 msgstr "Państwo"
 
-#: start/forms.py:35
+#: start/forms.py:18
+msgid "Height"
+msgstr "Wysokość"
+
+#: start/forms.py:36
 msgid "Your post is too long."
 msgstr "Twój post jest za długi. "
 
-#: start/forms.py:37
+#: start/forms.py:38
 msgid "You have to write something :)"
 msgstr "Napisz coś :)"
 
@@ -330,6 +378,6 @@ msgstr "Napisz coś :)"
 msgid "Something is wrong"
 msgstr "Coś jest nie tak."
 
-#: start/views.py:78 start/views.py:99
+#: start/views.py:86 start/views.py:112
 msgid "User does not exist"
 msgstr "Nie ma takiego użytkownika."

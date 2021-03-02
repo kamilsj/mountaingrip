@@ -1,6 +1,6 @@
 from . import ml
 import math
-import numpy
+import numpy as n
 
 class CalcuclateChanges:
     
@@ -22,24 +22,27 @@ class WeightCalculations:
         pass
 
     def WeightIdeal(self, gender, height):
-        ratio = (height - 152.4)/2.54
-        if gender == 0:
-            delta = 1.41*ratio
-            weight = 56.2+delta
+        if height > 0 and height < 300:
+            ratio = (height - 152.4)/2.54
+            if gender == 0:
+                delta = 1.41*ratio
+                weight = 56.2+delta
+            else:
+                delta = 1.36*ratio
+                weight = 53.1+delta
+
+            bmi = weight / (height / 100) ** 2
+            result = [weight, bmi]
+
+            return result
         else:
-            delta = 1.36*ratio
-            weight = 53.1+delta
-
-        bmi = weight / (height / 100) ** 2
-        result = [weight, bmi]
-
-        return result
+            return 0
 
 
 
     def BodyFatIdeal(self, gender, age):
         result = 0
-        if gender==0:
+        if gender == 0:
             if 20 <= age < 30:
                 result = 8.5
             elif 25 <= age < 30:
@@ -77,12 +80,12 @@ class WeightCalculations:
         return result
 
 
-
     def BodyFat(self, gender, neck, hip, waist, height):
-
-        if gender == 0:
-            result = (495/(1.0324 - 0.19077*math.log(waist-neck, 10)+0.15456*math.log(height, 10))) - 450
+        if neck > 0 and hip > 0 and waist > 0 and height > 0:
+            if gender == 0:
+                result = (495/(1.0324 - 0.19077*math.log(waist-neck, 10)+0.15456*math.log(height, 10))) - 450
+            else:
+                result = (495/(1.29579 - 0.35004*math.log(waist+hip-neck, 10) + 0.22100*math.log(height, 10))) - 450
+            return result
         else:
-            result = (495/(1.29579 - 0.35004*math.log(waist+hip-neck, 10) + 0.22100*math.log(height, 10))) - 450
-
-        return result
+            return 0

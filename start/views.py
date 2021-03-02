@@ -10,7 +10,7 @@ from .forms import TripForm, SearchForm, PostForm, ProfileForm
 
 from func.site_functions import common
 
-import datetime
+from datetime import date, datetime, timedelta
 from django.utils import timezone
 
 import googlemaps
@@ -19,25 +19,13 @@ gkey = settings.GKEY
 gmaps = googlemaps.Client(key=gkey)
 
 
-def tensorflow():
-    pass
-
-
 def index(request):
     if request.user.is_authenticated:
         user = request.user
-        date = datetime.datetime.now(tz=timezone.utc)
-
-        data = {}
-        addedby = {}
+        date = datetime.now(tz=timezone.utc)
         posts = {}
-        '''
-        Trips added within last 2 weeks
-        if there are not any ... show at least last 10
-        Which are not yet finished
-        Hide trips, which are already gone/past/only in memory of some people
-        '''
-        from_date = date - datetime.timedelta(days=14)
+
+        from_date = date - timedelta(days=14)
         if Trip.objects.filter(added_at__range=[from_date, date]).count() > 15:
             trips = Trip.objects.filter(added_at__range=[from_date, date]).all()[:16]
         else:
@@ -49,7 +37,7 @@ def index(request):
             'posts': posts,
         }
 
-        return render(request, 'mountiangrip.html', {'data': data})
+        return render(request, 'start/mountiangrip.html', {'data': data})
 
     else:
         return redirect('/')
@@ -67,24 +55,35 @@ class ProfileView(View):
                     name = user.get_full_name()
                     if Profile.objects.filter(user_id=id).exists():
                         profile = Profile.objects.get(user_id=id)
+                        if not profile.height > 0:
+                            update_profile = 1
+                        else:
+                            update_profile = 0
                         pic = common.check_pic(profile.pic)
                         cover = common.check_cover(profile.cover)
+                        age = (date.today() - profile.birthday) // timedelta(days=365.2425)
+
                         if Post.objects.filter(profile_id=id).count() > 0:
                             posts = Post.objects.filter(profile_id=id).order_by('-added_at').all()
                         else:
                             posts = ''
+
                         data = {
                             'id': id,
                             'name': name,
                             'curl': cover,
                             'purl': pic,
-                            'posts': posts
+                            'posts': posts,
+                            'age': age,
+                            'update': update_profile
                         }
+
             except User.DoesNotExist:
                 data = {
                     'notexists': 1,
                     'name': _('User does not exist')
                 }
+
         else:
             user = request.user
 
@@ -93,6 +92,8 @@ class ProfileView(View):
                 profile = Profile.objects.get(user_id=user.id)
                 pic = common.check_pic(profile.pic)
                 cover = common.check_cover(profile.cover)
+                age = (date.today() - profile.birthday) // timedelta(days=365.2425)
+
                 if Post.objects.filter(profile_id=user.id).count() > 0:
                     posts = Post.objects.filter(profile_id=user.id).order_by('-added_at').all()
                 else:
@@ -103,7 +104,9 @@ class ProfileView(View):
                     'name': name,
                     'curl': cover,
                     'purl': pic,
-                    'posts': posts
+                    'posts': posts,
+                    'age': age
+
                 }
 
             else:
@@ -111,8 +114,7 @@ class ProfileView(View):
                     'notexists': 1,
                     'name': _('User does not exist')
                 }
-        return render(request, 'profile.html', {'data': data, 'form': form})
-
+        return render(request, 'start/profile.html', {'data': data, 'form': form})
 
     def post(self, request, id=0):
         form = PostForm(request.POST)
@@ -130,6 +132,7 @@ class ProfileView(View):
             else:
                 return redirect('/start/profile/')
 
+
 class ProfileUpdate(View):
     form_class = ProfileForm
     template_name = 'start/profile_update.html'
@@ -143,33 +146,15 @@ class ProfileUpdate(View):
     def post(self, request):
         if request.method == 'POST':
             user = request.user
-            form = self.form_class(request.POST or None, request.FILES or None)
-            if form.is_valid():
-                if Profile.objects.filter(user=user).exists():
-                    profile = Profile.objects.get(user=user)
-
-                    if not form.cleaned_data.get('pic'):
-                        pic = profile.pic
-                    else:
-                        pic = 'profile/'.form.cleaned_data.get('pic')
-                    if not form.cleaned_data.get('cover'):
-                        cover = profile.cover
-                    else:
-                        cover = 'profile/'.form.cleaned_data.get('cover')
-
-                    Profile.objects.filter(user=user).update(
-                        pic=pic,
-                        cover=cover,
-                        gender=form.cleaned_data.get('gender'),
-                        birthday=form.cleaned_data.get('birthday'),
-                        country=form.cleaned_data.get('country'),
-                        height=form.cleaned_data.get('height')
-                    )
-                    return redirect('/start/profile/')
+            if Profile.objects.filter(user=user).exists():
+                profile = Profile.objects.get(user=user)
+                form = self.form_class(request.POST or None, request.FILES or None, instance=profile)
+                if form.is_valid():
+                        obj = form.save(commit=False)
+                        obj.save()
+                        return redirect('/start/profile/')
                 else:
-                    pass
-            else:
-                return render(request, 'start/profile_update.html', {'form': form})
+                    return render(request, 'start/profile_update.html', {'form': form})
 
 
 class Explore(View):
@@ -298,7 +283,7 @@ def q(request):
 
 
         
-        return render(request, 'searchresult.html', {'data': data, 'q': q})
+        return render(request, 'start/searchresult.html', {'data': data, 'q': q})
     else:
         return None
 
