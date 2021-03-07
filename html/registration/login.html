@@ -9,14 +9,15 @@
       {% if form.errors %}
           <div class="row justify-content-center align-items-center">
               <div class="alert alert-danger" role="alert">
-              {% trans "Something is wrong." %}
+              {% for error in form.non_field_errors %}
+                  {{ error|escape }}
+              {% endfor %}
               </div>
           </div>
       {% endif %}
      <div class="row justify-content-center align-items-center">
         <form method="post">
             {% csrf_token %}
-
               <div class="form-group">
                 <input placeholder="{% trans "Username" %}" type="text" class="form-control form-control-lg" id="id_username" name="username" aria-describedby="emailHelp" required>
                 <small id="emailHelp" class="form-text text-muted"></small>

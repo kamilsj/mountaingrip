@@ -9,6 +9,11 @@
             {% if data.activation == 1 %}
                 <div class="alert alert-success" role="alert">{% trans "Activation email was sent to you. Check your SPAM box as well." %}</div>
             {% else %}
+                {% for error in field.non_field_errors %}
+                  <div class="alert alert-danger" role="alert">
+                  {{ error|escape }}
+                  </div>
+                {% endfor %}
               <form method="post">
                 {% csrf_token %}
                   {% for field in form %}
@@ -43,11 +48,7 @@
                                 <input class="form-control" type="password" placeholder="{% trans "Confirm password"  %}" id="id_password2" name="password2" required>
                           </div>
                       {% endif %}
-                      {% for error in field.errors %}
-                          <div class="alert alert-danger" role="alert">
-                          {{ error }}
-                          </div>
-                      {% endfor %}
+
                   {% endfor %}
 
 

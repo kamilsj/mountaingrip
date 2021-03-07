@@ -24,6 +24,7 @@ class Thread(models.Model):
     def __str__(self):
         return self.name[:50]
 
+
 class ThreadPost(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="group_post_author", blank=False)
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE, related_name="posted_in_thread", blank=False)

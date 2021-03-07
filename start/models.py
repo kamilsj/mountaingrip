@@ -50,7 +50,7 @@ class TripJoined(models.Model):
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="post_author", blank=False)
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name="posted_on_trip", blank=True, null=True)
-    profile_id = models.BigIntegerField(default=0)
+    profile_id = models.PositiveBigIntegerField(default=0)
     text = models.TextField(max_length=4096, blank=False)
     added_at = models.DateTimeField(auto_now_add=True)
 
@@ -62,7 +62,7 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comment_author", blank=False)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="commented_post", default=0)
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE, related_name="commented_trip", default=0)
-    reply_id = models.BigIntegerField(default=0)
+    reply_id = models.PositiveBigIntegerField(default=0)
     text = models.TextField(max_length=4096, blank=False)
     added_at = models.DateTimeField(auto_now_add=True)
 
@@ -77,9 +77,11 @@ class Profile(models.Model):
     gender = models.BooleanField(choices=((0, "Male"), (1, "Female")), default=0)
     birthday = fields.BirthdayField(default=timezone.now)
     country = CountryField(blank=True)
-    height = models.IntegerField(blank=True, default=0)
+    height = models.PositiveSmallIntegerField(blank=True, default=0)
     public_key = models.CharField(max_length=1024, blank=True, default='')
     private_key = models.CharField(max_length=1024, blank=True, default='')
+    #SPECIAL TESTING FUNCTION CHANGED MANUALLY
+    beta = models.BooleanField(default=0)
 
     def __str__(self):
         return self.user.get_full_name()+' ('+self.user.username+')'

@@ -10,6 +10,11 @@
             <div class="col-md-6">
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
+
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger" role="alert">{{ error|escape }}</div>
+                    {% endfor %}
+
                     {% for field in form %}
                         {% if field.name == 'title' %}
                             <div class="form-group">
@@ -44,14 +49,9 @@
                                 <input type="file" class="custom-file-input" id="id_cover" name="cover" />
                                 <label class="custom-file-label" for="id_cover">{% trans 'Choose a file' %}</label>
                             </div><br><br>
-                        {% for error in field.errors %}
-
-                            <div class="alert alert-danger" role="alert">{{ error }}</div>
-
-                        {% endfor %}
                         {% endif %}
                     {% endfor %}
-                    <button class="btn btn-lg btn-primary btn-block .w-50" type="submit">Add trip</button>
+                    <button class="btn btn-lg btn-primary btn-block .w-50" type="submit">{% trans 'Add a trip' %}</button>
                   </form>
             </div>
         </div>

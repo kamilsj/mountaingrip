@@ -1,6 +1,7 @@
 from django import forms
 from .models import Group, Thread, ThreadPost, ThreadPic
 from django.utils.translation import gettext as _
+from datetime import datetime, timedelta
 
 
 class PostForm(forms.ModelForm):
@@ -25,7 +26,6 @@ class PostForm(forms.ModelForm):
         else:
             raise forms.ValidationError(_('There is a problem with this group'))
 
-
     def clean_thread(self):
         thread = self.cleaned_data['thread']
         if thread.id > 0:
@@ -37,15 +37,24 @@ class PostForm(forms.ModelForm):
             raise forms.ValidationError(_('There is a problem with this group'))
 
 
-
 class GroupForm(forms.ModelForm):
     class Meta:
         model = Group
         fields = ['name', 'description', 'pic', 'private']
 
+    def clean(self):
+        cleaned_data = super().clean()
+        name = cleaned_data.get('name')
+        desc = cleaned_data.get('description')
+        time_threshold = datetime.now() - timedelta(seconds=70*60)
+        print(name, desc, time_threshold)
+        if Group.objects.filter(name=name, description=desc, added_at__gte=time_threshold).exists():
+            raise forms.ValidationError(_('This group was added just few minutes ago.'))
+
+
     def clean_name(self):
         name = self.cleaned_data['name']
-        if len(name) > 1 and len(name) < 256:
+        if 1 < len(name) < 256:
             return name
         else:
             raise forms.ValidationError(_('Groups has to have a name :)'))
@@ -77,11 +86,11 @@ class ThreadForm(forms.ModelForm):
             else:
                 raise forms.ValidationError(_('Group does not exists.'))
         else:
-            raise forms.ValidationError(_('Invalid groud code'))
+            raise forms.ValidationError(_('Invalid group code'))
 
     def clean_name(self):
         name = self.cleaned_data['name']
-        if len(name) > 1 and len(name) < 296:
+        if 1 < len(name) < 296:
             return name
         else:
             raise forms.ValidationError(_('Groups has to have a name :)'))
