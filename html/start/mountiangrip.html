@@ -20,7 +20,8 @@
     </div>
     <div class="container">
         <div class="row mt-3">
-            <div id="suggestions" class="col-8"></div>
+            <div id="suggestions" class="col-7"></div>
+            <div class="col"></div>
             <div class="col-auto">
                     {% for trip in data.trips %}
                     <div id="trip{{ trip.id }}" class="row border border-dark rounded"
@@ -38,13 +39,17 @@
                                 <p class="badge badge-light"><a href="/start/q/?what={{ trip.basePlace }}"> {{ trip.basePlace }} </a><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
       <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm2.5 8.5a.5.5 0 0 1 0-1h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5z"/>
                                 </svg><a href="/start/q/?what={{ trip.mountainName }}"> {{ trip.mountainName }} </a></p><br>
-                                <p class="badge text-wrap {% if today < trip.added_at|date:"Y-m-d" %}
-                                badge-info
-                                {% else %}
+                                <p class="badge text-wrap {% if today > trip.added_at|date:"Y-m-d" %}
                                 badge-danger
-                                {% endif %}">{{ trip.startDate }} <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                {% else %}
+                                badge-info
+                                {% endif %}">{{ trip.startDate }}
+                                {% if trip.endDate != None %}
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-square-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm2.5 8.5a.5.5 0 0 1 0-1h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5z"/>
-                            </svg> {{ trip.endDate }}</p></div>
+                            </svg> {{ trip.endDate }}</p>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                         <br>
@@ -53,6 +58,6 @@
 
         </div>
     </div>
-    <!-- first react.js scritp without node nor jsx -->
+    <!-- first react.js script without node nor jsx -->
     <script src="{% static 'js/reactjs/ui.js' %}"></script>
 {% endblock %}

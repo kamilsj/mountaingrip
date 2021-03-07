@@ -156,6 +156,8 @@ TIME_ZONE = 'Europe/Warsaw'
 
 #CORS HEADERS FOR WORKING WITH REACTJS
 CORS_ORIGIN_ALLOW_ALL = True
+#GLOBAL BETA FUNCTION -> allows beta testing -if function is off nobody can test new features
+BETA = True
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',

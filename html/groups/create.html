@@ -7,7 +7,12 @@
       {% if form.errors %}
           <div class="row justify-content-center align-items-center">
               <div class="alert alert-danger" role="alert">
-              {% trans "Something is wrong." %}
+                  {% for error in form.non_field_errors  %}
+                  {{ error|escape }}
+                  {% endfor %}
+                  {% for error in form.errors  %}
+                  {{ error|escape }}
+                  {% endfor %}
               </div>
           </div>
       {% endif %}
@@ -27,6 +32,7 @@
                 </div><br><br>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans "Add" %}</button>
             </div>
+        </form>
     </div>
 </div>
 <script>

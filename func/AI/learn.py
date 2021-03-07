@@ -2,12 +2,13 @@ from . import ml
 import math
 import numpy as n
 
+
 class CalcuclateChanges:
-    
+
     def __init__(self):
-        pass
+        self.data = n.array()
         
-    def WeightChanges(weight):
+    def WeightChanges(self, weight):
         
         x = 1
         
@@ -19,10 +20,10 @@ class CalcuclateChanges:
 class WeightCalculations:
 
     def __init__(self):
-        pass
+        self.result = []
 
     def WeightIdeal(self, gender, height):
-        if height > 0 and height < 300:
+        if 0 < height < 300:
             ratio = (height - 152.4)/2.54
             if gender == 0:
                 delta = 1.41*ratio
@@ -38,10 +39,7 @@ class WeightCalculations:
         else:
             return 0
 
-
-
     def BodyFatIdeal(self, gender, age):
-        result = 0
         if gender == 0:
             if 20 <= age < 30:
                 result = 8.5
@@ -78,7 +76,6 @@ class WeightCalculations:
                 result = 26.3
 
         return result
-
 
     def BodyFat(self, gender, neck, hip, waist, height):
         if neck > 0 and hip > 0 and waist > 0 and height > 0:

@@ -13,6 +13,7 @@ from datetime import datetime
 from .serializers import UserSerializer
 from func.AI.learn import WeightCalculations, CalcuclateChanges
 
+
 class Notifications(APIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
@@ -23,13 +24,13 @@ class Notifications(APIView):
     def post(self, request, id):
         pass
 
+
 class Autocomplete(APIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request, query):
         pass
-
 
 
 class Suggestions(APIView):
@@ -39,7 +40,10 @@ class Suggestions(APIView):
     def get(self, request):
         '''showing users nice suggestions of what to do, to read, to ask in the website'''
         data = {
-            'works': 1,
+            'groups': [
+                {'id': 1},
+                {'id': 2}
+            ]
         }
 
 

@@ -4,6 +4,11 @@
 
 {% block content %}
 <div class="container" style="margin-top: 70px;">
+{% if data.info %}
+    <div class="row"><div class="col d-flex justify-content-center"><div class="alert alert-danger">{{ data.info }}</div></div></div>
+{% else %}
+
+
     <div class="row">
         <div style="margin-left: 110px;"></div>
         <div class="col">
@@ -47,11 +52,14 @@
                 <div class="form-group">
                     <textarea class="form-control" type="text"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg">{% trans 'Send' %}</button>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-sm">{% trans 'Send' %}</button>
+                </div>
             </form>
           </div>
         </div>
       </div>
     </div>
+{% endif %}
 </div>
 {% endblock %}

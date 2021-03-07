@@ -22,14 +22,18 @@ gmaps = googlemaps.Client(key=gkey)
 def index(request):
     if request.user.is_authenticated:
         user = request.user
+        #asign beta user
+        beta = Profile.objects.values('beta').get(user=user)
+        request.session['beta'] = beta['beta']
+        ################
         date = datetime.now(tz=timezone.utc)
         posts = {}
 
         from_date = date - timedelta(days=14)
         if Trip.objects.filter(added_at__range=[from_date, date]).count() > 15:
-            trips = Trip.objects.filter(added_at__range=[from_date, date]).all()[:16]
+            trips = Trip.objects.filter(added_at__range=[from_date, date]).order_by('-startDate').all()[:16]
         else:
-            trips = Trip.objects.all()[:16]
+            trips = Trip.objects.order_by('-startDate').all()[:16]
 
         data = {
             'user': user.get_full_name(),
@@ -53,6 +57,7 @@ class ProfileView(View):
                 user = User.objects.get(id=id)
                 if user:
                     name = user.get_full_name()
+                    print(datetime.now())
                     if Profile.objects.filter(user_id=id).exists():
                         profile = Profile.objects.get(user_id=id)
                         if not profile.height > 0:
@@ -61,7 +66,10 @@ class ProfileView(View):
                             update_profile = 0
                         pic = common.check_pic(profile.pic)
                         cover = common.check_cover(profile.cover)
-                        age = (date.today() - profile.birthday) // timedelta(days=365.2425)
+                        if profile.birthday:
+                            age = (date.today() - profile.birthday) // timedelta(days=365.2425)
+                        else:
+                            age = 0
 
                         if Post.objects.filter(profile_id=id).count() > 0:
                             posts = Post.objects.filter(profile_id=id).order_by('-added_at').all()
@@ -139,8 +147,7 @@ class ProfileUpdate(View):
 
     def get(self, request):
         init_data = Profile.objects.get(user=request.user)
-        form = self.form_class(initial={'pic': init_data.pic, 'cover': init_data.cover, 'birthday': init_data.birthday,
-                                        'gender': init_data.gender, 'country': init_data.country, 'height': init_data.height})
+        form = self.form_class(instance=init_data)
         return render(request, 'start/profile_update.html', {'form': form})
 
     def post(self, request):

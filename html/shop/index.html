@@ -1,0 +1,15 @@
+{% extends 'main.html' %}
+{% load i18n %}
+{% load humanize %}
+{% block title %}{% blocktrans %}Sell and buy outdoor clothes and equipment{% endblocktrans %}{% endblock %}
+
+{% block content %}
+
+    <div class="container" style="margin-top: 70px;">
+{% if data.info %}
+    <div class="row"><div class="col d-flex justify-content-center"><div class="alert alert-danger">{{ data.info }}</div></div></div>
+{% else %}
+
+{% endif %}
+    </div>
+{% endblock %}

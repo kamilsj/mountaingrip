@@ -12,3 +12,7 @@ class ThreadAdmin(admin.ModelAdmin):
     date_hierarchy = 'added_at'
 
 
+@admin.register(ThreadPost)
+class ThreadPostAdmin(admin.ModelAdmin):
+    date_hierarchy = 'added_at'
+
