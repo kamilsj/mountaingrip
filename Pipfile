@@ -18,6 +18,7 @@ googlemaps = "*"
 #Important packaches
 psycopg2-binary = "*"
 django-countries = "*"
+djangorestframework-api-key = "*"
 Pillow = "*"
 django_cron = "*"
 django-widget-tweaks = "*"
