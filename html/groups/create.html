@@ -16,29 +16,23 @@
               </div>
           </div>
       {% endif %}
-    <div class="row justify-content-center align-items-center">
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="form-group">
-                <input type="text" size="40" id="id_name" name="name" class="form-control form-control-lg" maxlength="256" placeholder="{% trans 'Group name'  %}" required/><br />
-                <textarea type="text" size="40" id="id_description" name="description" class="form-control" maxlength="4096" placeholder="Description"></textarea><br />
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="id_pic" name="pic" />
-                    <label class="custom-file-label" for="id_pic">{% trans 'Choose file' %}</label>
-                </div><br/><br/>
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="id_private" name="private" value="1" />
-                  <label class="custom-control-label" for="id_private">{% trans 'Private group' %}</label>
-                </div><br><br>
-                <button class="btn btn-lg btn-primary btn-block" type="submit">{% trans "Add" %}</button>
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <input type="text" size="40" id="id_name" name="name" class="form-control form-control-lg" maxlength="256" placeholder="{% trans 'Group name'  %}" required/><br />
+                    <textarea type="text" size="40" id="id_description" name="description" class="form-control" maxlength="4096" placeholder="Description"></textarea><br />
+                    <div class="mb-3">
+                        <input type="file" class="form-control" id="id_pic" name="pic" />
+                    </div>
+                    <div class="form-check form-switch mb-5">
+                      <input type="checkbox" class="form-check-input" id="id_private" name="private" value="1" />
+                      <label class="form-check-label" for="id_private">{% trans 'Private group' %}</label>
+                    </div>
+                    <div class="text-center"><button class="btn btn-lg btn-primary btn-block" type="submit">{% trans "Add" %}</button></div>
+                </div>
             </div>
         </form>
     </div>
-</div>
-<script>
-$(".custom-file-input").on("change", function() {
-  var fileName = $(this).val().split("\\").pop();
-  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-});
-</script>
+
 {% endblock %}

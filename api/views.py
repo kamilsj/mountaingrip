@@ -41,8 +41,7 @@ class Suggestions(APIView):
         '''showing users nice suggestions of what to do, to read, to ask in the website'''
         data = {
             'groups': [
-                {'id': 1},
-                {'id': 2}
+
             ]
         }
 

@@ -68,7 +68,7 @@ def signup(request):
                     'token': account_activation_token.make_token(user),
                 })
                 email = EmailMessage(
-                    mail_subject, message, from_email='noreply@mountaingrip.com', to=[to_email]
+                    mail_subject, message, from_email='kboberek@gmail.com', to=[to_email]
                 )
 
                 if email.send():

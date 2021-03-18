@@ -10,15 +10,13 @@
         <div class="row mt-5 justify-content-center"><div class="alert alert-danger" role="alert">{% trans "Group does not exist." %}</div></div>
     {% else %}
 
-    <div class="row">
-        <div style="margin-left: 110px;"></div>
-        <div class="col">
-            <a href="/groups/create/" class="btn btn-secondary btn-sm">{% trans 'Create a group' %}</a>
-            <a class="btn btn-secondary btn-sm" href="#id_text">{% trans 'Add a post' %}</a>
-
+    <div class="d-flex justify-content-center">
+        <div class="btn-group" role="group">
+            <a href="/groups/create/" class="btn btn-outline-primary btn-sm">{% trans 'Create a group' %}</a>
+            <a class="btn btn-outline-primary  btn-sm" href="#id_text">{% trans 'Add a post' %}</a>
         </div>
     </div>
-    <div class="row  justify-content-left mt-5">
+    <div class="row justify-content-left mt-5">
 
         <div class="col">
 
@@ -35,31 +33,25 @@
         <div class="col"></div>
 
     </div>
-    <div class="row mt-5">
-        <div class="col">
-            <div class="list-group">
+            <div class="list-group mt-2">
                 {% for post in data.posts %}
-                <div class="row mt-3">
-                    <div class="col-1 align-middle">{% show_avatar_small post.user.id %}</div>
-                    <div class="col-10 border rounded" style="background-color: white;">{{ post.text }}</div>
-                    <div class="col-1 mb-2"><small class="badge badge-sm badge-light text-wrap">{{ post.added_at|naturaltime }}</small></div>
+                <div class="d-flex">
+                    <div class="p-2">{% show_avatar_small post.user.id %}</div>
+                    <div class="p-1 flex-fill border rounded" style="background-color: white;">{{ post.text }}</div>
+                    <div class="m-1" style="width:25px;"><small class="badge bg-light text-wrap text-dark">{{ post.added_at|naturaltime }}</small></div>
                 </div>
                 {% endfor %}
                 <form method="post" enctype="multipart/form-data">
-                <div class="row form-group mt-5">
-
+                <div class="d-flex mt-4">
                         {% csrf_token %}
-                        <div class="col-1 text-wrap align-middle">{% show_avatar_small data.user.id %}</div>
+                        <div class="p-2">{% show_avatar_small data.user.id %}</div>
                         <input type="hidden" id="id_thread" name="thread" value="{{ data.thread.id }}">
                         <input type="hidden" id="id_group" name="group" value="{{ data.thread.group.id }}">
-                        <div class="col-10"><textarea class="border rounded w-100" id="id_text" name="text" required></textarea></div>
-                        <div class="col-1"><button type="submit" class="btn btn-dark">{% trans 'Submit' %}</button></div>
-
+                        <div class="flex-fill"><textarea class="border rounded w-100" id="id_text" name="text" required></textarea></div>
+                    <div class="p-2"><button type="submit" class="btn btn-dark">{% trans 'Submit' %}</button></div>
                 </div>
                 </form>
             </div>
-        </div>
-    </div>
     {% endif %}
 </div>
 {% endblock %}

@@ -47,6 +47,7 @@ else:
 
 ALLOWED_HOSTS = []
 INSTALLED_APPS = [
+    'ranking',
     'shop',
     'groups',
     'health',
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
     'start',
     'api',
     'rest_framework',
+    'rest_framework_api_key',
     'django_countries',
     'birthday',
     'django_cron',

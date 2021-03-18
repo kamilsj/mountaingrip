@@ -6,15 +6,12 @@
 {% block content %}
 <div class="container" style="margin-top: 70px;">
     {% if data.nogroup == 1 %}
-        <div class="row mt-5 justify-content-center"><div class="alert alert-danger" role="alert">{% trans "Group does not exist." %}</div></div>
+        <div class="d-flex mt-5 justify-content-center"><div class="alert alert-danger" role="alert">{% trans "Group does not exist." %}</div></div>
     {% else %}
 
-    <div class="row">
-        <div style="margin-left: 110px;"></div>
-        <div class="col">
-            <a href="/groups/create/" class="btn btn-secondary btn-sm">{% trans 'Create a group' %}</a>
-            <a class="btn btn-secondary btn-sm" data-toggle="collapse" href="#showaddthread" role="button" aria-expanded="false" aria-controls="showaddthread">{% trans 'Add a thread' %}</a>
-        </div>
+    <div class="d-flex justify-content-center">
+        <div class="btn-group" role="group"><a href="/groups/create/" class="btn btn-outline-primary btn-sm">{% trans 'Create a group' %}</a>
+        <a class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse" href="#showaddthread" role="button" aria-expanded="false" aria-controls="showaddthread">{% trans 'Add a thread' %}</a></div>
     </div>
 
 
@@ -26,7 +23,7 @@
                     <form method="post" enctype="multipart/form-data">
                       {% csrf_token %}
                       <input type="hidden" id="id_group" name="group" value="{{ data.group.id }}">
-                      <div class="form-row align-items-center">
+                      <div class="row align-items-center">
                         <div class="col-3">
                           <input type="text" id="id_name" name="name" class="form-control form-control-sm" placeholder="{% trans 'Title' %}" required>
                         </div>
@@ -47,7 +44,7 @@
     <div class="row justify-content-center mt-5">
         <div class="col">
             <div class="d-flex">
-                <h4 ><b class="badge badge-dark">{{ data.group.name }}</b><br>
+                <h4 ><b class="badge bg-dark">{{ data.group.name }}</b><br>
                 <small>{{ data.group.description }}</small>
                 </h4>
 
