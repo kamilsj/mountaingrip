@@ -50,7 +50,7 @@ class Suggestions extends React.Component {
     if (error) {
       return e('div', {class: 'alert alert-danger'}, "Error: ", error.message);
     } else if(!isLoaded) {
-      return e('div', {class: 'spinner-border', role: 'status'}, e('span', {class: 'sr-only'}, 'Loading...'));
+      return e('div', {class: 'spinner-border', role: 'status'}, e('span', {class: 'sr-only'}, ''));
     } else {
       return e('ul', {class: 'list-group'}, groups.map(group => (
         e('li', {class: 'list-group-item'}, group.id)

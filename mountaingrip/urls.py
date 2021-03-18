@@ -20,7 +20,8 @@ urlpatterns += i18n_patterns(
     path('groups/', include('groups.urls')),
     path('inbox/', include('inbox.urls')),
     path('health/', include('health.urls')),
-    path('shop/', include('shop.urls')),
+    path('shop/', include('shop.urls')),                        #store
+    path('ranking/', include('ranking.urls')),                  #user's ranking
     path('notifications/', include('notifications.urls')),
     path('admin/', admin.site.urls),
     path('accounts/signup/', views.signup, name='signup'),

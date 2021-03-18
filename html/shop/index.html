@@ -4,12 +4,19 @@
 {% block title %}{% blocktrans %}Sell and buy outdoor clothes and equipment{% endblocktrans %}{% endblock %}
 
 {% block content %}
-
-    <div class="container" style="margin-top: 70px;">
+<div class="container" style="margin-top: 70px;">
 {% if data.info %}
     <div class="row"><div class="col d-flex justify-content-center"><div class="alert alert-danger">{{ data.info }}</div></div></div>
 {% else %}
+    <div class="d-flex justify-content-center">
+        <div class="btn-group p-2">
+            <a class="btn btn-outline-primary btn-sm" href="/shop/add">{% trans 'Add new product.' %}</a>
+            <a class="btn btn-outline-primary btn-sm" href="/shop/purchases">{% trans 'Purchases' %}</a>
+        </div>
+    </div>
+    <!-- filters ------------->
+
 
 {% endif %}
-    </div>
+</div>
 {% endblock %}

@@ -17,51 +17,45 @@
 
                     {% for field in form %}
                         {% if field.name == 'title' %}
-                            <div class="form-group">
+                            <div class="mb-2">
                                 <input class="form-control" type="text" name="title" id="id_title" placeholder="{% trans "Title" %}" required>
                             </div>
                         {% elif field.name == 'description' %}
-                            <div class="form-group">
+                            <div class="mb-2">
                                 <textarea class="form-control" rows="5" name="description" id="id_description" placeholder="{% trans "Description" %}"></textarea>
                             </div>
                         {% elif field.name == 'basePlace' %}
-                            <div class="form-group">
+                            <div class="mb-2">
                                 <input class="form-control" type="text" name="basePlace" id="id_basePlace" placeholder="{% trans "Base place" %}" required>
                             </div>
                         {% elif field.name == 'mountainName' %}
-                            <div class="form-group">
+                            <div class="mb-2">
                                 <input class="form-control" type="text" name="mountainName " id="id_mountainName" placeholder="{% trans "Mountain name" %}" required>
                             </div>
                         {% elif field.name == 'startDate' %}
-                            <div class="form-group">
+                            <div class="mb-2">
                                 <input class="form-control" type="date" name="startDate " id="id_startDate" placeholder="{% trans "Start date" %}" required>
                             </div>
                          {% elif field.name == 'endDate' %}
-                            <div class="form-group form-check">
+                            <div class="mb-2 form-check">
                                 <input class="form-check-input" type="checkbox" id="oneday">
                                 <label class="form-check-label" >{% trans 'One day trip' %}</label>
                             </div>
-                            <div class="form-group align-left">
+                            <div class="mb-2 align-left">
                                 <input class="form-control" type="date" name="endDate " id="id_endDate" placeholder="{% trans "End date" %}">
                             </div>
                          {% elif field.name == 'cover' %}
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="id_cover" name="cover" />
-                                <label class="custom-file-label" for="id_cover">{% trans 'Choose a file' %}</label>
+                            <div class="mb-3">
+                                <input type="file" class="form-control" id="id_cover" name="cover" placeholder="{% trans 'Choose a file' %}" />
                             </div><br><br>
                         {% endif %}
                     {% endfor %}
-                    <button class="btn btn-lg btn-primary btn-block .w-50" type="submit">{% trans 'Add a trip' %}</button>
+                    <div class="text-center"><button class="btn btn-sm btn-primary btn-block" type="submit">{% trans 'Add a trip' %}</button></div>
                   </form>
             </div>
         </div>
     </div>
 <script>
-$(".custom-file-input").on("change", function() {
-  var fileName = $(this).val().split("\\").pop();
-  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-});
-
 $('#oneday').click(function(){
     if($(this.checked)){
         $('#id_endDate').prop('disabled', true);
@@ -69,7 +63,6 @@ $('#oneday').click(function(){
         $('#id_endDate').prop('disabled', false);
     }
 })
-
 </script>
 
 {% endblock %}

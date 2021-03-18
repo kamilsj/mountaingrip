@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %} {% endblock %}</title>
     <link rel="icon" type="image/png" href="{% static 'favicon.png' %}"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/mg.css' %}" />
     <link rel="stylesheet" href="{% static 'css/tipped.css' %}" />
 
@@ -25,51 +25,51 @@
     <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
     <!-------------->
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+    <!----- AUTOCOMPLETE ----->
+    <script src="{% static 'js/autocomplete.js' %}"></script>
 </head>
-<body data-gr-c-s-loaded="true">
+<body data-gr-c-s-loaded="true" class="d-flex flex-column h-100">
 <div id="page">
     <header>
-        <nav class="navbar navbar-expand-lg fixed-top navbar-transparent navbar-light" style="background-color: #ecf0f1">
-            <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #ecf0f1; height: 60px;">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="/" class="navbar-brand">
 
-                    <a href="/" class="navbar-brand mt-5" style="position: absolute;">
-                        <img class="d-none d-sm-none d-md-none d-lg-block" src="{% static 'img/MG.png' %}"  class="img-responsive" style="width: 90px; overflow: hidden; height: auto;" />
-                    </a>
-
-
-                      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                      </button>
-
-                      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                        <ul class="navbar-nav mr-auto">
+               <div class="d-none d-sm-none d-md-none d-lg-block mt-4">
+                   <img class="p-4" src="{% static 'img/MG.png' %}" style="width: 150px; height: auto; overflow: hidden;" />
+               </div>
+            </a>
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent" style="background-color: #ecf0f1;">
+                    <ul class="navbar-nav me-auto mb-1 mb-md-0">
                             {% if not user.is_authenticated %}
                               <li class="nav-item">
-                                <a style="margin-left: 105px;" class="btn btn-outline-primary" href="/accounts/signup/">{% trans "Sign up" %}</a>
+                                <a  class="btn btn-sm btn-outline-primary" href="/accounts/signup/">{% trans "Sign up" %}</a>
                               </li>
                             {% else %}
-                               <li style="margin-left: 105px;" class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {%  trans "Account" %}
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/start/profile/">{%  trans "Profile" %}</a>
-                                    <a class="dropdown-item" href="/health/">{%  trans "Health" %}</a>
-                                </div>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="/start/profile/">{%  trans "Profile" %}</a></li>
+                                    <li><a class="dropdown-item" href="/health/">{%  trans "Health" %}</a></li>
+                                </ul>
                               </li>
                               <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                   {% trans "Your trips" %}
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                  <a class="dropdown-item" href="/start/add/">{% trans "Add a trip" %}</a>
-                                  <a class="dropdown-item disabled" href="">{% trans "Explore" %}</a>
-                                  <a class="dropdown-item disabled" href="#">{% trans "Past activities" %}</a>
-                                </div>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="/start/add/">{% trans "Add a trip" %}</a></li>
+                                    <li><a class="dropdown-item disabled" href="">{% trans "Explore" %}</a></li>
+                                    <li><a class="dropdown-item disabled" href="#">{% trans "Past activities" %}</a></li>
+                                </ul>
                               </li>
                               <li class="nav-item">
                                 <a class="nav-link" href="/inbox/">
@@ -87,67 +87,63 @@
                                 </a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link ml-5" href="/notifications/">
-                                  <span class="badge badge-info">0</span>
+                                <a class="nav-link me-5" href="/notifications/">
+                                  <span class="badge bg-secondary" id="notifcount">0</span>
                                 </a>
                               </li>
                             {% endif %}
                         </ul>
                           {% if user.is_authenticated %}
                               {% csrf_token %}
-                            <form class="form-inline my-2 my-lg-0" method="get" action="/start/q/">
-                                <input class="form-control mr-sm-2" type="search" name="what" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-outline-success my-2 my-sm-0 btn-sm" type="submit">{% trans "Search" %}</button>
+                            <form class="d-flex" method="get" action="/start/q/">
+                                <input class="form-control me-3" type="search" id="id_what" name="what" placeholder="{% trans 'Search' %}" autocomplete="off">
+                                <button class="btn btn-sm btn-outline-success me-3" type="submit">{% trans "Search" %}</button>
                             </form>
-                            <a class="btn btn-outline-secondary btn-sm ml-2" href="/accounts/logout">{% trans "Logout" %}</a>
+                            <div id="suggestions" class="autocomplete"></div>
+                            <a class="btn btn-outline-secondary btn-sm" href="/accounts/logout">{% trans "Logout" %}</a>
+
                           {% else %}
                             <a class="btn btn-outline-secondary btn-sm" href="/accounts/login">{%  trans "Log in" %}</a>
                           {% endif %}
-                              </div>`
-                    </div>
-                </nav>
-            </header>
-        <div id="root"></div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="flex-shrink-0" role="main">
 {% block content %}
 
 
 {% endblock %}
-
-    <footer class="page-footer">
+    </main>
+    <footer class="footer fixed-bottom">
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <div class="text-sm-left ml-3 mb-3 mt-5">
-                        <p class="d-inline text-wrap badge badge-dark">&copy;{% now "Y" %}</p>
-                        <p class="d-inline text-wrap badge badge-light small">
-                        <a href="/about/" target="_blank">{% trans 'about' %}</a> |
-                        <a href="https://www.paypal.me/kamilsj/50/" target="_blank">{% trans 'donate' %}</a> |
-                        <a href="https://github.com/kamilsj/mountaingrip/issues" target="blank">{% trans 'bugs' %}</a>
-                        </p>
-                    </div>
+                    <p class="d-inline text-wrap badge bg-dark">&copy;{% now "Y" %}</p>
+                    <p class="d-inline text-wrap badge bg-light text-dark small text-decoration-none">
+                    <a href="/about/" target="_blank">{% trans 'about' %}</a> |
+                    <a href="https://www.paypal.me/kamilsj/50/" target="_blank">{% trans 'donate' %}</a> |
+                    <a href="https://github.com/kamilsj/mountaingrip/issues" target="blank">{% trans 'bugs' %}</a>
+                    </p>
                 </div>
-                <div class="col">
-                    <div class="text-sm-right ml-3 mb-3 mt-5"><p class="d-inline text-wrap badge badge-light"><a href="https://www.buymeacoffee.com/mountaingrip">{% trans 'Buy me a coffee' %}</a></p></div>
+                <div class="col" style="text-align-last: right;">
+                    <p class="badge bg-light text-dark"><a href="https://www.buymeacoffee.com/mountaingrip">{% trans 'Buy me a coffee' %}</a></p>
                 </div>
             </div>
         </div>
     </footer>
 
-
-
-
-
     <script src="{% static 'js/ajax.js' %}"></script>
     <script src="{% static 'js/mg.js' %}"></script>
     <script src="{% static 'js/tipped.js' %}"></script>
+
     {% if user.is_authenticated %}
     <script type="text/javascript">
         $(function (){
-            setInterval(update({{ user.id }}), 30000)
+            setInterval(update({{ user.id }}), 30000);
         });
     </script>
     {% endif %}
-
     <script type="text/javascript">
         $(function() {
             Tipped.create('.tp');

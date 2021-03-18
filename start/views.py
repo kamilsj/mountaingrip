@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 from django.views import View
-from django.contrib.auth.decorators import login_required
 
 from .models import Trip, Profile, Post, Comment, TripJoined
 from .forms import TripForm, SearchForm, PostForm, ProfileForm
@@ -22,27 +21,29 @@ gmaps = googlemaps.Client(key=gkey)
 def index(request):
     if request.user.is_authenticated:
         user = request.user
-        #asign beta user
-        beta = Profile.objects.values('beta').get(user=user)
-        request.session['beta'] = beta['beta']
-        ################
-        date = datetime.now(tz=timezone.utc)
-        posts = {}
+        if user.id > 1:
+            #asign beta user
+            beta = Profile.objects.values('beta').get(user=user)
+            request.session['beta'] = beta['beta']
+            ################
+            date = datetime.now(tz=timezone.utc)
+            posts = {}
 
-        from_date = date - timedelta(days=14)
-        if Trip.objects.filter(added_at__range=[from_date, date]).count() > 15:
-            trips = Trip.objects.filter(added_at__range=[from_date, date]).order_by('-startDate').all()[:16]
+            from_date = date - timedelta(days=14)
+            if Trip.objects.filter(added_at__range=[from_date, date]).count() > 15:
+                trips = Trip.objects.filter(added_at__range=[from_date, date]).order_by('-startDate').all()[:16]
+            else:
+                trips = Trip.objects.order_by('-startDate').all()[:16]
+
+            data = {
+                'user': user.get_full_name(),
+                'trips': trips,
+                'posts': posts,
+            }
+
+            return render(request, 'start/mountiangrip.html', {'data': data})
         else:
-            trips = Trip.objects.order_by('-startDate').all()[:16]
-
-        data = {
-            'user': user.get_full_name(),
-            'trips': trips,
-            'posts': posts,
-        }
-
-        return render(request, 'start/mountiangrip.html', {'data': data})
-
+            return redirect('/admin')
     else:
         return redirect('/')
 
@@ -153,20 +154,22 @@ class ProfileUpdate(View):
     def post(self, request):
         if request.method == 'POST':
             user = request.user
-            if Profile.objects.filter(user=user).exists():
-                profile = Profile.objects.get(user=user)
-                form = self.form_class(request.POST or None, request.FILES or None, instance=profile)
+            profile = Profile.objects.get(user=user)
+            form = self.form_class(request.POST or None, request.FILES or None, instance=profile)
+            if profile.exists():
                 if form.is_valid():
                         obj = form.save(commit=False)
                         obj.save()
                         return redirect('/start/profile/')
-                else:
-                    return render(request, 'start/profile_update.html', {'form': form})
+        else:
+            form = self.form_class()
+
+        return render(request, 'start/profile_update.html', {'form': form})
 
 
 class Explore(View):
 
-    def get(self,request):
+    def get(self, request):
         data = {}
         return render(request, 'start/explore.html', {'data': data})
 
@@ -188,6 +191,7 @@ class TripView(View):
                 trip = Trip.objects.get(id=id)
                 if trip:
                     joined = TripJoined.objects.filter(trip=trip).count()
+                    user_joined =TripJoined.objects.filter(user=user).exists()
                     if Post.objects.filter(trip_id=id).count() > 0:
                         posts = Post.objects.filter(trip_id=id).order_by('-added_at').all()
                         if Comment.objects.filter(trip_id=id).count() > 0:
@@ -233,6 +237,7 @@ class TripView(View):
                         'posts': posts,
                         'comments': comments,
                         'joined': joined,
+                        'user_joined': user_joined,
                         'gmaps_key': gkey,
                         'basePlace': location_b_place,
                         'mountainName': location_m_name,
@@ -307,11 +312,11 @@ class AddTrip(View):
     def post(self, request):
         if request.method == 'POST' and request.user.is_authenticated:
             user = request.user
-            form = self.form_class(request.POST, request.FILES)
+            form = self.form_class(request.POST or None, request.FILES or None)
 
             if form.is_valid():
                 #check if form was already added
-                #TODO request files of particular size and order
+
 
                 obj = form.save(commit=False)
                 obj.user = user
@@ -322,4 +327,8 @@ class AddTrip(View):
                     return redirect('/start/trip/' + str(obj.id))
                 else:
                     return redirect('/start/trip/')
+        else:
+            form = self.form_class()
+
+        return render(request, self.template_name, {'form': form})
 

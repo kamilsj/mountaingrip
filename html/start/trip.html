@@ -25,16 +25,26 @@
 {% if data.notrip != 1 %}
 
     <div class="row align-items-start">
-        <div class="col col-sm-5">
+        <div class="col-5">
             <img src="{{ data.url }}" class="img-fluid rounded" /><br>
-            <a href="#" onclick="jointrip({{ data.id }});" class="btn btn-primary btn-sm mt-2">{% trans "Join" %}
-            <span class="badge badge-light" id="trip_joined">{{ data.joined }}</span>
+            <a href="#" onclick="jointrip({{ data.id }});" class="btn btn-sm mt-2
+            {% if data.user_joined == 1 %}
+               btn-secondary disabled
+            {% else %}
+               btn-primary
+            {% endif %}"
+            >{% trans "Join" %}
+            <span class="badge bg-light text-dark" id="trip_joined">{{ data.joined }}</span>
             </a>
             <button type="button" class="btn btn-secondary btn-sm mt-2" data-toggle="modal" data-target="#staticBackdrop">{% trans "Invite" %}</button>
         </div>
-        <div class="col w-100 mt-3">
+        <div class="col mt-3">
             <h1 class="leader">{{ data.title }}</h1><br>
             <p class="lead">{{ data.description }}</p><br>
+            <div class="row">
+            <!-- joined users avatars -->
+
+            </div>
         </div>
     </div>
     <div class="row mt-5">
@@ -45,11 +55,11 @@
         <div class="col col-sm-7">
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <div class="form-row">
+                <div class="d-flex">
                     <input type="hidden" id="id_trip" name="trip" value="{{ data.id }}" />
                     <input type="hidden" id="id_profile_id" name="profile_id" value="0" />
-                    <div class="col-10"><textarea class="form-control form-control-sm" id="id_text" name="text" required></textarea></div>
-                    <div class="col-auto"><button type="submit" class="btn btn-primary">{% trans 'Post' %}</button></div>
+                    <textarea class="form-control form-control-sm" id="id_text" name="text" required></textarea>
+                    <div class="flex-fill p-2"><button type="submit" class="btn btn-primary">{% trans 'Post' %}</button></div>
                 </div>
             </form>
             <div class="row mt-3">
@@ -109,9 +119,7 @@
             title: "{{data.mountainName.name}}"});href="https://mountiangrip.s3.amazonaws.com/data/css/mg.css"
     }
     </script>
-    <script defer
-    src="https://maps.googleapis.com/maps/api/js?key={{ data.gmaps_key }}&callback=initMap">
-    </script>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key={{ data.gmaps_key }}&callback=initMap"></script>
 
 
 

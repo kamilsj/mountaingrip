@@ -10,6 +10,7 @@ from func.modules.services.strava import *
 import numpy as n
 from func.AI.learn import WeightCalculations
 
+
 class Index(View):
     form_class = HealthDataForm
 
@@ -50,9 +51,43 @@ class Index(View):
 
 
 class Summary(View):
-    def get(self,request):
+
+    def get(self, request):
+        from collections import OrderedDict
         data = {}
+        res = {}
+
+        i = 0
+        strava = ActivitiesStravaData.objects.filter(user=request.user).values('start_date',
+                                                                               'distance',
+                                                                               'average_speed').order_by('-start_date')
+        body = HealthData.objects.filter(user=request.user).values('weight',
+                                                                   'bmi',
+                                                                   'date').order_by('-date')
+        strava_len = len(strava)
+        body_len = len(body)
+
+        if strava_len > 0 and body_len > 0:
+            for i in range(strava_len):
+                strava_date = datetime.date(datetime.strptime(strava[i]['start_date'], "%Y-%m-%d %H:%M:%S+00:00"))
+                res[strava_date] = [strava[i]['average_speed'], str(round(strava[i]['distance']/1000, 2))+' km']
+            i = 0
+            for i in range(body_len):
+                body_date = datetime.date(body[i]['date'])
+                if body_date in res:
+                    res[body_date] += [str(body[i]['weight']) + ' kg', 'bmi: ' + str(round(body[i]['bmi'], 2))]
+                else:
+                    res[body_date] = [str(body[i]['weight']) + ' kg', 'bmi: ' + str(round(body[i]['bmi'], 2))]
+
+            final_list = OrderedDict(reversed(sorted(res.items(), key=lambda x: x[0])))
+        else:
+            final_list = []
+
+        data = {
+            'list': final_list
+        }
         return render(request, 'health/summary.html', {'data': data})
+
 
 class ImportActivities(View):
 
@@ -104,7 +139,6 @@ class Analytics(View):
                           sizing_mode="stretch_width",
                           toolbar_location="above",
                           tooltips="@y")
-            
 
             x = []
             y = []
@@ -112,8 +146,7 @@ class Analytics(View):
                 x.append(data[i]['date'])
                 y.append(data[i]['weight'])
 
-
-            #Research#########
+            # Research#########
             array = n.array(y)
             avg = n.average(array)
             max = n.max(array)
@@ -149,7 +182,7 @@ class Analytics(View):
             distance = []
             for i in range(len(strava)):
                 dots.append(datetime.strptime(strava[i]['start_date'], "%Y-%m-%d %H:%M:%S+00:00"))
-                distance.append(strava[i]['distance']/1000)
+                distance.append(strava[i]['distance'] / 1000)
             plot2 = figure(title="Activities", x_axis_type='datetime',
                            sizing_mode="stretch_width",
                            plot_height=500,
@@ -164,14 +197,10 @@ class Analytics(View):
             div2 = 'Add your activities from Strava'
             script2 = ''
 
-
         return render(request, 'health/analytics.html', {'div': div,
                                                          'div2': div2,
                                                          'script': script,
                                                          'script2': script2})
 
-
     def post(self, request):
         pass
-
-
