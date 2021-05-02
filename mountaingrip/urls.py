@@ -17,12 +17,13 @@ urlpatterns += i18n_patterns(
     path('', views.index, name='index'),
     path('about/', views.about, name='about'),
     path('start/', include('start.urls')),
-    path('groups/', include('groups.urls')),
-    path('inbox/', include('inbox.urls')),
-    path('health/', include('health.urls')),
-    path('shop/', include('shop.urls')),                        #store
-    path('ranking/', include('ranking.urls')),                  #user's ranking
-    path('notifications/', include('notifications.urls')),
+    path('groups/', include('apps.groups.urls')),
+    path('inbox/', include('apps.inbox.urls')),
+    path('health/', include('apps.health.urls')),
+    path('shop/', include('apps.shop.urls')),                        #store
+    path('ranking/', include('apps.ranking.urls')),                  #user's ranking
+    path('notifications/', include('apps.notifications.urls')),
+    path('ejp/', include('apps.ejp.urls')),                          #ejp analysis ... just to make some new content and learn something new
     path('admin/', admin.site.urls),
     path('accounts/signup/', views.signup, name='signup'),
     path('accounts/', include('django.contrib.auth.urls')),

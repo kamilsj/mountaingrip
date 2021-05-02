@@ -1,13 +1,15 @@
 from django.http import JsonResponse
 from django.core import serializers
 from start.models import TripJoined, Trip
-from groups.models import Thread
+from apps.groups.models import Thread
 from django.contrib.auth.decorators import login_required
 
 
 
 def AddFriend(request, id):
-    pass
+    user = request.user
+    if id > 0 and user.is_authenticated:
+        pass
 
 
 

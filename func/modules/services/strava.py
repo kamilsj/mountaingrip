@@ -1,6 +1,6 @@
 from stravalib import Client
 from django.conf import settings
-from health.models import ApiTokens
+from apps.health.models import ApiTokens
 
 strava_data = settings.STRAVA_DATA
 

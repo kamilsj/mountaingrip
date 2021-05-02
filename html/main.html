@@ -99,7 +99,7 @@
                                 <input class="form-control me-3" type="search" id="id_what" name="what" placeholder="{% trans 'Search' %}" autocomplete="off">
                                 <button class="btn btn-sm btn-outline-success me-3" type="submit">{% trans "Search" %}</button>
                             </form>
-                            <div id="suggestions" class="autocomplete"></div>
+                            <div id="search_suggestions" class="autocomplete"></div>
                             <a class="btn btn-outline-secondary btn-sm" href="/accounts/logout">{% trans "Logout" %}</a>
 
                           {% else %}
@@ -132,7 +132,11 @@
             </div>
         </div>
     </footer>
-
+    <style>
+    .bk-logo, .bk-tool-icon-help {
+        display:none !important;
+    }
+    </style>
     <script src="{% static 'js/ajax.js' %}"></script>
     <script src="{% static 'js/mg.js' %}"></script>
     <script src="{% static 'js/tipped.js' %}"></script>

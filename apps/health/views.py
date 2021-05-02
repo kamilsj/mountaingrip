@@ -154,7 +154,7 @@ class Analytics(View):
             ####################
 
             user_data = Profile.objects.filter(user=request.user).values('height', 'gender')[0]
-            ideal = WeightCalculations.WeightIdeal(self, user_data['gender'], user_data['height'])
+            ideal = WeightCalculations.WeightIdeal(0, user_data['gender'], user_data['height'])
 
             avg_line = Span(location=avg,
                             line_width=3, line_color='red',
