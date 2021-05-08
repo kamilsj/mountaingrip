@@ -5,7 +5,7 @@ from .models import Group, Thread, ThreadPost
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 import datetime
-from func.notif import Notification
+from func.notif import Notif
 
 
 

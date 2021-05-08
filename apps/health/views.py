@@ -38,7 +38,7 @@ class Index(View):
             form = self.form_class(request.POST)
             if form.is_valid():
                 user_profile = Profile.objects.get(user=user.id)
-                if user_profile.height > 0 and user_profile.height <= 300:
+                if 0 < user_profile.height <= 300:
                     bmi = form.cleaned_data['weight'] / (user_profile.height / 100) ** 2  # FORMULA FOR BMI
                 else:
                     bmi = 0
@@ -56,7 +56,6 @@ class Summary(View):
         from collections import OrderedDict
         data = {}
         res = {}
-
         i = 0
         strava = ActivitiesStravaData.objects.filter(user=request.user).values('start_date',
                                                                                'distance',
@@ -154,7 +153,7 @@ class Analytics(View):
             ####################
 
             user_data = Profile.objects.filter(user=request.user).values('height', 'gender')[0]
-            ideal = WeightCalculations.WeightIdeal(self, user_data['gender'], user_data['height'])
+            ideal = WeightCalculations.WeightIdeal(0, user_data['gender'], user_data['height'])
 
             avg_line = Span(location=avg,
                             line_width=3, line_color='red',

@@ -70,6 +70,13 @@ class Comment(models.Model):
         return self.text[:50]
 
 
+class Friends(models.Model):
+    who = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name="who_is_added", blank=False)
+    whom = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name="added_by_whom", blank=False)
+    accepted = models.BooleanField(default=0)
+    added_at = models.DateTimeField(auto_now_add=True)
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=False)
     pic = models.ImageField(upload_to='profile/pic/', default='', blank=True)

@@ -1,0 +1,58 @@
+{% extends 'main.html' %}
+{% load i18n %}
+{% block title %}{% endblock %}
+{% block content %}
+
+<div class="container" style="margin-top: 70px;">
+    <div class="d-flex justify-content-center">
+        <div class="btn-group" role="group">
+            <a href="/ejp/" class="btn btn-outline-primary btn-sm">{% trans 'Main' %}</a>
+            <a href="/ejp/predictions/" class="btn btn-outline-primary btn-sm">{% trans 'Predictions' %}</a>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-10">
+            <ul class="list-group mt-5">
+                <li class="list-group-item list-group-item-success">
+                    <div class="row">
+                        <div class="col"><h5>Summary</h5></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"></div>
+                        <div class="col"><span style="color: saddlebrown"><b>{{ data.total }}</b></span></div>
+                        <div class="col"><span style="color: darkcyan"><b>{{ data.won }}</b></span></div>
+                    </div>
+                </li>
+                {% for num, pick in data.results %}
+                    <li class="list-group-item {% if num.won == 0 %} list-group-item-secondary {% else %} list-group-item-info {% endif %}">
+                        <div class="row">
+                            <div class="col"><small class="text-muted text-wrap">{{ num.date }}</small></div>
+                            <div class="col">{% if num.n1 == pick.0 %} <span class="badge bg-success">{{ num.n1 }}</span> {% else %} <span class="badge bg-danger">{{ num.n1 }}</span> <small class="text-muted">({{ pick.0 }})</small>{% endif %}</div>
+                            <div class="col">{% if num.n2 == pick.1 %} <span class="badge bg-success">{{ num.n2 }}</span> {% else %} <span class="badge bg-danger">{{ num.n2 }}</span> <small class="text-muted">({{ pick.1 }})</small>{% endif %}</div>
+                            <div class="col">{% if num.n3 == pick.2 %} <span class="badge bg-success">{{ num.n3 }}</span> {% else %} <span class="badge bg-danger">{{ num.n3 }}</span> <small class="text-muted">({{ pick.2 }})</small>{% endif %}</div>
+                            <div class="col">{% if num.n4 == pick.3 %} <span class="badge bg-success">{{ num.n4 }}</span> {% else %} <span class="badge bg-danger">{{ num.n4 }}</span> <small class="text-muted">({{ pick.3 }})</small>{% endif %}</div>
+                            <div class="col">{% if num.n5 == pick.4 %} <span class="badge bg-success">{{ num.n5 }}</span> {% else %} <span class="badge bg-danger">{{ num.n5 }}</span> <small class="text-muted">({{ pick.4 }})</small>{% endif %}</div>
+                            <div class="col"><span style="color: dodgerblue"><b>{% if num.p1 == pick.5 %} <span class="badge bg-success">{{ num.p1 }}</span> {% else %} <span class="badge bg-danger">{{ num.p1 }}</span> <small class="text-muted">({{ pick.5 }})</small>{% endif %}</b></span></div>
+                            <div class="col"><span style="color: dodgerblue"><b>{% if num.p2 == pick.6 %} <span class="badge bg-success">{{ num.p2 }}</span> {% else %} <span class="badge bg-danger">{{ num.p2 }}</span> <small class="text-muted">({{ pick.6 }})</small>{% endif %}</b></span></div>
+
+                            <div class="col"><small style="color: saddlebrown">12.50</small></div>
+                            <div class="col"><small style="color: darkcyan">{{ num.won }}</small></div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-2">
+            <h6>Income <br>
+                <small class="text-muted">{{ data.income }}</small>
+            </h6>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,5 +1,9 @@
 import os
+import sys
 import django_heroku
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
 db = []
 aws = []
@@ -31,9 +35,6 @@ if os.getenv('SECRET_KEY'):
 else:
     SECRET_KEY = secret_key[0]
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
 if prod == 0:
     DEBUG = True
 else:
@@ -47,12 +48,13 @@ else:
 
 ALLOWED_HOSTS = []
 INSTALLED_APPS = [
-    'ranking',
-    'shop',
-    'groups',
-    'health',
-    'notifications',
-    'inbox',
+    'apps.ranking',
+    'apps.shop',
+    'apps.groups',
+    'apps.health',
+    'apps.notifications',
+    'apps.inbox',
+    'apps.ejp',
     'start',
     'api',
     'rest_framework',
@@ -156,9 +158,9 @@ USE_L10N = True
 USE_TZ = False
 TIME_ZONE = 'Europe/Warsaw'
 
-#CORS HEADERS FOR WORKING WITH REACTJS
+# CORS HEADERS FOR WORKING WITH REACTJS
 CORS_ORIGIN_ALLOW_ALL = True
-#GLOBAL BETA FUNCTION -> allows beta testing -if function is off nobody can test new features
+# GLOBAL BETA FUNCTION -> allows beta testing -if function is off nobody can test new features
 BETA = True
 
 REST_FRAMEWORK = {
@@ -179,7 +181,7 @@ AUTHENTICATION_BACKENDS = {
 LOGIN_REDIRECT_URL = '/start/'
 LOGOUT_REDIRECT_URL = '/'
 
-#S3
+# S3
 
 AWS_DEFAULT_ACL = 'public-read'
 AWS_AUTO_CREATE_BUCKET = True
@@ -200,10 +202,14 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 DEFAULT_FILE_STORAGE = 'mountaingrip.storage.MediaStorage'
 
-#Email configuration
+# Email configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = email[0]
 EMAIL_HOST_USER = email[1]
 EMAIL_HOST_PASSWORD = email[2]
 EMAIL_PORT = email[3]
+
+# DJANGO3.2
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

@@ -53,7 +53,7 @@ class ProfileView(View):
     def get(self, request, id=0):
         form = PostForm()
         data = {}
-        if id and id != 0:
+        if id > 1:
             try:
                 user = User.objects.get(id=id)
                 if user:
@@ -72,6 +72,11 @@ class ProfileView(View):
                         else:
                             age = 0
 
+                        if user.id == request.user.id:
+                            own_profile = 1
+                        else:
+                            own_profile = 0
+
                         if Post.objects.filter(profile_id=id).count() > 0:
                             posts = Post.objects.filter(profile_id=id).order_by('-added_at').all()
                         else:
@@ -84,6 +89,7 @@ class ProfileView(View):
                             'purl': pic,
                             'posts': posts,
                             'age': age,
+                            'own_profile': own_profile,
                             'update': update_profile
                         }
 
@@ -94,8 +100,9 @@ class ProfileView(View):
                 }
 
         else:
-            user = request.user
+            # showing users own profile without any other
 
+            user = request.user
             if Profile.objects.filter(user_id=user.id).exists():
                 name = user.get_full_name()
                 profile = Profile.objects.get(user_id=user.id)
@@ -114,7 +121,8 @@ class ProfileView(View):
                     'curl': cover,
                     'purl': pic,
                     'posts': posts,
-                    'age': age
+                    'age': age,
+                    'own_profile': 1,
 
                 }
 

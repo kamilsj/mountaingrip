@@ -5,9 +5,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
-from health.models import HealthData
+from apps.health.models import HealthData
 from start.models import Profile
-from notifications.models import Notification
+from apps.notifications.models import Notification
 from datetime import datetime
 
 from .serializers import UserSerializer
@@ -38,10 +38,11 @@ class Suggestions(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        '''showing users nice suggestions of what to do, to read, to ask in the website'''
+        ''' showing users nice suggestions of what to do, to read, to ask in the website '''
         data = {
             'groups': [
-
+                {'id': 'Welcome!'},
+                {'id': 'It\'s work in progress. Many things still do not work. '}
             ]
         }
 

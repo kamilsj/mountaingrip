@@ -1,5 +1,5 @@
 import csv
-from health.models import ActivitiesStravaData
+from apps.health.models import ActivitiesStravaData
 
 class ImportStravaDataApi:
 

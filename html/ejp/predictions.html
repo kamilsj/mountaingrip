@@ -1,0 +1,68 @@
+{% extends 'main.html' %}
+{% load i18n %}
+{% load humanize %}
+{% block title %}{% blocktrans %}Analyse your data{% endblocktrans %}{% endblock %}
+{% block content %}
+
+<div class="container" style="margin-top:70px;">
+    <div class="d-flex justify-content-center">
+        <div class="btn-group" role="group">
+            <a href="/ejp/" class="btn btn-outline-primary btn-sm">{% trans 'Main' %}</a>
+            <a href="/ejp/plusminus/" class="btn btn-outline-primary btn-sm">{% trans 'Plus/minus' %}</a>
+        </div>
+    </div>
+    <br><br>
+    <div class="row">
+        <div class="col-10 mt-5">
+            {{ div|safe }}
+            {{ script|safe }}
+        </div>
+        <div class="col-2 mt-5">
+            <h6>Draws<br>
+                <small class="text-muted">{{ data.count }}</small>
+            </h6>
+            <h6>Highest predictions<br>
+                <small class="text-muted">
+                    {% for num in data.prediction_all %}
+                        {% if num in data.prediction_highest %}
+                            <span style="color: darkred"><b>{{ num }}</b></span>
+                        {% else %}
+                            {{ num }}
+                        {% endif %}
+                    {% endfor %}
+                </small>
+            </h6>
+            <h6>Numbers above average <small><b>{{ data.pred_avg|length }}/50 <span style="color: darkcyan">({{ data.proc }}%)</span></b></small><br>
+                <small class="text-muted">{{ data.pred_avg }}</small>
+            </h6>
+            <h6>5 rand numbers from avg <br>
+                <small class="text-muted"><b>{{ data.rand_5_avg }}</b></small>
+            </h6>
+            <h6>5 rand numbers from all <br>
+                <small class="text-muted">{{ data.rand_5_all }}</small>
+            </h6>
+            <h6>Results duplicates number <br>
+                <small class="text-muted">{{ data.pred_5.0 }}</small>
+            </h6>
+            <h6>Duplicate resultes <br>
+                <small class="text-muted">{{ data.pred_5.1 }}</small>
+            </h6>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-10 mt-5">
+            {{ div2|safe }}
+            {{ script2|safe }}
+        </div>
+        <div class="col-2 mt-5">
+            <h6>Max duplicate number<br>
+                <small class="text-muted">{{ data.pair.0 }}</small>
+            </h6>
+            <h6>Occured {{ data.pair.0 }} times<br>
+                <small class="text-muted">{{ data.pair.1 }}</small>
+            </h6>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
