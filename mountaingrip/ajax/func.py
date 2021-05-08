@@ -1,15 +1,24 @@
 from django.http import JsonResponse
 from django.core import serializers
-from start.models import TripJoined, Trip
+from start.models import TripJoined, Trip, Friends
 from apps.groups.models import Thread
-from django.contrib.auth.decorators import login_required
+
+from django.db.models import Q
 
 
 
 def AddFriend(request, id):
     user = request.user
     if id > 0 and user.is_authenticated:
-        pass
+        if not Friends.objects.filter((Q(who=user.id) & Q(whom=id)) | (Q(who=id) & Q(whom=user.id))).exists():
+            if Friends.objects.create(who=user.id, whom=id, accepted=0):
+                return True
+            else:
+                return False
+        else:
+            return False
+    else:
+        return False
 
 
 
