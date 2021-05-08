@@ -35,6 +35,12 @@
             <h6>Numbers above average <small><b>{{ data.pred_avg|length }}/50 <span style="color: darkcyan">({{ data.proc }}%)</span></b></small><br>
                 <small class="text-muted">{{ data.pred_avg }}</small>
             </h6>
+            <h6>5 rand numbers from avg <br>
+                <small class="text-muted"><b>{{ data.rand_5_avg }}</b></small>
+            </h6>
+            <h6>5 rand numbers from all <br>
+                <small class="text-muted">{{ data.rand_5_all }}</small>
+            </h6>
             <h6>Results duplicates number <br>
                 <small class="text-muted">{{ data.pred_5.0 }}</small>
             </h6>
