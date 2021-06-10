@@ -35,6 +35,10 @@ class EJPView(View):
 class Predictions(View):
     def get(self, request):
         user = request.user
+
+        if not request.session['beta']:
+            request.session['beta'] = False
+
         if request.session['beta'] == True and settings.BETA == True and user.is_authenticated and user.id == 6:
             import numpy as np
             from bokeh.plotting import figure
@@ -47,8 +51,10 @@ class Predictions(View):
             x_y_pro = []
             y2 = []
             prob = []
-
+            z = []
+            x = []
             results = EJP.objects.filter(my=0).all()
+            my = EJP.objects.filter(my=1).all()
             count = results.count()
             num_1_50 = count * 5
             num_1_10 = count * 2
@@ -59,8 +65,12 @@ class Predictions(View):
                 n.append([res.n1, res.n2, res.n3, res.n4, res.n5])
                 p.append([res.p1, res.p2])
 
+            for res in my:
+                z.append([res.n1, res.n2, res.n3, res.n4, res.n5])
+                x.append([res.p1, res.p2])
 
-
+            z2 = np.array(z)  # my draws 1-50
+            x2 = np.array(x)  # my draws 1-10
             n2 = np.array(n)  # results 1-50
             p2 = np.array(p)  # results 1-10
             n_flat = n2.flatten()
@@ -73,6 +83,14 @@ class Predictions(View):
 
             for i in range(1, 11, 1):
                 y2.append(np.count_nonzero(p_flat == i))
+
+            # count range of most frequent values 1-10 and so on
+            j = 0
+            sum = 0
+            for i in range(1, 11, 1):
+                if i-1 % 10 == 0:
+                    pass
+
 
             '''1-50 analytics scripts - some more to be added'''
             x_y_pro = np.array(x_y_pro)
