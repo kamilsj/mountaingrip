@@ -164,7 +164,7 @@ class ProfileUpdate(View):
             user = request.user
             profile = Profile.objects.get(user=user)
             form = self.form_class(request.POST or None, request.FILES or None, instance=profile)
-            if profile.exists():
+            if Profile.objects.get(user=user).exists():
                 if form.is_valid():
                         obj = form.save(commit=False)
                         obj.save()

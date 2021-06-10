@@ -33,7 +33,7 @@ django-storages = "*"
 #experimental features
 djangorestframework = "*"
 #framework too big for my app :D
-#tensorflow = "*"
+tensorflow-cpu = "*"
 
 [requires]
 
