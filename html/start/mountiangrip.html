@@ -5,7 +5,7 @@
 {% block title %}{% trans 'Start searching for people' %} {% endblock %}
 
 {% block content %}
-{% now 'Ymd' as today %}
+{% now 'Y-m-d' as today %}
     <div class="page-background-main">
         <div class="container">
             <div class="row mt-5">
@@ -36,17 +36,25 @@
                         {% else %}
 
                         {% endif %}>
+
                         <div class="row">
                             <div class="col-auto">{% show_avatar trip.user.id %}</div>
                             <div class="col-auto">
                                 <a class="badge bg-light text-dark" href="/start/trip/{{ trip.id }}">{{ trip.title }}</a><br>
                                 <a class="badge bg-dark" href="/start/q/?what={{ trip.basePlace }}"> {{ trip.basePlace }} </a>
                                 <a class="badge bg-light text-dark" href="/start/q/?what={{ trip.mountainName }}"> {{ trip.mountainName }} </a><br>
-                                <p class="badge text-wrap bg-primary">{{ trip.startDate }}
-                                {% if trip.endDate != None %}
-                                    - {{ trip.endDate }}
+                                <p class="badge text-wrap
+                                {% if today > trip.startDate|date:'Y-m-d' %}
+                                    bg-secondary
+                                {% else %}
+                                    bg-primary
                                 {% endif %}
-                                </p>
+                                ">{{ trip.startDate }}
+                                    {% if trip.endDate != None %}
+                                        - {{ trip.endDate }}
+                                    {% endif %}
+                                    </p>
+
 
 
                             </div>

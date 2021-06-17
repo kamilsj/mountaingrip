@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
-from birthday import fields
 from django.utils import timezone
 
 
@@ -70,10 +69,11 @@ class Comment(models.Model):
         return self.text[:50]
 
 
-class Friends(models.Model):
+class Friend(models.Model):
     who = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name="who_is_added", blank=False)
     whom = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name="added_by_whom", blank=False)
     accepted = models.BooleanField(default=0)
+    bla = models.BooleanField(default=0)
     added_at = models.DateTimeField(auto_now_add=True)
 
 
@@ -82,7 +82,7 @@ class Profile(models.Model):
     pic = models.ImageField(upload_to='profile/pic/', default='', blank=True)
     cover = models.ImageField(upload_to='profile/cover/', default='', blank=True)
     gender = models.BooleanField(choices=((0, "Male"), (1, "Female")), default=0)
-    birthday = fields.BirthdayField(default=timezone.now)
+    birthday = models.DateField(blank=True, null=True)
     country = CountryField(blank=True)
     height = models.PositiveSmallIntegerField(blank=True, default=0)
     public_key = models.CharField(max_length=1024, blank=True, default='')

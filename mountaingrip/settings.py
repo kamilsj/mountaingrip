@@ -60,7 +60,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_api_key',
     'django_countries',
-    'birthday',
     'django_cron',
     'widget_tweaks',
     'storages',

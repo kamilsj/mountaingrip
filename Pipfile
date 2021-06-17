@@ -15,14 +15,13 @@ stravalib = "*"
 facebook-sdk = "*"
 googlemaps = "*"
 
-#Important packaches
+#Important packages
 psycopg2-binary = "*"
 django-countries = "*"
 djangorestframework-api-key = "*"
 Pillow = "*"
 django_cron = "*"
 django-widget-tweaks = "*"
-django-birthday = "*"
 bokeh = "*"
 cryptography = "*"
 

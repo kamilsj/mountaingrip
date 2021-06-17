@@ -39,7 +39,7 @@ class Predictions(View):
         if not request.session['beta']:
             request.session['beta'] = False
 
-        if request.session['beta'] == True and settings.BETA == True and user.is_authenticated and user.id == 6:
+        if request.session['beta'] is True and settings.BETA is True and user.is_authenticated and user.id == 6:
             import numpy as np
             from bokeh.plotting import figure
             from bokeh.embed import components
@@ -79,18 +79,25 @@ class Predictions(View):
             for i in range(1, 51, 1):
                 y.append(np.count_nonzero(n_flat == i))
                 x_y_pro.append(round((y[i - 1] / num_1_50) * 100, 2))
-                prob.append(y[i-1] / num_1_50)
+                prob.append(y[i - 1] / num_1_50)
 
             for i in range(1, 11, 1):
                 y2.append(np.count_nonzero(p_flat == i))
 
             # count range of most frequent values 1-10 and so on
-            j = 0
-            sum = 0
-            for i in range(1, 11, 1):
-                if i-1 % 10 == 0:
-                    pass
-
+            j = 1
+            summa = []
+            flg = 0
+            while j < 6:
+                if j == 1:
+                    z = 1
+                else:
+                    z = (j*10)-9
+                for i in range(z, (j*10)+1, 1):
+                    flg += y[i-1]
+                summa.append(round((flg / num_1_50) * 100, 2))
+                flg = 0
+                j += 1
 
             '''1-50 analytics scripts - some more to be added'''
             x_y_pro = np.array(x_y_pro)
@@ -107,10 +114,8 @@ class Predictions(View):
             max_val = np.amax(x_y_pro)
             proc = round((len(pred_avg) / 50) * 100, 0)
 
-            '''percentage of values with range of 10 numbers'''
-
             rand_5_all = np.sort(np.random.choice(range(1, 51, 1), size=5, replace=False, p=prob))
-            rand_5_avg = np.sort(np.random.choice(pred_avg+1, size=5, replace=False))
+            rand_5_avg = np.sort(np.random.choice(pred_avg + 1, size=5, replace=False))
 
             unq, cnt = np.unique(n2, axis=0, return_counts=True)
             max_50 = np.max(cnt)
@@ -149,6 +154,7 @@ class Predictions(View):
                 'max_value': max_val,
                 'pair': pair,
                 'pred_5': pred_5,
+                'proc_1_10_50': summa,
                 'rand_5_avg': rand_5_avg,
                 'rand_5_all': rand_5_all,
 
