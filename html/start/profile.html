@@ -34,7 +34,7 @@
     <div class="row" style="margin-top: 10%">
             <div class="col-4 mt-5">
                 {% if data.own_profile == 0 %}
-                <button class="btn btn-outline-success btn-sm">{% trans 'Add as a friend' %}</button>
+                <button class="btn btn-outline-success btn-sm" onclick="addfriend(data.id)">{% trans 'Add as a friend' %}</button>
                 {% endif %}
             </div>
             <div class="col-8">

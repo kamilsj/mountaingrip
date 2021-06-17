@@ -27,18 +27,20 @@ function addpost(profile_id=0, trip_id=0){
 
 }
 
-function addfriend(profile_id) {
+function addfriend(user_id) {
 
-    $.ajax({
-        type: 'POST',
-        url: 'ajax/addfriend/'+user_id+'/',
-        success: function (response) {
+    if(user_id>0) {
+        $.ajax({
+            type: 'POST',
+            url: 'ajax/addfriend/' + user_id + '/',
+            success: function (response) {
 
 
-
-        }
-    });
-
+            }
+        });
+    }else{
+        alert('error')
+    }
 }
 
 function addthread(group_id){
@@ -46,9 +48,6 @@ function addthread(group_id){
         type: 'POST',
         url: 'ajax/addthred/'+group_id+'/',
         success: function (response) {
-
-
-
         }
     });
 }
