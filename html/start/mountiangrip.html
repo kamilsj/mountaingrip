@@ -27,53 +27,11 @@
             </div>
 
             <div>
-                    {% for trip in data.trips %}
-                    <div id="trip{{ trip.id }}" class="d-flex border border-dark rounded"
-                        {% if trip.cover %}
-                            style="background-image: url({{ trip.cover.url }}); background-size: cover; background-position: center center;"
-                        {% else %}
-                            style="background-color: #909b9f;"
-                        {% endif %}>
+                {% for trip in data.trips %}
 
-                        <div class="row">
-                            <div class="col-auto">{% show_avatar trip.user.id %}</div>
-                            <div class="col-6">
-                                <a class="badge bg-light text-dark" href="/start/trip/{{ trip.id }}">{{ trip.title }}</a><br>
-                                <a class="badge bg-dark" href="/start/q/?what={{ trip.basePlace }}"> {{ trip.basePlace }} </a>
-                                <a class="badge bg-light text-dark" href="/start/q/?what={{ trip.mountainName }}"> {{ trip.mountainName }} </a><br>
-                                <p class="badge text-wrap
-                                {% if today > trip.startDate|date:'Y-m-d' %}
-                                    bg-danger
-                                {% else %}
-                                    bg-primary
-                                {% endif %}
-                                ">{{ trip.startDate }}
-                                    {% if trip.endDate != None %}
-                                        - {{ trip.endDate }}
-                                    {% endif %}
-                                    </p>
-
-
-
-                            </div>
-                        </div>
-                    </div>
-                        <br>
-                    {% endfor %}
+                {% endfor %}
             </div>
 
         </div>
     </div>
-    <script>
-    const field = document.getElementById('id_what');
-    const ac = new Autocomplete(field, {
-        data: [{label: "I'm a label", value: 42}],
-        maximumItems: 5,
-            onSelectItem: ({label, value}) => {
-                console.log("user selected:", label, value);
-            }
-    });
-
-
-    </script>
 {% endblock %}

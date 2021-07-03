@@ -85,7 +85,6 @@
                                   {% trans "Shop" %}
                                 </a>
                               </li>
-
                             {% endif %}
                         </ul>
                           {% if user.is_authenticated %}
@@ -140,7 +139,8 @@
                 <div class="col" style="text-align-last: left;">
                     <p class="d-inline text-wrap badge bg-dark">&copy;{% now "Y" %}</p>
                     <p class="d-inline text-wrap badge bg-light text-dark small text-decoration-none">
-                    <a href="/about/" target="_blank">{% trans 'about' %}</a> |
+                    <a href="/about/" target="_blank">{% trans 'about' %}</a><b> | </b>
+                    <a href="https://kamilsj.github.io/mountaingrip/" target="_blank">{% trans 'code' %}</a><b> | </b>
                     <a href="https://www.paypal.me/kamilsj/50/" target="_blank">{% trans 'donate' %}</a>
                     </p>
                 </div>
@@ -166,14 +166,11 @@
                 update({{ user.id }}, 30000);
             //});
         });
-    </script>
-    {% endif %}
-    <script type="text/javascript">
+
         $(function() {
             Tipped.create('.tp');
         });
-    </script>
-    <script type="text/javascript">
+
         $('#id_what').autocomplete({
             serviceUrl: '/api/autocomplete/search/',
             dataType: 'json',
@@ -182,6 +179,7 @@
             }
         });
     </script>
+    {% endif %}
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-124583577-1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];

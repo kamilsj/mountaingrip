@@ -45,7 +45,7 @@
                     <input type="hidden" id="id_trip" name="trip" value="1" />
                     <input type="hidden" id="id_profile_id" name="profile_id" value="{{ data.id }}" />
                     <div class="d-flex">
-                        <textarea class="form-control form-control-sm" id="id_text" name="text" required></textarea>
+                        <textarea class="form-control form-control-sm" id="id_text" name="text" placeholder="{% trans 'Send a public message' %}" required></textarea>
                         <div class="p-2 flex-fill"><button type="submit" class="btn btn-sm btn-primary">{% trans 'Post' %}</button></div>
                     </div>
 
