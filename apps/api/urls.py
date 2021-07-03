@@ -8,7 +8,8 @@ router.register(r'users', views.UserViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('graph/', views.ChartData.as_view(), name='chartdata'),
-    path('autocomplete/<str:query>/', views.Autocomplete.as_view(), name='autocomplete'),
+    path('autocomplete/search/', views.Autocomplete.as_view(), name='autocomplete'),
+    path('autocomplete/inbox/', views.AutocompleteInbox.as_view(), name='autocomplete_inbox'),
     path('suggestions/', views.Suggestions.as_view(), name='suggestions'),
     path('notifications/<int:id>/',  views.Notifications.as_view(), name='notifications'),
 

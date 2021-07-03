@@ -8,11 +8,13 @@ def check_pic(pic):
     else:
         return 'https://mountiangrip.s3.amazonaws.com/assets/defaultProfilePicture.jpg'
 
+
 def check_cover(cover):
     if cover:
         return cover.url
     else:
         return 'https://mountiangrip.s3.amazonaws.com/media/profile/P1000193_B55pk0B.jpg'
+
 
 def user_id_to_name(user_id):
     user = User.objects.filter(id=user_id).get()

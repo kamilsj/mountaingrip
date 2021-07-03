@@ -20,7 +20,14 @@ class Index(View):
 
 class Purchases(View):
     def get(self, request):
-        pass
+        data = {}
+        if request.session['beta'] == True and settings.BETA == True:
+            # ok beta testing works fine
+            pass
+
+        else:
+            data = {'info': 'Space only for beta testers. For now.'}
+        return render(request, 'shop/purchases.html', {'data': data})
 
     def post(self, request):
         pass
@@ -29,7 +36,14 @@ class Purchases(View):
 class AddProduct(View):
 
     def get(self, request):
-        pass
+        data = {}
+        if request.session['beta'] == True and settings.BETA == True:
+            #ok beta testing works fine
+            pass
+
+        else:
+            data = {'info': 'Space only for beta testers. For now.'}
+        return render(request, 'shop/add_product.html', {'data': data})
 
     def post(self, request):
         pass

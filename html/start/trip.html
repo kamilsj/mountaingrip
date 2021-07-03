@@ -62,27 +62,22 @@
                     <div class="flex-fill p-2"><button type="submit" class="btn btn-primary">{% trans 'Post' %}</button></div>
                 </div>
             </form>
-            <div class="row mt-3">
+            <div class="d-flex flex-column list-group mt-5">
                 <div id="trip_posts">
                 {% for post in data.posts %}
-                    <div class="col mb-2" id="post{{ post.id }}">
-                        <table>
-                            <tr class="d-flex">
-                                <td class="col-xs-2 mr-2">
-                                    {%  show_avatar_small post.user.id %}
-                                </td>
-                                <td class="col-xs-8 small">
-                                    {{ post.text }}
-                                </td>
-                            </tr>
-                        </table>
+                    <div class="list-group-item list-group-item-light d-flex justify-content-between align-items-center" id="post{{ post.id }}">
+                        <span>
+                            {%  show_avatar_small post.user.id %}
+                            <small>{{ post.text }}</small>
+                        </span>
+                        <span>
+
+                        </span>
                     </div>
                 {% endfor %}
                 </div>
             </div>
         </div>
-
-
     </div>
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -124,7 +119,7 @@
         var gora    = new google.maps.Marker({position: m_name, map,
             draggable: false,
             animation: google.maps.Animation.DROP,
-            title: "{{data.mountainName.name}}"});href="https://mountiangrip.s3.amazonaws.com/data/css/mg.css"
+            title: "{{data.mountainName.name}}"});
     }
     </script>
     <script defer src="https://maps.googleapis.com/maps/api/js?key={{ data.gmaps_key }}&callback=initMap"></script>

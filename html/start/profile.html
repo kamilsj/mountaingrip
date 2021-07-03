@@ -1,6 +1,7 @@
 {% extends 'main.html' %}
 {% load i18n %}
 {% load add_func %}
+{% load humanize %}
 {% block title %}
     {{ data.name }}
 {% endblock %}
@@ -26,15 +27,15 @@
     </div>
     <div class="d-flex justify-content-around">
             <div class="p2">
-                <h2 class="text-muted">{{ data.name }} <b>{% if data.age > 0 %}({{ data.age }}){% endif %}</b></h2>
+                <h2 class="text-muted">{{ data.name }}</h2>
                 <small></small>
             </div>
     </div>
 
     <div class="row" style="margin-top: 10%">
             <div class="col-4 mt-5">
-                {% if data.own_profile == 0 %}
-                <button class="btn btn-outline-success btn-sm" onclick="addfriend(data.id)">{% trans 'Add as a friend' %}</button>
+                {% if data.own_profile == 0 and data.request_sent == 0 %}
+                <button id="friend_button" class="btn btn-outline-success btn-sm" onclick="addfriend({{ data.id }})">{% trans 'Add as a friend' %}</button>
                 {% endif %}
             </div>
             <div class="col-8">
@@ -49,20 +50,20 @@
                     </div>
 
             </form>
-            <div class="row mt-5">
+            <div class="d-flex flex-column list-group mt-5">
                 <div id="trip_posts">
                 {% for post in data.posts %}
-                    <div class="col mb-2" id="post{{ post.id }}">
-                        <table>
-                            <tr class="d-flex">
-                                <td class="col-xs-2 mr-2">
-                                    {%  show_avatar_small post.user.id %}
-                                </td>
-                                <td class="col-xs-8 small">
-                                    {{ post.text }}
-                                </td>
-                            </tr>
-                        </table>
+                    <div class="list-group-item list-group-item-light d-flex justify-content-between align-items-center" id="post{{ post.id }}">
+                        <span>
+                            {%  show_avatar_small post.user.id %}
+                            <small>{{ post.text }}</small>
+                        </span>
+                        <span>
+                            <div class="d-flex">
+                                <small class="badge bg-light text-wrap text-dark">{{ post.added_at|naturaltime }}</small>
+                            </div>
+                        </span>
+
                     </div>
                 {% endfor %}
                 </div>

@@ -3,8 +3,8 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 from django.views import View
-
-from .models import Trip, Profile, Post, Comment, TripJoined
+from django.db.models import Q
+from .models import Trip, Profile, Post, Comment, TripJoined, Friend
 from .forms import TripForm, SearchForm, PostForm, ProfileForm
 
 from func.site_functions import common
@@ -14,6 +14,7 @@ from django.utils import timezone
 
 import googlemaps
 from django.conf import settings
+
 gkey = settings.GKEY
 gmaps = googlemaps.Client(key=gkey)
 
@@ -22,10 +23,10 @@ def index(request):
     if request.user.is_authenticated:
         user = request.user
         if user.id > 1:
-            #asign beta user
+            # assign beta user
             beta = Profile.objects.values('beta').get(user=user)
             request.session['beta'] = beta['beta']
-            ################
+            ##################
             date = datetime.now(tz=timezone.utc)
             posts = {}
 
@@ -70,12 +71,18 @@ class ProfileView(View):
                         if profile.birthday:
                             age = (date.today() - profile.birthday) // timedelta(days=365.2425)
                         else:
-                            age = 0
+                            age = ''
 
                         if user.id == request.user.id:
                             own_profile = 1
                         else:
                             own_profile = 0
+
+                        if Friend.objects.filter((Q(who=request.user) & Q(whom=user)) | (Q(who=user) & Q(whom=request.user))).exists():
+                            request_sent = 1
+                        else:
+                            request_sent = 0
+
 
                         if Post.objects.filter(profile_id=id).count() > 0:
                             posts = Post.objects.filter(profile_id=id).order_by('-added_at').all()
@@ -88,8 +95,9 @@ class ProfileView(View):
                             'curl': cover,
                             'purl': pic,
                             'posts': posts,
-                            'age': age,
+                            #'age': age,
                             'own_profile': own_profile,
+                            'request_sent': request_sent,
                             'update': update_profile
                         }
 
@@ -101,14 +109,22 @@ class ProfileView(View):
 
         else:
             # showing users own profile without any other
-
             user = request.user
-            if Profile.objects.filter(user_id=user.id).exists():
+            if Profile.objects.filter(user=user).exists():
                 name = user.get_full_name()
-                profile = Profile.objects.get(user_id=user.id)
+                profile = Profile.objects.get(user=user)
                 pic = common.check_pic(profile.pic)
                 cover = common.check_cover(profile.cover)
-                age = (date.today() - profile.birthday) // timedelta(days=365.2425)
+                # activating and deactivating beta features
+                if profile.beta is True:
+                    request.session['beta'] = True
+                else:
+                    request.session['beta'] = False
+                # -----------------------------------------
+                if profile.birthday:
+                    age = (date.today() - profile.birthday) // timedelta(days=365.2425)
+                else:
+                    age = ''
 
                 if Post.objects.filter(profile_id=user.id).count() > 0:
                     posts = Post.objects.filter(profile_id=user.id).order_by('-added_at').all()
@@ -166,9 +182,9 @@ class ProfileUpdate(View):
             form = self.form_class(request.POST or None, request.FILES or None, instance=profile)
             if profile:
                 if form.is_valid():
-                        obj = form.save(commit=False)
-                        obj.save()
-                        return redirect('/start/profile/')
+                    obj = form.save(commit=False)
+                    obj.save()
+                    return redirect('/start/profile/')
         else:
             form = self.form_class()
 
@@ -199,12 +215,11 @@ class TripView(View):
                 trip = Trip.objects.get(id=id)
                 if trip:
                     joined = TripJoined.objects.filter(trip=trip).count()
-                    user_joined =TripJoined.objects.filter(user=user).exists()
+                    user_joined = TripJoined.objects.filter(user=user).exists()
                     if Post.objects.filter(trip_id=id).count() > 0:
                         posts = Post.objects.filter(trip_id=id).order_by('-added_at').all()
                         if Comment.objects.filter(trip_id=id).count() > 0:
                             comments = ''
-
 
                     if trip.blat == 0 and trip.blng == 0 and trip.mlat == 0 and trip.mlng == 0:
 
@@ -266,7 +281,6 @@ class TripView(View):
 
         return render(request, 'start/trip.html', {'data': data})
 
-
     def post(self, request, id=0):
         form = PostForm(request.POST)
         if request.method == 'POST' and request.user.is_authenticated:
@@ -276,12 +290,12 @@ class TripView(View):
                 profile_id = form.clean_profile_id()
                 user = request.user
                 if Post.objects.create(
-                    user=user,
-                    profile_id=profile_id,
-                    trip=trip,
-                    text=text
+                        user=user,
+                        profile_id=profile_id,
+                        trip=trip,
+                        text=text
                 ):
-                        return redirect('/start/trip/'+str(trip.id)+'/')
+                    return redirect('/start/trip/' + str(trip.id) + '/')
             else:
                 return HttpResponse(form.errors)
 
@@ -298,18 +312,14 @@ def q(request):
 
     if request.method == 'GET':
         q = request.GET['what']
-        #finding stuff and memorizing search query
-        
+        # finding stuff and memorizing search query
 
-
-        
         return render(request, 'start/searchresult.html', {'data': data, 'q': q})
     else:
         return None
 
 
 class AddTrip(View):
-
     form_class = TripForm
     template_name = 'start/addtrip.html'
 
@@ -323,13 +333,12 @@ class AddTrip(View):
             form = self.form_class(request.POST or None, request.FILES or None)
 
             if form.is_valid():
-                #check if form was already added
-
+                # check if form was already added
 
                 obj = form.save(commit=False)
                 obj.user = user
-                if not Trip.objects.filter(title=obj.title, user=user, endDate=obj.endDate, startDate=obj.startDate).exists():
-
+                if not Trip.objects.filter(title=obj.title, user=user, endDate=obj.endDate,
+                                           startDate=obj.startDate).exists():
 
                     obj.save()
                     return redirect('/start/trip/' + str(obj.id))
@@ -339,4 +348,3 @@ class AddTrip(View):
             form = self.form_class()
 
         return render(request, self.template_name, {'form': form})
-

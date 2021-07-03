@@ -95,7 +95,7 @@ class ThreadView(View):
             group = Group.objects.get(id=gid)
             if ThreadPost.objects.filter(thread=thread, group=group).count() > 0:
                 posts = ThreadPost.objects.filter(thread=thread, group=group).all()[:page]
-                self.data ={
+                self.data = {
                     'user': user,
                     'thread': thread,
                     'posts': posts,
