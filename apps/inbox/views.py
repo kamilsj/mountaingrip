@@ -8,6 +8,7 @@ from django.utils.translation import gettext as _
 
 from func.notif import Notif
 from django.db.models import Q
+from django.db.models import Subquery
 
 from .forms import MessageForm
 from .models import Message
@@ -90,12 +91,13 @@ class Inbox(View):
         if settings.BETA is True and request.session['beta'] is True:
             count = Message.objects.filter(to=request.user).count()
             if count > 0:
-                messages = Message.objects.filter(to=request.user).order_by('-id').all()[:50]
-
+                # messages = Message.objects.filter(to=request.user).order_by('-id').all()[:50]
+                messages = Message.objects.filter(id__in=Subquery(
+                    Message.objects.filter(to=request.user).order_by('conversation', '-id').distinct('conversation').values('id')
+                )).order_by('-id').all()
                 data = {
                     'messages': messages,
                 }
-
             else:
                 data = {'nonew': _('No messages')}
         else:
