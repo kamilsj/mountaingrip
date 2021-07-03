@@ -13,29 +13,24 @@ function jointrip(id = 0){
     }
 }
 
-function addpost(profile_id=0, trip_id=0){
 
-        $.ajax({
-        type: 'POST',
-        data:{'profile_id': profile_id, 'trip_id': trip_id},
-        url: 'ajax/addpost/',
-        success: function (response){
-
+function showNotifications(){
+    $.ajax({
+        url: '/ajax/shownotifications',
+        success: function(data){
+            
         }
-    });
-
-
+    })
 }
 
 function addfriend(user_id) {
-
     if(user_id>0) {
         $.ajax({
-            type: 'POST',
-            url: 'ajax/addfriend/' + user_id + '/',
-            success: function (response) {
-
-
+            url: '/ajax/addfriend/' + user_id + '/',
+            success: function (data) {
+                if(data.OK === 1) {
+                    $('#friend_button').fadeOut('slow', function(){});
+                }
             }
         });
     }else{
@@ -43,31 +38,14 @@ function addfriend(user_id) {
     }
 }
 
-function addthread(group_id){
+
+function checkNotifications(){
     $.ajax({
-        type: 'POST',
-        url: 'ajax/addthred/'+group_id+'/',
-        success: function (response) {
-        }
-    });
-}
-
-function checkMessages(user_id) {
-
-    $.ajax({
-        url: '/ajax/checkmessages/'+user_id+'/',
-        success: function (response){
-
-        }
-    });
-
-}
-
-function checkNotifications(user_id){
-    $.ajax({
-        url: '/ajax/checknotifications/'+user_id+'/',
-        sucess: function (response){
-
+        url: '/ajax/checknotifications',
+        success: function (data) {
+            if(data.count > 0){
+                $('#notifcount').text(data.count).toggleClass('bg-secondary bg-success');
+            }
         }
     })
 }

@@ -1,17 +1,18 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
+from django.db.models import Q
 from apps.health.models import HealthData
-from start.models import Profile
+from start.models import Profile, Trip
 from apps.notifications.models import Notification
-from datetime import datetime
 
 from .serializers import UserSerializer
 from func.AI.learn import WeightCalculations, CalcuclateChanges
+from func.notif import Notif
 
 
 class Notifications(APIView):
@@ -29,8 +30,48 @@ class Autocomplete(APIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, query):
-        pass
+    def get(self, request):
+        data = {}
+        suggestions = []
+        excluded = []
+        if request.method == 'GET':
+            q = request.GET['query']
+            '''write an intelligent query to predict the most common questions'''
+            places = Trip.objects.filter(Q(basePlace__startswith=q) | Q(mountainName__startswith=q)).all()
+            for place in places:
+                if not place.basePlace in excluded:
+                    suggestions.append({'value': place.basePlace, 'data': place.id})
+                    excluded.append(place.basePlace)
+                if not place.mountainName in excluded:
+                    suggestions.append({'value': place.mountainName, 'data': place.id})
+                    excluded.append(place.mountainName)
+            data = {
+                'query': q,
+                'suggestions': suggestions
+            }
+        return Response(data)
+
+
+class AutocompleteInbox(APIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        data = {}
+        suggestions = []
+        if request.method == 'GET':
+            q = request.GET['query']
+            '''suggestions users in new message user box'''
+            users = User.objects.filter(Q(first_name__startswith=q) | Q(last_name__startswith=q)).all()
+            for user in users:
+                suggestions.append({'value': user.first_name + ' ' + user.last_name+' ('+user.username+')', 'data': user.id})
+
+            data = {
+                'query': q,
+                'suggestions': suggestions
+            }
+
+        return Response(data)
 
 
 class Suggestions(APIView):
@@ -46,9 +87,7 @@ class Suggestions(APIView):
             ]
         }
 
-
         return Response(data)
-
 
 
 class ActivitieData(APIView):
@@ -103,4 +142,4 @@ class ChartData(APIView):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]

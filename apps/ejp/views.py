@@ -176,6 +176,9 @@ class Predictions(View):
 
 
 class PlusMinus(View):
+
+    form_class = EJPForm
+
     def get(self, request):
         data = {}
         user = request.user
@@ -204,9 +207,19 @@ class PlusMinus(View):
                 'total': total,
 
             }
-            return render(request, 'ejp/plus_minus.html', {'data': data})
+            return render(request, 'ejp/plus_minus.html', {'data': data, 'form': self.form_class})
         else:
             return redirect('/start/')
 
     def post(self, request):
-        pass
+        if request.method == 'POST':
+            user = request.user
+            form = self.form_class(request.POST or None)
+            if form.is_valid():
+                if not EJP.objects.filter(my=1, date=form.cleaned_data['date']).exists():
+                    obj = form.save(commit=False)
+                    obj.my = 1
+                    obj.save()
+
+
+        return redirect('/plusminus/')

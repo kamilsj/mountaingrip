@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'apps.inbox',
     'apps.ejp',
     'start',
-    'api',
+    'apps.api',
     'rest_framework',
     'rest_framework_api_key',
     'django_countries',
@@ -82,6 +82,9 @@ LOCALE_PATHS = (
 
 
 MIDDLEWARE = [
+    # My main middleware
+    'mountaingrip.middleware.MGMiddleware',
+
     'corsheaders.middleware.CorsMiddleware', #added
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

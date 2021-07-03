@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.models import User
-from django.utils.translation import  gettext as _
+from django.utils.translation import gettext as _
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 
@@ -20,8 +20,8 @@ from func.tokens import account_activation_token
 def about(request):
     return render(request, 'about.html')
 
-def index(request):
 
+def index(request):
     if request.user.is_authenticated:
         return redirect('/start/')
     else:
@@ -81,3 +81,30 @@ def signup(request):
         return render(request, 'start/signup.html', {'form': form})
     else:
         return redirect('/start/')
+
+
+''' Server errors '''
+
+
+def error_404(request, exception):
+    response = render(request, 'errors/404.html', {})
+    response.status_code = 404
+    return response
+
+
+def error_403(request, exception=None):
+    response = render(request, 'errors/403.html', {})
+    response.status_code = 403
+    return response
+
+
+def error_400(request, exception=None):
+    response = render(request, 'errors/403.html', {})
+    response.status_code = 400
+    return response
+
+
+def error_500(request, exception=None):
+    response = render(request, 'errors/500.html', {})
+    response.status_code = 500
+    return response

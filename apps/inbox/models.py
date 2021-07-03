@@ -15,3 +15,7 @@ class Message(models.Model):
     read = models.BooleanField(default=False)
     attachments = models.BooleanField(default=False)
     sent_at = models.DateTimeField(auto_now_add=True)
+
+
+class Attachment(models.Model):
+    message = models.ForeignKey(Message, on_delete=models.DO_NOTHING, related_name='message_files')

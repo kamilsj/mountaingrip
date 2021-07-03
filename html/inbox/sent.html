@@ -1,24 +1,17 @@
 {% extends 'inbox/index.html' %}
 {% load add_func %}
 {% load humanize %}
-{% load i18n %}
 {% block inbox %}
     <div class="d-flex flex-column list-group mt-5">
-        {% for message in data.messages %}
-            <div class="list-group-item d-flex justify-content-between align-items-center
-            {% if message.read == 1 %}
-            list-group-item-light
-            {% else %}
-            list-group-item-secondary
-            {% endif %}
-            ">
+        {% for message in data.sent %}
+            <div class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
                 <span>
                     {% show_avatar_small message.user.id %}
                     <a href="{% url 'inbox:message' message.id  %}" class="text-muted">
                         <b><small>{{ message.title }}</small></b>
                     </a>
                 </span>
-                <span><small class="badge bg-light text-wrap text-dark" >{{ message.sent_at|naturaltime }}</small></span>
+                <span><small class="badge bg-light text-wrap text-dark">{{ message.sent_at|naturaltime }}</small></span>
 
             </div>
 

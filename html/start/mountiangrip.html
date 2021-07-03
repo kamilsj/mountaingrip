@@ -19,33 +19,31 @@
         </div>
     </div>
     <div class="container">
-        <div class="d-flex justify-content-center mt-3">
-            <div id="suggestions" class="col">
+        <div class="d-flex justify-content-between mt-3">
+            <div id="suggestions">
+                <h5>Be aware of one thing:<br></h5>
+                you are testing very early product which in many cases do not work properly.<br>
+                We've been working very hard to make it usable and nice ;)
+            </div>
 
-            </div>
-            <div class="col p-2">
-                <h3></h3>
-            </div>
-            <div class="col">
+            <div>
                     {% for trip in data.trips %}
-                    <div id="trip{{ trip.id }}" class="row border border-dark rounded"
-
-
-                        {% if trip.cover.url %}
+                    <div id="trip{{ trip.id }}" class="d-flex border border-dark rounded"
+                        {% if trip.cover %}
                             style="background-image: url({{ trip.cover.url }}); background-size: cover; background-position: center center;"
                         {% else %}
-
+                            style="background-color: #909b9f;"
                         {% endif %}>
 
                         <div class="row">
                             <div class="col-auto">{% show_avatar trip.user.id %}</div>
-                            <div class="col-auto">
+                            <div class="col-6">
                                 <a class="badge bg-light text-dark" href="/start/trip/{{ trip.id }}">{{ trip.title }}</a><br>
                                 <a class="badge bg-dark" href="/start/q/?what={{ trip.basePlace }}"> {{ trip.basePlace }} </a>
                                 <a class="badge bg-light text-dark" href="/start/q/?what={{ trip.mountainName }}"> {{ trip.mountainName }} </a><br>
                                 <p class="badge text-wrap
                                 {% if today > trip.startDate|date:'Y-m-d' %}
-                                    bg-secondary
+                                    bg-danger
                                 {% else %}
                                     bg-primary
                                 {% endif %}
@@ -78,6 +76,4 @@
 
 
     </script>
-    <!-- first react.js script without node nor jsx -->
-    <script src="{% static 'js/reactjs/ui.js' %}"></script>
 {% endblock %}
