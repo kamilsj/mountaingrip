@@ -9,7 +9,11 @@ class Notif:
     2 - friends
     3 - group post
     4 - profile post
-
+    5 - trip joined
+    6 - group followed
+    7 - trip post
+    8 -
+    9 -
     '''
 
     def __init__(self, cat):
@@ -21,10 +25,7 @@ class Notif:
         else:
             return False
 
-    def clean(self, id):
-        pass
-
-    def show_notif_short(self, user):
+    def clear(self, id):
         pass
 
     def addNotif(self, user, to_whom, what, short):

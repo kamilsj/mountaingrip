@@ -64,7 +64,8 @@ class AutocompleteInbox(APIView):
             '''suggestions users in new message user box'''
             users = User.objects.filter(Q(first_name__startswith=q) | Q(last_name__startswith=q)).all()
             for user in users:
-                suggestions.append({'value': user.first_name + ' ' + user.last_name+' ('+user.username+')', 'data': user.id})
+                suggestions.append(
+                    {'value': user.first_name + ' ' + user.last_name + ' (' + user.username + ')', 'data': user.id})
 
             data = {
                 'query': q,

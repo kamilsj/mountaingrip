@@ -18,7 +18,10 @@
         <div></div>
         <!-- end of attachments points -->
         <br><br>
-        <div><a data-bs-toggle="collapse" href="#showadreplyform" role="button" aria-expanded="false" aria-controls="showadreplyform"><small>reply</small></a></div>
+
+        <div>
+            {% if 1 %}
+            <a data-bs-toggle="collapse" href="#showadreplyform" role="button" aria-expanded="false" aria-controls="showadreplyform"><small>reply</small></a></div>
             <div class="collapse multi-collapse mt-3" id="showadreplyform">
                 <form method="post" enctype="multipart/form-data">
                   {% csrf_token %}
@@ -30,6 +33,7 @@
 
                 </form>
             </div>
+            {% endif %}
         </div>
         <!-- other messages -->
         {% if data.messages %}

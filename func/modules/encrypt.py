@@ -22,8 +22,6 @@ class Encryption:
         key = base64.urlsafe_b64decode(kdf.derive(password))
         return key
     
-        
-    
     def GenerateKey(self):
         key = Fernet.generate_key()
         return key

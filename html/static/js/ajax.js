@@ -1,10 +1,9 @@
 
 function jointrip(id = 0){
-
     if(id>0) {
         $.ajax({
             url: '/ajax/jointrip/'+id+'/',
-            success: function (response) {
+            success: function (data) {
 
             }
         });
@@ -18,9 +17,10 @@ function showNotifications(){
     $.ajax({
         url: '/ajax/shownotifications',
         success: function(data){
-            
+            $('#notification_content').html(data);           
         }
     })
+    
 }
 
 function addfriend(user_id) {

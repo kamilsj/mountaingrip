@@ -7,15 +7,14 @@ class CalcuclateChanges:
 
     def __init__(self):
         self.data = n.array()
-        
+
     def WeightChanges(self, weight):
-        
         x = 1
-        
-        while x != 0:    
-            for weigthData in weight:
+        while x != 0:
+            for detail in weight:
                 pass
-        
+
+
 
 class WeightCalculations:
 
@@ -37,7 +36,7 @@ class WeightCalculations:
 
             return result
         else:
-            return 0
+            return False
 
     def BodyFatIdeal(self, gender, age):
         if gender == 0:
@@ -80,9 +79,9 @@ class WeightCalculations:
     def BodyFat(self, gender, neck, hip, waist, height):
         if neck > 0 and hip > 0 and waist > 0 and height > 0:
             if gender == 0:
-                result = (495/(1.0324 - 0.19077*math.log(waist-neck, 10)+0.15456*math.log(height, 10))) - 450
+                result = (495/(1.0324 - 0.19077*math.log(waist-neck, 10) + 0.15456*math.log(height, 10))) - 450
             else:
                 result = (495/(1.29579 - 0.35004*math.log(waist+hip-neck, 10) + 0.22100*math.log(height, 10))) - 450
             return result
         else:
-            return 0
+            return False

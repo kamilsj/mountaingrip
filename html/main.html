@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %} {% endblock %}</title>
     <link rel="icon" type="image/png" href="{% static 'favicon.png' %}"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/mg.css' %}" />
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
     <link rel="stylesheet" href="{% static 'css/tipped.css' %}" />
@@ -23,7 +23,7 @@
 
 
     <!-------------->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@3.1.2/dist/vue.global.prod.js"></script>
 
@@ -58,6 +58,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="/start/profile/">{%  trans "Profile" %}</a></li>
                                     <li><a class="dropdown-item" href="/health/">{%  trans "Health" %}</a></li>
+                                    <li><a class="dropdown-item" href="/settings/">{% trans "Settings" %}</a></li>
                                 </ul>
                               </li>
                               <li class="nav-item dropdown">
@@ -66,8 +67,8 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="/start/add/">{% trans "Add a trip" %}</a></li>
-                                    <li><a class="dropdown-item disabled" href="">{% trans "Explore" %}</a></li>
-                                    <li><a class="dropdown-item disabled" href="#">{% trans "Past activities" %}</a></li>
+                                   <!-- <li><a class="dropdown-item disabled" href="">{% trans "Explore" %}</a></li>  -->
+                                   <!-- <li><a class="dropdown-item disabled" href="#">{% trans "Past activities" %}</a></li> -->
                                 </ul>
                               </li>
                               <li class="nav-item">
@@ -89,8 +90,8 @@
                         </ul>
                           {% if user.is_authenticated %}
                             <div class="d-flex">
-                            <a href="#" class="me-5" data-bs-toggle="modal" data-bs-target="#notificationsModal">
-                                <span class="badge bg-secondary" id="notifcount">0</span>
+                            <a href="#" class="me-5" onclick="showNotifications()" data-bs-toggle="modal" data-bs-target="#notificationsModal">
+                                <span class="badge bg-secondary"  id="notifcount">0</span>
                             </a>
                             </div>
                             <form class="d-flex" method="get" action="/start/q/">
@@ -124,13 +125,15 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <div  class="d-flex">
-
+            <div  class="d-flex flex-column align-items-center" id="notification_content">
+                <div class="spinner-border" role="status"><span class="sr-only"></span></div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+
 
     {% endif %}
     <footer class="footer fixed-bottom">
@@ -180,6 +183,7 @@
         });
     </script>
     {% endif %}
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-124583577-1"></script>
     <script>
       window.dataLayer = window.dataLayer || [];

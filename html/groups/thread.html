@@ -17,37 +17,34 @@
         </div>
     </div>
     <div class="d-flex justify-content-left mt-5">
-
-            <h5><button type="button" onclick="location.href='/groups/{{ data.thread.group.id }}/'" class="btn btn-white" href="/groups/{{ data.group.id }}/">
+        <h5>
+            <button type="button" onclick="location.href='/groups/{{ data.thread.group.id }}/'" class="btn btn-white" href="/groups/{{ data.group.id }}/">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z"></path>
-</svg>
-
-              </button>
-                {{ data.thread.name }}
-            </h5>
-
+                <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5.5a.5.5 0 0 0 0-1H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5z"></path></svg>
+            </button>
+            {{ data.thread.name }}
+        </h5>
     </div>
-            <div class="d-flex flex-column list-group mt-5">
-                {% for post in data.posts %}
-                <div class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
-                    <span>{% show_avatar_small post.user.id %}
-                        <small>{{ post.text }}</small>
-                    </span>
-                    <span><small class="badge bg-light text-wrap text-dark">{{ post.added_at|naturaltime }}</small></span>
-                </div>
-                {% endfor %}
-                <form method="post" enctype="multipart/form-data">
-                <div class="d-flex mt-4">
-                        {% csrf_token %}
-                        <div class="p-2">{% show_avatar_small data.user.id %}</div>
-                        <input type="hidden" id="id_thread" name="thread" value="{{ data.thread.id }}">
-                        <input type="hidden" id="id_group" name="group" value="{{ data.thread.group.id }}">
-                        <div class="flex-fill"><textarea class="border rounded w-100" id="id_text" name="text" required></textarea></div>
-                    <div class="p-2"><button type="submit" class="btn btn-dark">{% trans 'Submit' %}</button></div>
-                </div>
-                </form>
-            </div>
+    <div class="d-flex flex-column list-group mt-5">
+        {% for post in data.posts %}
+        <div class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
+            <span>{% show_avatar_small post.user.id %}
+                <small>{{ post.text }}</small>
+            </span>
+            <span><small class="badge bg-light text-wrap text-dark">{{ post.added_at|naturaltime }}</small></span>
+        </div>
+        {% endfor %}
+        <form method="post" enctype="multipart/form-data">
+        <div class="d-flex mt-4">
+                {% csrf_token %}
+                <div class="p-2">{% show_avatar_small data.user.id %}</div>
+                <input type="hidden" id="id_thread" name="thread" value="{{ data.thread.id }}">
+                <input type="hidden" id="id_group" name="group" value="{{ data.thread.group.id }}">
+                <div class="flex-fill"><textarea class="border rounded w-100" id="id_text" name="text" required></textarea></div>
+            <div class="p-2"><button type="submit" class="btn btn-dark">{% trans 'Submit' %}</button></div>
+        </div>
+        </form>
+    </div>
     {% endif %}
 </div>
 {% endblock %}

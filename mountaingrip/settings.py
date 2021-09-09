@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'apps.ejp',
     'start',
     'apps.api',
+    'apps.settings',
     'rest_framework',
     'rest_framework_api_key',
     'django_countries',
@@ -84,8 +85,9 @@ LOCALE_PATHS = (
 MIDDLEWARE = [
     # My main middleware
     'mountaingrip.middleware.MGMiddleware',
-
-    'corsheaders.middleware.CorsMiddleware', #added
+    # added
+    'corsheaders.middleware.CorsMiddleware',
+    # djnago
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',

@@ -22,6 +22,7 @@ class SentView(View):
             if Message.objects.filter(user=user).count() > 0:
                 sent = Message.objects.filter(user=user).order_by('-id').all()[:50]
                 data = {
+                    'no_reply': 1,
                     'sent': sent
                 }
             else:
