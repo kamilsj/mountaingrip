@@ -99,7 +99,7 @@ class Predictions(View):
                 flg = 0
                 j += 1
 
-            '''1-50 analytics scripts - some more to be added'''
+            ''' 1-50 analytics scripts - some more to be added '''
             x_y_pro = np.array(x_y_pro)
             x_y_avg = np.average(x_y_pro)
             # percentage of highest 4 values
@@ -124,7 +124,7 @@ class Predictions(View):
             else:
                 pred_5 = [max_50, None]
 
-            '''1-10 analytics scripts'''
+            ''' 1-10 analytics scripts '''
             unq, cnt = np.unique(p2, axis=0, return_counts=True)
             pair_max = np.max(cnt)
             if pair_max > 1:
@@ -133,7 +133,7 @@ class Predictions(View):
             else:
                 pair = [pair_max, None]
 
-            plot = figure(title="Numbers occurance (1-50)",
+            plot = figure(title="Numbers occurrence (1-50)",
                           sizing_mode="stretch_width",
                           tooltips="@x -> @top")
             plot.vbar(x=range(1, 51, 1), top=y, width=0.4, color="red")
@@ -221,5 +221,4 @@ class PlusMinus(View):
                     obj.my = 1
                     obj.save()
 
-
-        return redirect('/plusminus/')
+        return redirect('ejp/plusminus/')

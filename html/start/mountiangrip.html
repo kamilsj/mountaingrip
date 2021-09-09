@@ -6,32 +6,55 @@
 
 {% block content %}
 {% now 'Y-m-d' as today %}
-    <div class="page-background-main">
-        <div class="container">
-            <div class="row mt-5">
-                <div class="col col-lg-7">
-
-                </div>
-                <div class="col col-lg-5">
-
-                </div>
+    <div class="container-fluid page-background-main">
+        <div class="row">
+            <div class="col">
+                Boberek
+            </div>
+            <div class="col">
+                kamil
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="d-flex justify-content-between mt-3">
-            <div id="suggestions">
-                <h5>Be aware of one thing:<br></h5>
-                you are testing very early product which in many cases do not work properly.<br>
-                We've been working very hard to make it usable and nice ;)
+    <div class="container mt-5">
+        <div class="row  m-3">
+            <div class="col-8">
+                <div id="suggestions" class="card" aria-hidden="true">
+                    <div class="card-body">
+                        <h5 class="card-title placeholder-glow">
+                            <span class="placeholder col-6"></span>
+                        </h5>
+                        <p class="card-text placeholder-glow">
+                            <span class="placeholder col-7"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-6"></span>
+                            <span class="placeholder col-8"></span>
+                            <span class="placeholder col-7"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-6"></span>
+                            <span class="placeholder col-8"></span>
+                        </p>
+                    </div>
+                </div>
             </div>
-
-            <div>
-                {% for trip in data.trips %}
-
-                {% endfor %}
+            <div class="col" aria-hidden="true">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            {% trans 'What can you do here?' %}
+                        </h6>
+                        <div class="list-group">
+                            <a href="/start/add/" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-success">{% trans 'Organize a trip and invite your friends.' %}</a>
+                            <a href="/groups/" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-primary">{% trans 'Share your adventure stories.' %}</a>
+                            <a href="/health/" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-warning">{% trans 'Collect and analyze your helath data.' %}</a>
+                            <a href="/messages/" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-danger">{% trans 'Meet other outdoor enthusiasts.' %}</a>
+                            <a href="/shop/" class="list-group-item list-group-item-action flex-column align-items-start list-group-item-dark">{% trans 'Sell and buy outdoor clothes and equipment.' %}</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </div>
     </div>
 {% endblock %}

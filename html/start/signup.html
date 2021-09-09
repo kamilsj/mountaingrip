@@ -9,7 +9,7 @@
             {% if data.activation == 1 %}
                 <div class="alert alert-success" role="alert">{% trans "Activation email was sent to you. Check your SPAM box as well." %}</div>
             {% else %}
-                {% for error in field.non_field_errors %}
+                {% for error in form.non_field_errors %}
                   <div class="alert alert-danger" role="alert">
                   {{ error|escape }}
                   </div>

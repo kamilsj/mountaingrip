@@ -14,7 +14,7 @@ class Login(models.Model):
 class Token(models.Model):
     user = models.BigIntegerField(blank=False)
     token = models.CharField(max_length=255)
-    activated = models.BooleanField(default=0)
+    activated = models.BooleanField(default=False)
     added_at = models.DateTimeField(auto_now_add=True)
 
 
@@ -72,8 +72,8 @@ class Comment(models.Model):
 class Friend(models.Model):
     who = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name="who_is_added", blank=False)
     whom = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name="added_by_whom", blank=False)
-    accepted = models.BooleanField(default=0)
-    bla = models.BooleanField(default=0)
+    accepted = models.BooleanField(default=False)
+    bla = models.BooleanField(default=False)
     added_at = models.DateTimeField(auto_now_add=True)
 
 
@@ -88,7 +88,7 @@ class Profile(models.Model):
     public_key = models.CharField(max_length=1024, blank=True, default='')
     private_key = models.CharField(max_length=1024, blank=True, default='')
     #SPECIAL TESTING FUNCTION CHANGED MANUALLY
-    beta = models.BooleanField(default=0)
+    beta = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.get_full_name()+' ('+self.user.username+')'

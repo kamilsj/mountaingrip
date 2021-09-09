@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 
+app_name = 'groups'
 urlpatterns = [
     path('', views.GroupExplore.as_view(), name='index'),
     path('<int:id>/', views.GroupView.as_view(), name='group_view'),

@@ -16,8 +16,9 @@ handler500 = 'mountaingrip.views.error_500'
 urlpatterns = [
     path('api/', include('apps.api.urls')),
     path('ajax/checknotifications/', func.CheckNotifications, name='check_messages'),
-    path('ajax/addfriend/<int:id>/', func.AddFriend, name=''),
-    path('ajax/jointrip/<int:id>/', func.JoinTrip, name=''),
+    path('ajax/shownotifications/', func.ShowNotifications, name='show_notifications'),
+    path('ajax/addfriend/<int:id>/', func.AddFriend, name='add_friend'),
+    path('ajax/jointrip/<int:id>/', func.JoinTrip, name='join_trip'),
     path('activate/<slug:uidb64>/<slug:token>/', views.activate, name='activate')
 ]
 
@@ -25,6 +26,7 @@ urlpatterns += i18n_patterns(
     path('', views.index, name='index'),
     path('about/', views.about, name='about'),
     path('start/', include('start.urls')),
+    path('settings/', include('apps.settings.urls')),
     path('groups/', include('apps.groups.urls')),
     path('inbox/', include('apps.inbox.urls')),
     path('health/', include('apps.health.urls')),

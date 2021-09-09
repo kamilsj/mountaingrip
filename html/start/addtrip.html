@@ -5,9 +5,9 @@
 {% block content %}
 
 
- <div class="container" style="margin-top: 8%">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-md-6">
+ <div class="container" style="margin-top: 10%">
+        <div class="d-flex justify-content-center align-items-center">
+            <div style="width: 400px;">
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
 
@@ -26,11 +26,11 @@
                             </div>
                         {% elif field.name == 'basePlace' %}
                             <div class="mb-2">
-                                <input class="form-control" type="text" name="basePlace" id="id_basePlace" placeholder="{% trans "Base place" %}" required>
+                                <input class="form-control" type="text" name="basePlace" id="id_basePlace" placeholder="{% trans "Starting place" %}" required>
                             </div>
                         {% elif field.name == 'mountainName' %}
                             <div class="mb-2">
-                                <input class="form-control" type="text" name="mountainName " id="id_mountainName" placeholder="{% trans "Mountain name" %}" required>
+                                <input class="form-control" type="text" name="mountainName " id="id_mountainName" placeholder="{% trans "Mountain/Destination name" %}" required>
                             </div>
                         {% elif field.name == 'startDate' %}
                             <div class="mb-2">
@@ -51,7 +51,7 @@
                         {% endif %}
                     {% endfor %}
                     <div class="text-center"><button class="btn btn-sm btn-primary btn-block" type="submit">{% trans 'Add a trip' %}</button></div>
-                  </form>
+                </form>
             </div>
         </div>
     </div>
@@ -59,10 +59,11 @@
 $('#oneday').click(function(){
     if($(this.checked)){
         $('#id_endDate').prop('disabled', true);
-    }else{
+    }
+    else {
         $('#id_endDate').prop('disabled', false);
     }
-})
+});
 </script>
 
 {% endblock %}
