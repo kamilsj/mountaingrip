@@ -53,29 +53,34 @@ def signup(request):
                 password1 = form.cleaned_data.get('password1')
                 password2 = form.cleaned_data.get('password2')
                 user = form.save(commit=False)
-
                 user.is_active = False
                 user.save()
-                current_site = get_current_site(request)
                 token = str(uuid.uuid4())
-                Token(user=user.pk, token=token, activated=0).save()
+                # Token(user=user.pk, token=token, activated=0).save()
+                current_site = get_current_site(request)
                 Profile(user_id=user.pk).save()
                 mail_subject = _('Activate your Mountain Grip account.')
+
+                # this part has to be rebuild for better, more professional email template
+
                 message = render_to_string('registration/account_activate_email.html', {
                     'name': user.get_full_name(),
                     'domain': current_site.domain,
                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                     'token': account_activation_token.make_token(user),
                 })
+
                 email = EmailMessage(
-                    mail_subject, message, from_email='kboberek@gmail.com', to=[to_email]
+                    mail_subject, message, from_email='no-reply@mountaingrip.com', to=[to_email]
                 )
 
                 if email.send():
                     data = {'activation': 1}
                 else:
                     data = {'activation': 0}
+
                 return render(request, 'start/signup.html', {'data': data})
+
         else:
             form = SignUpForm()
         return render(request, 'start/signup.html', {'form': form})

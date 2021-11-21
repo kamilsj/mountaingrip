@@ -30,26 +30,32 @@ class Autocomplete(APIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def get(self, request):
+    def get(self, request, what):
         data = {}
         suggestions = []
         excluded = []
         if request.method == 'GET':
             q = request.GET['query']
-            '''write an intelligent query to predict the most common questions'''
-            places = Trip.objects.filter(Q(basePlace__startswith=q) | Q(mountainName__startswith=q)).all()
-            for place in places:
-                if not place.basePlace in excluded:
-                    suggestions.append({'value': place.basePlace, 'data': place.id})
-                    excluded.append(place.basePlace)
-                if not place.mountainName in excluded:
-                    suggestions.append({'value': place.mountainName, 'data': place.id})
-                    excluded.append(place.mountainName)
-            data = {
+            if what == 'bp':
+                pass
+            elif what == 'mn':
+                pass
+            else:
+                '''write an intelligent query to predict the most common questions'''
+                places = Trip.objects.filter(Q(basePlace__startswith=q) | Q(mountainName__startswith=q)).all()
+                for place in places:
+                    if not place.basePlace in excluded:
+                        suggestions.append({'value': place.basePlace, 'data': place.id})
+                        excluded.append(place.basePlace)
+                    if not place.mountainName in excluded:
+                        suggestions.append({'value': place.mountainName, 'data': place.id})
+                        excluded.append(place.mountainName)
+                data = {
                 'query': q,
                 'suggestions': suggestions
             }
         return Response(data)
+
 
 
 class AutocompleteInbox(APIView):

@@ -1,3 +1,15 @@
 from django.db import models
 
-# Create your models here.
+
+class Types(models.Model):
+    pass
+
+
+class Product(models.Model):
+    pass
+
+
+class Purchase(models.Model):
+    pass
+
+

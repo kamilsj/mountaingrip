@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.utils.translation import gettext as _
+
 
 
 class SignUpForm(UserCreationForm):
@@ -18,5 +20,5 @@ class SignUpForm(UserCreationForm):
             match = User.objects.get(email=email)
         except User.DoesNotExist:
             return email
-        raise forms.ValidationError('This email is already in use.')
+        raise forms.ValidationError(_('This email is already in use.'))
 
