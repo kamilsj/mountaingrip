@@ -7,6 +7,7 @@ class HealthData(models.Model):
     weight = models.FloatField(max_length=6)
     bmi = models.FloatField(blank=True)
     neck = models.FloatField(default=0, max_length=6)
+    chest = models.FloatField(default=0, max_length=6)
     waist = models.FloatField(default=0, max_length=6)
     hip = models.FloatField(default=0, max_length=6)
     date = models.DateTimeField(auto_now_add=True)

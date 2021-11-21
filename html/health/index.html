@@ -11,14 +11,23 @@
 
         {% if data.added == 1 %}
         <div class="col-sm-12">
-            {% now "jS F Y - H:i" %}
+            <span class="text-muted">{% now "jS F Y - H:i" %}</span>
                 <form method="post" enctype="multipart/form-data">
                             {% csrf_token %}
-                            {% for field in form %}
-                                {{ field.label_tag }}
-                                {{ field }}
-                            {% endfor %}
-                    <button class="btn btn-sm btn-primary" type="submit">{% trans "add" %}</button>
+                    <div class="input-group">
+                        <span class="input-group-text">{% trans 'Weight' %}</span>
+                        <input class="form-control" id="id_weight" type="number" name="weight" step="any" value="0" required />
+                        <span class="input-group-text">{% trans 'Neck' %}</span>
+                        <input class="form-control" id="id_neck" type="number" name="neck" step="any" value="0" required />
+                        <span class="input-group-text">{% trans 'Chest' %}</span>
+                        <input class="form-control" id="id_chest" type="number" name="chest" step="any" value="0" required />
+                        <span class="input-group-text">{% trans 'Waist' %}</span>
+                        <input class="form-control" id="id_waist" type="number" name="waist" step="any" value="0" required />
+                        <span class="input-group-text">{% trans 'Hip' %}</span>
+                        <input class="form-control" id="id_hip" type="number" name="hip" step="any" value="0" required />
+                        <button class="btn btn-sm btn-primary" type="submit">{% trans "add" %}</button>
+                    </div>
+
                 </form>
         </div><br>
 
@@ -98,9 +107,14 @@
             <canvas id="bmi" width="600" height="400"></canvas>
         </div>
         <div class="col-2">
-
-            <h3>Analysis</h3> <br>
-
+            <h6>Analysis</h6>
+            <small class="text-muted">
+            Ideal weight <span class="">
+                <script>
+                    document.write(idealWeight)
+                </script>
+            </span>
+            </small>
         </div>
     </div>
     <div class="row" style="margin-top: 5%">

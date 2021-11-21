@@ -7,7 +7,7 @@ class Index(View):
 
     def get(self, request):
         data = {}
-        if request.session['beta'] == True and settings.BETA == True:
+        if request.session['beta'] is True and settings.BETA is True:
             #ok beta testing works fine
             pass
 
@@ -18,10 +18,11 @@ class Index(View):
     def post(self, request):
         pass
 
+
 class Purchases(View):
     def get(self, request):
         data = {}
-        if request.session['beta'] == True and settings.BETA == True:
+        if request.session['beta'] is True and settings.BETA is True:
             # ok beta testing works fine
             pass
 
@@ -37,7 +38,7 @@ class AddProduct(View):
 
     def get(self, request):
         data = {}
-        if request.session['beta'] == True and settings.BETA == True:
+        if request.session['beta'] is True and settings.BETA is True:
             #ok beta testing works fine
             pass
 

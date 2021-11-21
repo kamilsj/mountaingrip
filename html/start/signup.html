@@ -6,8 +6,11 @@
 
  <div class="container">
             <div class="row justify-content-center align-items-center" style="margin-top: 10%">
+
             {% if data.activation == 1 %}
                 <div class="alert alert-success" role="alert">{% trans "Activation email was sent to you. Check your SPAM box as well." %}</div>
+            {% elif data.activation == 0 %}
+                <div class="alert alert-danger" role="alert">{% trans 'Accunt was created, but activation email was not sent' %}</div>
             {% else %}
                 {% for error in form.non_field_errors %}
                   <div class="alert alert-danger" role="alert">

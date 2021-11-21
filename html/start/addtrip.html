@@ -55,7 +55,7 @@
             </div>
         </div>
     </div>
-<script>
+<script type="text/javascript">
 $('#oneday').click(function(){
     if($(this.checked)){
         $('#id_endDate').prop('disabled', true);
@@ -64,6 +64,23 @@ $('#oneday').click(function(){
         $('#id_endDate').prop('disabled', false);
     }
 });
+
+$('#id_basePlace').autocomplete({
+            serviceUrl: '/api/autocomplete/trip/bp',
+            dataType: 'json',
+            onSelect: function (suggestion) {
+
+            }
+});
+
+$('#id_mountainName').autocomplete({
+            serviceUrl: '/api/autocomplete/trip/mn',
+            dataType: 'json',
+            onSelect: function (suggestion) {
+
+            }
+});
+
 </script>
 
 {% endblock %}
