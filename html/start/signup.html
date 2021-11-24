@@ -12,11 +12,12 @@
             {% elif data.activation == 0 %}
                 <div class="alert alert-danger" role="alert">{% trans 'Accunt was created, but activation email was not sent' %}</div>
             {% else %}
-                {% for error in form.non_field_errors %}
-                  <div class="alert alert-danger" role="alert">
-                  {{ error|escape }}
-                  </div>
-                {% endfor %}
+
+                    {% for error in form.non_field_errors %}
+                      <div class="alert alert-danger" role="alert">
+                      {{ error|escape }}
+                      </div>
+                    {% endfor %}
               <div class="row justify-content-center">
                 <div class="col-5">
                   <form method="post">

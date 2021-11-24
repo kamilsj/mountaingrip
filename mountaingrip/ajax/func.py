@@ -48,26 +48,30 @@ def ShowNotifications(request):
                           '<small class="text_muted">'+_(' sent you a message: ')+'<br><b>'+str(n.short)+'</b></small></a>\n'
             # somebody added you as a friend
             elif n.cat == 2:
-                middle += '<a href="/start/profile/'+str(n.user.id)+'/"><img title="' + whom['name'] + '" src="' + whom['pic'] + '" class="img-rounded rounded-circle tp" style="width:40px; height: 40px; object-fit: cover;"></a>\n'
-                middle += '<span class="ml-2">'+_(' added you as a friend.')+'</span>\n'
+                middle += '<a href="/start/profile/'+str(n.user.id)+'/"><img title="' + whom['name'] + '" src="' + whom['pic'] + '" class="img-rounded rounded-circle tp m-2" style="width:40px; height: 40px; object-fit: cover;"></a>\n'
+                middle += '<div class="d-flex">' \
+                          '<span class="ml-2">'+_(' added you as a friend.')+'</span>' \
+                          '</div>'
+
             # somebody added a post to your group
             elif n.cat == 3:
-                middle += '<a href="/start/profile/'+str(n.user.id)+'/"><img title="'+whom['name']+'" src="'+whom['pic']+'" class="img-rounded rounded-circle tp" style="width:40px; height: 40px; object-fit: cover;"></a>\n'
+                middle += '<a href="/start/profile/'+str(n.user.id)+'/"><img title="'+whom['name']+'" src="'+whom['pic']+'" class="img-rounded rounded-circle tp m-2" style="width:40px; height: 40px; object-fit: cover;"></a>\n'
+
             # somebody added a post to your profile
             elif n.cat == 4:
-                middle += '<a href="/start/profile/'+str(n.user.id)+'/"><img title="'+whom['name']+'" src="'+whom['pic']+'" class="img-rounded rounded-circle tp" style="width:40px; height: 40px; object-fit: cover;"></a>\n'
+                middle += '<a href="/start/profile/'+str(n.user.id)+'/"><img title="'+whom['name']+'" src="'+whom['pic']+'" class="img-rounded rounded-circle tp m-2" style="width:40px; height: 40px; object-fit: cover;"></a>\n'
             # somebody followed your group
             elif n.cat == 5:
-                middle += '<a href="/start/profile/'+str(n.user.id)+'/"><img title="'+whom['name']+'" src="'+whom['pic']+'" class="img-rounded rounded-circle tp" style="width:40px; height: 40px; object-fit: cover;"></a>\n'
+                middle += '<a href="/start/profile/'+str(n.user.id)+'/"><img title="'+whom['name']+'" src="'+whom['pic']+'" class="img-rounded rounded-circle tp m-2" style="width:40px; height: 40px; object-fit: cover;"></a>\n'
             # somebody added a post to your trip
             elif n.cat == 6:
-                middle += '<a href="/start/profile/'+str(n.user.id)+'/"><img title="'+whom['name']+'" src="'+whom['pic']+'" class="img-rounded rounded-circle tp" style="width:40px; height: 40px; object-fit: cover;"></a>\n'
+                middle += '<a href="/start/profile/'+str(n.user.id)+'/"><img title="'+whom['name']+'" src="'+whom['pic']+'" class="img-rounded rounded-circle tp m-2" style="width:40px; height: 40px; object-fit: cover;"></a>\n'
             elif n.cat == 7:
-                middle += '<a href="/start/profile/'+str(n.user.id)+'/"><img title="'+whom['name']+'" src="'+whom['pic']+'" class="img-rounded rounded-circle tp" style="width:40px; height: 40px; object-fit: cover;"></a>\n'
+                middle += '<a href="/start/profile/'+str(n.user.id)+'/"><img title="'+whom['name']+'" src="'+whom['pic']+'" class="img-rounded rounded-circle tp m-2" style="width:40px; height: 40px; object-fit: cover;"></a>\n'
             elif n.cat == 8:
-                middle += '<a href="/start/profile/'+str(n.user.id)+'/"><img title="'+whom['name']+'" src="'+whom['pic']+'" class="img-rounded rounded-circle tp" style="width:40px; height: 40px; object-fit: cover;"></a>\n'
+                middle += '<a href="/start/profile/'+str(n.user.id)+'/"><img title="'+whom['name']+'" src="'+whom['pic']+'" class="img-rounded rounded-circle tp m-2" style="width:40px; height: 40px; object-fit: cover;"></a>\n'
             elif n.cat == 9:
-                middle += '<a href="/start/profile/'+str(n.user.id)+'/"><img title="'+whom['name']+'" src="'+whom['pic']+'" class="img-rounded rounded-circle tp" style="width:40px; height: 40px; object-fit: cover;"></a>\n'
+                middle += '<a href="/start/profile/'+str(n.user.id)+'/"><img title="'+whom['name']+'" src="'+whom['pic']+'" class="img-rounded rounded-circle tp m-2" style="width:40px; height: 40px; object-fit: cover;"></a>\n'
             else:
                 pass
 
@@ -110,13 +114,15 @@ def JoinTrip(request, id):
                 try:
                     obj = TripJoined.objects.create(user=user, trip=trip)
                     notif.addNotif(user, trip.user, obj.id, '')
-                    return True
+                    data = {'OK': 1}
                 except:
-                    return False
+                    data = {'OK': 0}
             else:
-                return False
+                data = {'OK': 0}
     else:
-        return False
+        data = {'OK': 0}
+
+    return JsonResponse(data, safe=False)
 
 
 def CheckNotifications(request):

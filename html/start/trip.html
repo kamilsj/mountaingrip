@@ -27,7 +27,7 @@
     <div class="row align-items-start">
         <div class="col-5">
             <img src="{{ data.url }}" class="img-fluid rounded" /><br>
-            <a href="#" onclick="jointrip({{ data.id }});" class="btn btn-sm mt-2
+            <a href="#" onclick="jointrip({{ data.id }});" id="join_trip_button" class="btn btn-sm mt-2
             {% if data.user_joined == 1 %}
                btn-secondary disabled
             {% else %}

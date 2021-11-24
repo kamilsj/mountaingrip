@@ -4,7 +4,9 @@ function jointrip(id = 0){
         $.ajax({
             url: '/ajax/jointrip/'+id+'/',
             success: function (data) {
-
+                if(data.OK === 1){
+                    $('#friend_button').fadeOut('slow', function(){});
+                }
             }
         });
     }else{
@@ -29,7 +31,7 @@ function addfriend(user_id) {
             url: '/ajax/addfriend/' + user_id + '/',
             success: function (data) {
                 if(data.OK === 1) {
-                    $('#friend_button').fadeOut('slow', function(){});
+                    $('#join_trip_button').fadeOut('slow', function(){});
                 }
             }
         });
