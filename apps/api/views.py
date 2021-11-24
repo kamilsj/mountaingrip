@@ -30,7 +30,7 @@ class Autocomplete(APIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, what):
+    def get(self, request, what=''):
         data = {}
         suggestions = []
         excluded = []

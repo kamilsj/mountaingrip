@@ -83,7 +83,9 @@ def signup(request):
 
         else:
             form = SignUpForm()
+
         return render(request, 'start/signup.html', {'form': form})
+
     else:
         return redirect('/start/')
 
