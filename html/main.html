@@ -16,9 +16,9 @@
     <!-- charts ------>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>              <!-- to be removed soon -->
     <script src="{% static "js/chart_plugin.js" %}"></script>                                                      <!-- to be removed soon -->
-    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.2.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.2.min.js" crossorigin="anonymous"></script>
     <!---------------->
 
 
@@ -143,12 +143,11 @@
                     <p class="d-inline text-wrap badge bg-light text-dark small text-decoration-none">
                     <a href="/about/" target="_blank">{% trans 'about' %}</a><b> | </b>
                     <a href="https://kamilsj.github.io/mountaingrip/" target="_blank">{% trans 'code' %}</a><b> | </b>
-                    <a href="https://www.paypal.me/kamilsj/50/" target="_blank">{% trans 'donate' %}</a>
+                    <a href="https://www.paypal.me/kamilsj/50/" target="_blank">{% trans 'donate' %}</a><b> | </b>
+                    <a href="https://www.buymeacoffee.com/mountaingrip">{% trans 'buy me a coffee' %}</a>
                     </p>
                 </div>
-                <div class="col" style="text-align-last: right;">
-                    <p class="badge bg-light text-dark"><a href="https://www.buymeacoffee.com/mountaingrip">{% trans 'Buy me a coffee' %}</a></p>
-                </div>
+                <div class="mb-3"></div>
             </div>
         </div>
     </footer>
@@ -191,7 +190,7 @@
         gtag('config', 'UA-124583577-1');
     </script>
     <!-- Cloudflare Web Analytics -->
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "e6811d3cd92e4211b2de42bd079c2602"}'></script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{'token': 'e6811d3cd92e4211b2de42bd079c2602'}"></script>
     <!-- End Cloudflare Web Analytics -->
 </div>
 </body>

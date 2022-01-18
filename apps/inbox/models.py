@@ -12,8 +12,9 @@ class Message(models.Model):
     text = models.TextField(max_length=4096, blank=False)
     title = models.TextField(max_length=512, blank=True, null=True)
     conversation = models.CharField(max_length=64, null=False)
-    read = models.BooleanField(default=False)
-    attachments = models.BooleanField(default=False)
+    read = models.BooleanField(default=False, blank=True, null=True)
+    deleted = models.BooleanField(default=False, blank=True, null=True)
+    attachments = models.BooleanField(default=False, blank=True, null=True)
     sent_at = models.DateTimeField(auto_now_add=True)
 
 

@@ -2,6 +2,14 @@ from django import forms
 from .models import Group, Thread, ThreadPost, ThreadPic
 from django.utils.translation import gettext as _
 from datetime import datetime, timedelta
+from django.core.exceptions import ValidationError
+from django.forms.widgets import ClearableFileInput
+
+
+class PicForm(forms.ModelForm):
+    class Meta:
+        model = ThreadPic
+        fields = ['pic']
 
 
 class PostForm(forms.ModelForm):
@@ -14,7 +22,7 @@ class PostForm(forms.ModelForm):
         if len(text) < 4096:
             return text
         else:
-            raise forms.ValidationError(_('Your description is a little bit too long.'))
+            raise ValidationError(_('Your description is a little bit too long.'))
 
     def clean_group(self):
         group = self.cleaned_data['group']
@@ -22,9 +30,9 @@ class PostForm(forms.ModelForm):
             if Group.objects.filter(id=group.id).exists():
                 return Group.objects.get(id=group.id)
             else:
-                raise forms.ValidationError(_('Cannot add post to this group.'))
+                raise ValidationError(_('Cannot add post to this group.'))
         else:
-            raise forms.ValidationError(_('There is a problem with this group'))
+            raise ValidationError(_('There is a problem with this group'))
 
     def clean_thread(self):
         thread = self.cleaned_data['thread']
@@ -32,9 +40,9 @@ class PostForm(forms.ModelForm):
             if Thread.objects.filter(id=thread.id).exists():
                 return Thread.objects.get(id=thread.id)
             else:
-                raise forms.ValidationError(_('Cannot add post to this group.'))
+                raise ValidationError(_('Cannot add post to this thread.'))
         else:
-            raise forms.ValidationError(_('There is a problem with this group'))
+            raise ValidationError(_('There is a problem with this thread'))
 
 
 class GroupForm(forms.ModelForm):
@@ -49,7 +57,7 @@ class GroupForm(forms.ModelForm):
         time_threshold = datetime.now() - timedelta(seconds=70*60)
         print(name, desc, time_threshold)
         if Group.objects.filter(name=name, description=desc, added_at__gte=time_threshold).exists():
-            raise forms.ValidationError(_('This group was added just few minutes ago.'))
+            raise ValidationError(_('This group was added just few minutes ago.'))
 
 
     def clean_name(self):
@@ -57,14 +65,14 @@ class GroupForm(forms.ModelForm):
         if 1 < len(name) < 256:
             return name
         else:
-            raise forms.ValidationError(_('Groups has to have a name :)'))
+            raise ValidationError(_('Groups has to have a name :)'))
 
     def clean_description(self):
         desc = self.cleaned_data['description']
         if len(desc) < 1024:
             return desc
         else:
-            raise forms.ValidationError(_('Your description is a little bit too long.'))
+            raise ValidationError(_('Your description is a little bit too long.'))
 
     def clean_pic(self):
         if self.cleaned_data['pic']:
@@ -84,20 +92,20 @@ class ThreadForm(forms.ModelForm):
             if Group.objects.filter(id=group.id).exists:
                 return group
             else:
-                raise forms.ValidationError(_('Group does not exists.'))
+                raise ValidationError(_('Group does not exists.'))
         else:
-            raise forms.ValidationError(_('Invalid group code'))
+            raise ValidationError(_('Invalid group code'))
 
     def clean_name(self):
         name = self.cleaned_data['name']
         if 1 < len(name) < 296:
             return name
         else:
-            raise forms.ValidationError(_('Groups has to have a name :)'))
+            raise ValidationError(_('Groups has to have a name :)'))
 
     def clean_description(self):
         desc = self.cleaned_data['description']
         if len(desc) < 4096:
             return desc
         else:
-            raise forms.ValidationError(_('Your description is a little bit too long.'))
+            raise ValidationError(_('Your description is a little bit too long.'))

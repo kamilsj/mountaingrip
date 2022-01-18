@@ -203,7 +203,7 @@ class Explore(View):
 
 class TripView(View):
 
-    def get(self, request, id=0):
+    def get(self, request, id = 0):
         data = {}
         location_m_name = {}
         location_b_place = {}
@@ -215,7 +215,7 @@ class TripView(View):
                 trip = Trip.objects.get(id=id)
                 if trip:
                     joined = TripJoined.objects.filter(trip=trip).count()
-                    user_joined = TripJoined.objects.filter(user=user).exists()
+                    user_joined = TripJoined.objects.filter(trip=trip, user=user).exists()
                     if Post.objects.filter(trip_id=id).count() > 0:
                         posts = Post.objects.filter(trip_id=id).order_by('-added_at').all()
                         if Comment.objects.filter(trip_id=id).count() > 0:
@@ -343,7 +343,7 @@ class AddTrip(View):
                     obj.save()
                     return redirect('/start/trip/' + str(obj.id))
                 else:
-                    return redirect('/start/trip/')
+                    return redirect('/start/trip/explore/')
         else:
             form = self.form_class()
 

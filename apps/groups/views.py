@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from .forms import GroupForm, ThreadForm, PostForm
-from .models import Group, Thread, ThreadPost
+from .forms import GroupForm, ThreadForm, PostForm, PicForm
+from .models import Group, Thread, ThreadPost, PrivateGroup, FollowedGroup
+
+from django.db.models import Q, Subquery
+
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
 import datetime
 from func.notif import Notif
-
 
 
 class GroupExplore(View):
@@ -16,14 +18,34 @@ class GroupExplore(View):
 
         groups = Group.objects.filter(private=False).order_by('-added_at').all()[:20]
         yours = Group.objects.filter(user=request.user).order_by('-added_at').all()[:20]
+        private = Group.objects.filter(private=True, id__in=Subquery(
+            PrivateGroup.objects.filter(user=request.user).distinct('group_id').values('group_id'))).order_by('-id').all()[:20]
+        followed = Group.objects.filter(id__in=Subquery(
+            FollowedGroup.objects.filter(user=request.user).distinct('group_id').values('group_id'))).order_by('-id').all()[:20]
+
         data = {
+            'followed': followed,
             'groups': groups,
-            'yours': yours
+            'yours': yours,
+            'private': private
         }
 
         return render(request, 'groups/index.html', {'data': data})
 
     def post(self, request):
+        pass
+
+
+class GroupViewSettings(View):
+    def get(self, request, id=0):
+        data = {}
+        if id > 0:
+            return render(request, 'groups/settings.html', {'data': data})
+        else:
+            return redirect('/groups/')
+
+
+    def post(self, request, id=0):
         pass
 
 
@@ -36,11 +58,36 @@ class GroupView(View):
         if id > 0:
             if Group.objects.filter(id=id).exists():
                 group = Group.objects.get(id=id)
-                threads = Thread.objects.filter(group=group).order_by('-added_at').all()[:20]
-                self.data = {
-                    'group': group,
-                    'threads': threads
-                }
+                if group.user == request.user:
+                    is_admin = True
+                else:
+                    is_admin = False
+                if group.private:
+                    if PrivateGroup.objects.filter(user=request.user,
+                                                   group=group).exists() or request.user == group.user:
+                        threads = Thread.objects.filter(group=group).order_by('-added_at').all()[:20]
+                        self.data = {
+                            'is_admin': is_admin,
+                            'group': group,
+                            'threads': threads
+                        }
+                    else:
+                        self.data = {
+                            'private': 1
+                        }
+
+                else:
+                    threads = Thread.objects.filter(group=group).order_by('-added_at').all()[:20]
+                    self.data = {
+                        'is_admin': is_admin,
+                        'group': group,
+                        'threads': threads
+                    }
+
+
+
+
+
             else:
                 self.data = {
                     'nogroup': 1,
@@ -58,7 +105,8 @@ class GroupView(View):
                 group = form.clean_group()
                 name = form.clean_name()
                 desc = form.clean_description()
-                if not Thread.objects.filter(user=user, group=group, name=name, added_at__lt=self.time_threshold).exists():
+                if not Thread.objects.filter(user=user, group=group, name=name,
+                                             added_at__lt=self.time_threshold).exists():
                     n = Thread.objects.create(
                         user=user,
                         group=group,
@@ -68,14 +116,14 @@ class GroupView(View):
                         thread = Thread.objects.get(id=n.id)
                         if not ThreadPost.objects.filter(user=user, group=group, thread=thread, text=desc).exists():
                             if ThreadPost.objects.create(
-                                user=user,
-                                group=group,
-                                thread=thread,
-                                text=desc
+                                    user=user,
+                                    group=group,
+                                    thread=thread,
+                                    text=desc
                             ):
-                                return redirect('/groups/'+str(group.id)+'/'+str(n.id)+'/')
+                                return redirect('/groups/' + str(group.id) + '/' + str(n.id) + '/')
                         else:
-                            return redirect('/groups/'+str(group.id)+'/'+str(n.id)+'/')
+                            return redirect('/groups/' + str(group.id) + '/' + str(n.id) + '/')
                 else:
                     return redirect('/groups/' + str(group.id) + '/')
 
@@ -84,6 +132,7 @@ class GroupView(View):
 
 class ThreadView(View):
     form_class = PostForm
+    pic_class = PicForm
     data = {}
     time_threshold = datetime.datetime.now() - datetime.timedelta(minutes=70)
 
@@ -104,19 +153,21 @@ class ThreadView(View):
             return render(request, 'groups/thread.html', {'data': self.data, 'from': self.form_class})
 
     def post(self, request, gid=0, tid=0):
-         user = request.user
-         form = self.form_class(request.POST or None)
-         if request.method == 'POST' and user.is_authenticated:
+        user = request.user
+        form = self.form_class(request.POST or None)
+        files = self.pic_class(request.FILES or None)
+        if request.method == 'POST' and user.is_authenticated:
             if form.is_valid():
                 if gid > 0 and tid > 0:
                     text = form.clean_text()
                     group = form.clean_group()
                     thread = form.clean_thread()
 
-                    if not ThreadPost.objects.filter(group=group, thread=thread, text=text, added_at__lte=self.time_threshold).exists():
-                        post = ThreadPost.objects.create(user=user, group=group,  thread=thread, text=text)
+                    if not ThreadPost.objects.filter(group=group, thread=thread, text=text,
+                                                     added_at__lte=self.time_threshold).exists():
+                        post = ThreadPost.objects.create(user=user, group=group, thread=thread, text=text)
                         if post:
-                            return redirect('/groups/'+str(group.id)+'/'+str(thread.id)+'/')
+                            return redirect('/groups/' + str(group.id) + '/' + str(thread.id) + '/')
                         else:
                             pass
                 else:
@@ -148,8 +199,6 @@ class GroupCreate(View):
                 n.user = request.user
                 n.save()
                 if n.id:
-                    return redirect('/groups/'+str(n.id)+'/')
+                    return redirect('/groups/' + str(n.id) + '/')
 
             return render(request, 'groups/create.html', {'form': form})
-
-

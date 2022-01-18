@@ -10,30 +10,31 @@ gunicorn = "*"
 django-heroku = "*"
 django-cors-headers = "*"
 
-#SDK
+# SDK
 stravalib = "*"
 facebook-sdk = "*"
 googlemaps = "*"
 
-#Important packages
+# Important packages
 psycopg2-binary = "*"
 django-countries = "*"
 djangorestframework-api-key = "*"
 Pillow = "*"
-django_cron = "*"
+# django_cron = "*"
 django-widget-tweaks = "*"
 bokeh = "*"
 cryptography = "*"
 
-#upload files
+# upload files
 boto3 = "*"
 django-storages = "*"
+django-s3file = "*"
 
-#experimental features
+# experimental features
 djangorestframework = "*"
-#framework too big for my app :D
-tensorflow-cpu = "*"
+# framework too big for my app :D
+# tensorflow-cpu = "*"
 
 [requires]
 
-python_version = "3.9"
+python_version = "3.10"

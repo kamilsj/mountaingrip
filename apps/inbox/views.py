@@ -7,8 +7,7 @@ from django.utils.crypto import get_random_string
 from django.utils.translation import gettext as _
 
 from func.notif import Notif
-from django.db.models import Q
-from django.db.models import Subquery
+from django.db.models import Q, Subquery
 
 from .forms import MessageForm
 from .models import Message
@@ -64,7 +63,7 @@ class MessageView(View):
                 message = Message.objects.get(id=id)
                 user = message.user
                 if message.title[0] != '+':
-                    title = '+'+message.title
+                    title = '+' + message.title
                 else:
                     title = message.title
                 conv_id = request.POST['conversation_reply']
@@ -78,7 +77,7 @@ class MessageView(View):
                         conversation=conv_id
                     )
 
-                    return redirect('/inbox/message/'+str(obj.id))
+                    return redirect('/inbox/message/' + str(obj.id))
             except Message.DoesNotExist:
                 pass
 
@@ -94,8 +93,8 @@ class Inbox(View):
             if count > 0:
                 # messages = Message.objects.filter(to=request.user).order_by('-id').all()[:50]
                 messages = Message.objects.filter(id__in=Subquery(
-                    Message.objects.filter(to=request.user).order_by('conversation', '-id').distinct('conversation').values('id')
-                )).order_by('-id').all()
+                    Message.objects.filter(to=request.user).order_by('conversation', '-id').distinct('conversation').
+                        values('id'))).order_by('-id').all()
                 data = {
                     'messages': messages,
                 }
@@ -114,6 +113,8 @@ class Inbox(View):
                 conv = request.POST['conversation']
                 obj = form.save(commit=False)
                 obj.user = user
+                obj.deleted = False
+                obj.read = False
                 obj.to = User.objects.get(id=to)
                 if conv == '0':
                     obj.conversation = get_random_string(64)
@@ -126,4 +127,4 @@ class Inbox(View):
                 # implementing notification system
                 self.n.addNotif(user, obj.to, obj.id, obj.title)
 
-            return redirect('/inbox')
+            return redirect('/inbox/message/' + obj.id)

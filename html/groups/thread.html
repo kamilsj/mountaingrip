@@ -25,11 +25,14 @@
             {{ data.thread.name }}
         </h5>
     </div>
+    <div class="d-flex mt-1">
+        <button onclick="followthread({{ data.thread.id }})" class="btn btn-sm btn-light">{% trans 'Follow thread' %}</button>
+    </div>
     <div class="d-flex flex-column list-group mt-5">
         {% for post in data.posts %}
         <div class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
             <span>{% show_avatar_small post.user.id %}
-                <small>{{ post.text }}</small>
+                <small>{{ post.text|linebreaks }}</small>
             </span>
             <span><small class="badge bg-light text-wrap text-dark">{{ post.added_at|naturaltime }}</small></span>
         </div>
@@ -40,7 +43,10 @@
                 <div class="p-2">{% show_avatar_small data.user.id %}</div>
                 <input type="hidden" id="id_thread" name="thread" value="{{ data.thread.id }}">
                 <input type="hidden" id="id_group" name="group" value="{{ data.thread.group.id }}">
-                <div class="flex-fill"><textarea class="border rounded w-100" id="id_text" name="text" required></textarea></div>
+                <div class="flex-fill">
+                    <textarea class="border rounded w-100" id="id_text" name="text" required></textarea>
+                    <input type="file" class="form-control" id="id_pic" name="pic" multiple />
+                </div>
             <div class="p-2"><button type="submit" class="btn btn-dark">{% trans 'Submit' %}</button></div>
         </div>
         </form>
