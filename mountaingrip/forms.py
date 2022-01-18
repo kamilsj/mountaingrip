@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
-
+from django.core.exceptions import ValidationError
 
 
 class SignUpForm(UserCreationForm):
@@ -16,7 +16,11 @@ class SignUpForm(UserCreationForm):
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
-
+        try:
+            match = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return username
+        raise ValidationError(_('This username is already in use.'))
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
@@ -24,5 +28,5 @@ class SignUpForm(UserCreationForm):
             match = User.objects.get(email=email)
         except User.DoesNotExist:
             return email
-        raise forms.ValidationError(_('This email is already in use.'))
+        raise ValidationError(_('This email is already in use.'))
 

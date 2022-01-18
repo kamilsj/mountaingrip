@@ -11,9 +11,20 @@
 
     </div>
     <div class="row mt-5">
-        <div class="col-5">
+        <div class="col">
         <!-- first column --->
         <h6 class="mt-3">{% trans 'Groups you follow' %}</h6>
+        <div class="list-group">
+            {% for followed in data.followed %}
+            <a href="/groups/{{ group.id }}" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ followed.name }}</h5>
+                    <small>{{ followed.added_at|naturaltime }}</small>
+                </div>
+                <p class="mb-1">{{ followed.description }}</p>
+            </a>
+            {% endfor %}
+        </div>
         </div>
         <div class="col">
         <!-- middle column -->
@@ -28,7 +39,16 @@
                 {{ your.name }}
                 </a>
                 {% endfor %}
-
+            <!-- users added to private groups -->
+                {% for private in data.private %}
+                <a href="/groups/{{ private.id }}/" class="list-group-item list-group-item-action flex-column align-items-start
+                {% if private.private == 1 %}
+                active
+                {% endif %}
+                ">
+                {{ private.name }}
+                </a>
+                {% endfor %}
             </div>
         </div>
         <div class="col">

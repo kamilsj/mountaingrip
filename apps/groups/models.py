@@ -45,9 +45,19 @@ class ThreadPic(models.Model):
     added_at = models.DateTimeField(auto_now_add=True)
 
 
-class Followed(models.Model):
+class FollowedGroup(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_followed_group", blank=False)
     group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name="group_followed", blank=True, null=True)
+    added_at = models.DateTimeField(auto_now_add=True)
+
+    
+class FollowedTrhead(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_followed_thread", blank=False)
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE, related_name="thread_followed", blank=True, null=True)
+    added_at = models.DateTimeField(auto_now_add=True)
 
 
+class PrivateGroup(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="private_group_user", blank=False)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name="group_private_users", blank=True, null=True)
+    added_at = models.DateTimeField(auto_now_add=True)

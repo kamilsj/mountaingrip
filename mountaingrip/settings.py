@@ -60,11 +60,13 @@ INSTALLED_APPS = [
     'apps.settings',
     'rest_framework',
     'rest_framework_api_key',
+    # 'django_cron',
     'django_countries',
-    'django_cron',
     'widget_tweaks',
     'storages',
     'corsheaders',
+    's3file',
+    # other
     'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -86,6 +88,7 @@ MIDDLEWARE = [
     # My main middleware
     'mountaingrip.middleware.MGMiddleware',
     # added
+    's3file.middleware.S3FileMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     # djnago
     'django.middleware.security.SecurityMiddleware',

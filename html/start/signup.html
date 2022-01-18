@@ -12,12 +12,18 @@
             {% elif data.activation == 0 %}
                 <div class="alert alert-danger" role="alert">{% trans 'Accunt was created, but activation email was not sent' %}</div>
             {% else %}
-
-                    {% for error in form.non_field_errors %}
+              {% if form.errors %}
+                  <div class="row justify-content-center align-items-center">
                       <div class="alert alert-danger" role="alert">
-                      {{ error|escape }}
+                      {% for error in form.non_field_errors %}
+                          {{ error|escape }}
+                      {% endfor %}
+                      {% for error in form.errors  %}
+                           {{ error|escape }}
+                      {% endfor %}
                       </div>
-                    {% endfor %}
+                  </div>
+              {% endif %}
               <div class="row justify-content-center">
                 <div class="col-5">
                   <form method="post">
@@ -31,7 +37,6 @@
                                     </div>
                                     <input type="text" {{ value }} class="form-control" id="id_username" name="username" placeholder="{% trans "Username"  %}" required>
                                 </div>
-
                               {% elif field.name == 'first_name' %}
                                 <div class="mb-2">
                                     <input class="form-control" type="text" placeholder="{% trans "First name"  %}" id="id_first_name" name="first_name" required>
@@ -53,13 +58,8 @@
                                         <input class="form-control" type="password" placeholder="{% trans "Confirm password"  %}" id="id_password2" name="password2" required>
                                   </div>
                               {% endif %}
-
                       {% endfor %}
-
-
                       <div class="text-center"><button class="btn btn-sm btn-primary btn-block" type="submit">{% trans "Sign up" %}</button></div>
-
-
                   </form>
                 </div>
               </div>

@@ -5,7 +5,7 @@ function jointrip(id = 0){
             url: '/ajax/jointrip/'+id+'/',
             success: function (data) {
                 if(data.OK === 1){
-                    $('#friend_button').fadeOut('slow', function(){});
+                    $('#join_trip_button').fadeOut('slow', function(){});
                 }
             }
         });
@@ -14,6 +14,31 @@ function jointrip(id = 0){
     }
 }
 
+function followgroup(id = 0){
+    if(id > 0){
+        $.ajax({
+            url: '/ajax/followgroup/'+id+'/',
+            success: function(data){
+                if(data.OK === 1){
+                    $('#follow_group').fadeOut('slow', function(){});
+                }
+            }
+        })
+    }
+}
+
+function followthread(id = 0){
+    if(id > 0){
+        $.ajax({
+            url: '/ajax/followthread/'+id+'/',
+            success: function(data){
+                if(data.OK === 1){
+                    $('#follow_thread').fadeOut('slow', function(){});
+                }
+            }
+        })
+    }
+}
 
 function showNotifications(){
     $.ajax({
@@ -50,4 +75,14 @@ function checkNotifications(){
             }
         }
     })
+}
+
+function showSuggestions(){
+    $.ajax({
+        url: '/api/suggestions',
+        success: function(data){
+            $('#suggestion_content').html(data);           
+        }
+    })
+    
 }

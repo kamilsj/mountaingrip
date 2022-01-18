@@ -41,7 +41,7 @@ class Autocomplete(APIView):
             elif what == 'mn':
                 pass
             else:
-                '''write an intelligent query to predict the most common questions'''
+                ''' write an intelligent query to predict the most common questions '''
                 places = Trip.objects.filter(Q(basePlace__startswith=q) | Q(mountainName__startswith=q)).all()
                 for place in places:
                     if not place.basePlace in excluded:
@@ -87,6 +87,7 @@ class Suggestions(APIView):
 
     def get(self, request):
         ''' showing users nice suggestions of what to do, to read, to ask in the website '''
+        ''' trips, users and some nice groups ... '''
         data = {
             'groups': [
                 {'id': 'Welcome!'},
@@ -95,6 +96,9 @@ class Suggestions(APIView):
         }
 
         return Response(data)
+
+    def post(self, request):
+        pass
 
 
 class ActivitieData(APIView):

@@ -17,6 +17,8 @@ urlpatterns = [
     path('api/', include('apps.api.urls')),
     path('ajax/checknotifications/', func.CheckNotifications, name='check_messages'),
     path('ajax/shownotifications/', func.ShowNotifications, name='show_notifications'),
+    path('ajax/followgroup/<int:id>/', func.FollowGroup, name='follow_group'),
+    path('ajax/followthread/<int:id>/', func.FollowThread, name='follow_thread'),
     path('ajax/addfriend/<int:id>/', func.AddFriend, name='add_friend'),
     path('ajax/jointrip/<int:id>/', func.JoinTrip, name='join_trip'),
     path('activate/<slug:uidb64>/<slug:token>/', views.activate, name='activate')

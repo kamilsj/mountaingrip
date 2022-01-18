@@ -9,9 +9,11 @@
 {% block content %}
 <div class="container mt-5">
     {% if data.notexists == 1 %}
-    <div class="row mt-5 justify-content-center">
+    <div class="row justify-content-center" style="margin-top: 70px">
 
-         <div class="alert alert-danger" role="alert">{% trans "Does not exist." %}</div>
+         <div class="alert alert-danger text-center" role="alert">{% trans "Does not exist." %}
+            <br><a href="/">{% trans "Go back" %}</a>
+         </div>
 
     </div>
     {% else %}

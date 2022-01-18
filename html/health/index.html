@@ -1,6 +1,6 @@
 {% extends 'main.html' %}
 {% load i18n %}
-{% block title %}{% endblock %}
+{% block title %}{% blocktrans %}Health data analysis{% endblocktrans %}{% endblock %}
 {% block content %}
 <div class="container" style="margin-top: 70px;">
     <div class="d-flex justify-content-center">
@@ -35,19 +35,22 @@
     </div>
     <div class="row mt-5">
         <script>
-            var endpoint = '/api/graph/'
-            var chart = []
-            var lab = []
-            var bmi = []
-            var weight = []
-            var idealWeight = []
+            let endpoint = '/api/graph/';
+            let chart = [];
+            let lab = [];
+            let bmi = [];
+            let weight = [];
+            let idealWeight = [];
             $.ajax({
                 method: "GET",
                 url: endpoint,
                 success: function(data){
-                    chart = data.chartData
-                    weight = data.weight
-                    lab = data.label
+                    localStorage.setItem('ideal_weight', data.idealweight)
+                    localStorage.setItem('ideal_diff', parseInt(data.weight) - parseInt(data.idealweight))
+                    localStorage.setItem('ideal_bmi', data.bmi);
+                    chart = data.chartData;
+                    weight = data.weight;
+                    lab = data.label;
                     for(var i = 0; i < 10; i++){
                         bmi.push(data.bmi)
                         idealWeight.push(data.idealweight)
@@ -109,11 +112,17 @@
         <div class="col-2">
             <h6>Analysis</h6>
             <small class="text-muted">
-            Ideal weight <span class="">
-                <script>
-                    document.write(idealWeight)
-                </script>
-            </span>
+                <b>Ideal weight:</b>
+            <script>
+            let ideal_weight = localStorage.getItem('ideal_weight');
+            let ideal_diff = localStorage.getItem('ideal_diff');
+            document.write(ideal_weight + " <b>("+ideal_diff + ")</b> ");
+            </script>
+            <br><b>Ideal bmi:</b>
+            <script>
+                let ideal_bmi = localStorage.getItem('ideal_bmi');
+                document.write(ideal_bmi);
+            </script>
             </small>
         </div>
     </div>

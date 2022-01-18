@@ -19,6 +19,16 @@ def ShowTrips(request):
     pass
 
 
+def FollowGroup(request, id=0):
+    if request.user.is_authenticated:
+        pass
+            
+
+def FollowThread(request, id=0):
+    if request.user.is_authenticated:
+        pass
+
+
 def ShowNotifications(request):
     user = request.user
     div = '<div class="list-group list-group-flush w-100">'
@@ -56,14 +66,17 @@ def ShowNotifications(request):
             # somebody added a post to your group
             elif n.cat == 3:
                 middle += '<a href="/start/profile/'+str(n.user.id)+'/"><img title="'+whom['name']+'" src="'+whom['pic']+'" class="img-rounded rounded-circle tp m-2" style="width:40px; height: 40px; object-fit: cover;"></a>\n'
-
+                middle += '<a href="" class="ml-2">\n<small class="text_muted">'+_(' added a post to your group:')+'</small></a>'
             # somebody added a post to your profile
             elif n.cat == 4:
                 middle += '<a href="/start/profile/'+str(n.user.id)+'/"><img title="'+whom['name']+'" src="'+whom['pic']+'" class="img-rounded rounded-circle tp m-2" style="width:40px; height: 40px; object-fit: cover;"></a>\n'
+                middle += '<a href="" class="ml-2">\n<small class="text_muted">' + _(' added a post to your profile:') + '</small></a>'
             # somebody followed your group
             elif n.cat == 5:
                 middle += '<a href="/start/profile/'+str(n.user.id)+'/"><img title="'+whom['name']+'" src="'+whom['pic']+'" class="img-rounded rounded-circle tp m-2" style="width:40px; height: 40px; object-fit: cover;"></a>\n'
-            # somebody added a post to your trip
+                middle += '<a href="/start/profile/'+str(n.user.id)+'" class="ml-2">'+whom['name']+'</a>&nbsp;' \
+                          '<a href="/start/trip/'+str(n.what)+'"><b>' + _(' joined your trip.') + '</b></a>'
+            # somebody joined your tip
             elif n.cat == 6:
                 middle += '<a href="/start/profile/'+str(n.user.id)+'/"><img title="'+whom['name']+'" src="'+whom['pic']+'" class="img-rounded rounded-circle tp m-2" style="width:40px; height: 40px; object-fit: cover;"></a>\n'
             elif n.cat == 7:
@@ -113,7 +126,7 @@ def JoinTrip(request, id):
             if not TripJoined.objects.filter(user=user, trip=trip).exists():
                 try:
                     obj = TripJoined.objects.create(user=user, trip=trip)
-                    notif.addNotif(user, trip.user, obj.id, '')
+                    notif.addNotif(user, trip.user, trip.id, '')
                     data = {'OK': 1}
                 except:
                     data = {'OK': 0}

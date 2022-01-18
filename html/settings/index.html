@@ -1,8 +1,18 @@
 {% extends 'main.html' %}
-{% block title %} Settings {% endblock %}
+{% load i18n %}
+{% block title %}{% blocktrans %}Settings{% endblocktrans %}{% endblock %}
 {% block content %}
-<div class="container">
+<div class="container" style="margin-top: 70px;">
+    <div class="d-flex justify-content-center">
+        <div class="btn-group" role="group">
+            <a href="/start/profile/update/" class="btn btn-outline-primary btn-sm">{% trans 'Update your profile' %}</a>
+        </div>
+    </div>
+    <div class="d-flex">
 
+
+        
+    </div>
 
 
 </div>

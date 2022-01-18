@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from start.models import Profile
 
+pic = []
+cover = []
 
 def check_pic(pic):
     if pic:
