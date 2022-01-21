@@ -16,17 +16,14 @@ class SignUpForm(UserCreationForm):
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
-        try:
-            match = User.objects.get(username=username)
-        except User.DoesNotExist:
-            return username
-        raise ValidationError(_('This username is already in use.'))
+        if User.objects.filter(username=username).exists():
+            raise ValidationError(_('This username is already in use.'), code='username_exists')
+
+        return username
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        try:
-            match = User.objects.get(email=email)
-        except User.DoesNotExist:
-            return email
-        raise ValidationError(_('This email is already in use.'))
+        if User.objects.filter(email=email).exists():
+            raise ValidationError(_('This email is already in use.'), code='email_exists')
+        return email
 

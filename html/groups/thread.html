@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load add_func %}
 {% load humanize %}
-{% block title %}{% blocktrans %}{{ data.thread.name }}{% endblocktrans %}{% endblock %}
+{% block title %}{{ data.thread.name }}{% endblock %}
 
 {% block content %}
 <div class="container" style="margin-top: 70px;">
@@ -26,16 +26,32 @@
         </h5>
     </div>
     <div class="d-flex mt-1">
-        <button onclick="followthread({{ data.thread.id }})" class="btn btn-sm btn-light">{% trans 'Follow thread' %}</button>
+        {% if data.followed %}
+            <button type="button" class="btn btn-outline-primary btn-sm" disabled>{% trans 'Unfollow' %}</button>
+        {% else %}
+           <button onclick="followthread({{ data.thread.id }})" class="btn btn-sm btn-light">{% trans 'Follow thread' %}</button>
+        {% endif %}   
     </div>
     <div class="d-flex flex-column list-group mt-5">
         {% for post in data.posts %}
-        <div class="list-group-item list-group-item-light d-flex justify-content-between align-items-center">
-            <span>{% show_avatar_small post.user.id %}
-                <small>{{ post.text|linebreaks }}</small>
-            </span>
-            <span><small class="badge bg-light text-wrap text-dark">{{ post.added_at|naturaltime }}</small></span>
+        <div class="list-group-item list-group-item-light w-100">
+            <div class="d-inline">
+                <span>{% show_avatar_small post.user.id %}</span>
+                <small class="badge bg-light text-wrap text-dark">{{ post.added_at|naturaltime }}</small><br>
+            </div>                
+            <div class="mt-2"><small>{{ post.text|safe }}</small></div>
+            <div class="d-flex mt-3">
+                <section data-featherlight-gallery data-featherlight-filter="a">
+                {% for pic in data.pics %}
+                    {% if pic.post.id == post.id %}
+                        <a href="{{ pic.pic.url }}"><img src="{{ pic.pic.url }}"  class="img-fluid" style="height: 50px;" /></a>
+                    {% endif %}
+                {% endfor %}
+                </section>
+            </div>
+
         </div>
+
         {% endfor %}
         <form method="post" enctype="multipart/form-data">
         <div class="d-flex mt-4">

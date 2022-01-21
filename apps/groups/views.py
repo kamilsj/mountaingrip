@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from .forms import GroupForm, ThreadForm, PostForm, PicForm
-from .models import Group, Thread, ThreadPost, PrivateGroup, FollowedGroup
+from .forms import GroupForm, ThreadForm, PostForm
+from .models import Group, Thread, ThreadPost, PrivateGroup, FollowedGroup, FollowedThread, ThreadPic
 
 from django.db.models import Q, Subquery
 
@@ -132,40 +132,52 @@ class GroupView(View):
 
 class ThreadView(View):
     form_class = PostForm
-    pic_class = PicForm
     data = {}
     time_threshold = datetime.datetime.now() - datetime.timedelta(minutes=70)
 
     def get(self, request, gid=0, tid=0):
         user = request.user
         page = 20
+        photos = {}
+        followed = False
         if gid > 0 and tid > 0:
             thread = Thread.objects.get(id=tid)
             group = Group.objects.get(id=gid)
             if ThreadPost.objects.filter(thread=thread, group=group).count() > 0:
                 posts = ThreadPost.objects.filter(thread=thread, group=group).all()[:page]
+                pics = ThreadPic.objects.filter(thread=thread, group=group).all()
+                if FollowedThread.objects.filter(user=user, thread=thread).exists():
+                    followed = True
+            
                 self.data = {
                     'user': user,
+                    'followed': followed,
                     'thread': thread,
+                    'pics': pics,
                     'posts': posts,
+
                 }
 
             return render(request, 'groups/thread.html', {'data': self.data, 'from': self.form_class})
 
     def post(self, request, gid=0, tid=0):
         user = request.user
-        form = self.form_class(request.POST or None)
-        files = self.pic_class(request.FILES or None)
+        form = self.form_class(request.POST or None, request.FILES or None)
         if request.method == 'POST' and user.is_authenticated:
             if form.is_valid():
                 if gid > 0 and tid > 0:
                     text = form.clean_text()
                     group = form.clean_group()
                     thread = form.clean_thread()
-
+                    
                     if not ThreadPost.objects.filter(group=group, thread=thread, text=text,
                                                      added_at__lte=self.time_threshold).exists():
-                        post = ThreadPost.objects.create(user=user, group=group, thread=thread, text=text)
+                        post = ThreadPost.objects.create(user=user, group=group, thread=thread, text=text)                                                     
+                        if request.FILES:
+                            photos = request.FILES.getlist('pic')
+                            for photo in photos:
+                                ThreadPic.objects.create(user=user, group=group, thread=thread, post=post, pic=photo)
+
                         if post:
                             return redirect('/groups/' + str(group.id) + '/' + str(thread.id) + '/')
                         else:

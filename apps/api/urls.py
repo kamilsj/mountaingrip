@@ -14,6 +14,6 @@ urlpatterns = [
     path('suggestions/', views.Suggestions.as_view(), name='suggestions'),
     path('notifications/<int:id>/',  views.Notifications.as_view(), name='notifications'),
 
-
+    path('shop/', include('api.shop.urls'), name='shop'),
     path('auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

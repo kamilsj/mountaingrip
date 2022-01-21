@@ -30,6 +30,7 @@ class ThreadPost(models.Model):
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE, related_name="posted_in_thread", blank=False)
     group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name="thread_post_in_group", blank=False)
     text = models.TextField(max_length=4096, blank=False)
+    pic = models.ImageField(upload_to='group_post', null=True, blank=True)
     added_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -51,7 +52,7 @@ class FollowedGroup(models.Model):
     added_at = models.DateTimeField(auto_now_add=True)
 
     
-class FollowedTrhead(models.Model):
+class FollowedThread(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_followed_thread", blank=False)
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE, related_name="thread_followed", blank=True, null=True)
     added_at = models.DateTimeField(auto_now_add=True)

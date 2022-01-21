@@ -1,7 +1,6 @@
 {% extends 'main.html' %}
 {% load i18n %}
 
-
 {% block content %}
 
  <div class="container">
@@ -15,11 +14,10 @@
               {% if form.errors %}
                   <div class="row justify-content-center align-items-center">
                       <div class="alert alert-danger" role="alert">
-                      {% for error in form.non_field_errors %}
-                          {{ error|escape }}
-                      {% endfor %}
-                      {% for error in form.errors  %}
-                           {{ error|escape }}
+                      {% for field in form %}
+                        {% for error in field.errors %}
+                            {{ error|escape }}
+                        {% endfor %}  
                       {% endfor %}
                       </div>
                   </div>
