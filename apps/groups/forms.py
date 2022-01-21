@@ -6,8 +6,9 @@ from django.core.exceptions import ValidationError
 from django.forms.widgets import ClearableFileInput
 
 
-
 class PostForm(forms.ModelForm):
+    pic = forms.ImageField()
+
     class Meta:
         model = ThreadPost
         fields = ['thread', 'group', 'text', 'pic']

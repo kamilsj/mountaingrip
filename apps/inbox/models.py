@@ -19,4 +19,4 @@ class Message(models.Model):
 
 
 class Attachment(models.Model):
-    message = models.ForeignKey(Message, on_delete=models.DO_NOTHING, related_name='message_files')
+    message = models.ForeignKey(Message, on_delete=models.DO_NOTHING, related_name='message_files', blank=False)
