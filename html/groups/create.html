@@ -7,12 +7,11 @@
       {% if form.errors %}
           <div class="d-flex justify-content-center align-items-center">
               <div class="alert alert-danger" role="alert">
-                  {% for error in form.non_field_errors  %}
-                  {{ error|escape }}
-                  {% endfor %}
-                  {% for error in form.errors  %}
-                  {{ error|escape }}
-                  {% endfor %}
+              {% for field in form %}
+                {% for error in field.errors %}
+                    {{ error|escape }}
+                {% endfor %}  
+              {% endfor %}
               </div>
           </div>
       {% endif %}

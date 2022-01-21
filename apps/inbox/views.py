@@ -13,13 +13,21 @@ from .forms import MessageForm
 from .models import Message
 
 
+class DeletedView(View):
+    def get(self, request):
+        pass
+
+    def post(self, request):
+        pass
+
+
 class SentView(View):
     def get(self, request):
         data = {}
         user = request.user
         if settings.BETA is True and request.session['beta'] is True:
-            if Message.objects.filter(user=user).count() > 0:
-                sent = Message.objects.filter(user=user).order_by('-id').all()[:50]
+            if Message.objects.filter(user=user, deleted=False).count() > 0:
+                sent = Message.objects.filter(user=user, deleted=False).order_by('-id').all()[:50]
                 data = {
                     'no_reply': 1,
                     'sent': sent
@@ -43,7 +51,7 @@ class MessageView(View):
                         message.read = True
                         message.save()
                     conv = message.conversation
-                    messages = Message.objects.filter(conversation=conv).exclude(id=id).order_by('-id').all()[:50]
+                    messages = Message.objects.filter(conversation=conv, deleted=False).exclude(id=id).order_by('-id').all()[:50]
                     if messages.count() > 0:
                         data = {
                             'message': message,
@@ -89,10 +97,10 @@ class Inbox(View):
     def get(self, request):
         data = {}
         if settings.BETA is True and request.session['beta'] is True:
-            count = Message.objects.filter(to=request.user).count()
+            count = Message.objects.filter(to=request.user, deleted=False).count()
             if count > 0:
                 # messages = Message.objects.filter(to=request.user).order_by('-id').all()[:50]
-                messages = Message.objects.filter(id__in=Subquery(
+                messages = Message.objects.filter(deleted=False, id__in=Subquery(
                     Message.objects.filter(to=request.user).order_by('conversation', '-id').distinct('conversation').
                         values('id'))).order_by('-id').all()
                 data = {

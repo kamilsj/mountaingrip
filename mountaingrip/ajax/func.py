@@ -1,7 +1,7 @@
 from django.http import JsonResponse, HttpResponse
 from django.core import serializers
 from start.models import TripJoined, Trip, Friend
-from apps.groups.models import Thread
+from apps.groups.models import Thread, Group, FollowedGroup, FollowedThread
 from apps.notifications.models import Notification
 from func.notif import Notif
 from django.contrib.auth.models import User
@@ -20,13 +20,33 @@ def ShowTrips(request):
 
 
 def FollowGroup(request, id=0):
-    if request.user.is_authenticated:
-        pass
+    data = {}
+    if id>0 and request.user.is_authenticated:
+        if not FollowedGroup.objects.filter(user=request.user, group_id=id).exists():
+            try:
+                FollowedGroup.objects.create(user=request.user, group_id=id)
+                data = {'OK': 1}
+            except:
+                data = {'OK': 0}
+    else:
+        data = {'OK': 0}                
+
+    return JsonResponse(data, safe=False)
             
 
 def FollowThread(request, id=0):
-    if request.user.is_authenticated:
-        pass
+    data = {}
+    if id>0 and request.user.is_authenticated:
+        if not FollowedThread.objects.filter(user=request.user, thread_id=id).exists():
+            try:
+                FollowedThread.objects.create(user=request.user, thread_id=id)
+                data = {'OK': 1}
+            except:
+                data = {'OK': 0}
+    else:
+        data = {'OK': 0}                
+
+    return JsonResponse(data, safe=False)
 
 
 def ShowNotifications(request):

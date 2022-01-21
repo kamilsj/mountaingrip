@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.forms import ModelForm
 from .models import Profile, Trip, Post
 from django_countries.widgets import CountrySelectWidget
@@ -33,9 +34,9 @@ class PostForm(ModelForm):
         if len(text) > 1 and len(text) < 4096:
             return text
         elif len(text) > 4096:
-            raise forms.ValidationError(_('Your post is too long.'))
+            raise ValidationError(_('Your post is too long.'))
         else:
-            raise forms.ValidationError(_('You have to write something :)'))
+            raise ValidationError(_('You have to write something :)'))
 
     def clean_trip(self):
         trip = self.cleaned_data['trip']
@@ -81,7 +82,7 @@ class TripForm(ModelForm):
         start_date = self.cleaned_data['startDate']
         end_date = self.cleaned_data['endDate']
         if end_date < start_date:
-            raise forms.ValidationError(_('Something is wrong'))
+            raise ValidationError(_('Something is wrong'))
 
 
 class SearchForm(ModelForm):

@@ -47,7 +47,7 @@ def activate(request, uidb64, token):
 def signup(request):
     if not request.user.is_authenticated:
         if request.method == 'POST':
-            form = SignUpForm(request.POST)
+            form = SignUpForm(request.POST or None)
             if form.is_valid():
                 to_email = form.cleaned_data.get('email')
                 password1 = form.cleaned_data.get('password1')
@@ -82,8 +82,7 @@ def signup(request):
                 return render(request, 'start/signup.html', {'data': data})
 
         else:
-            form = SignUpForm()
-
+            form = SignUpForm()          
         return render(request, 'start/signup.html', {'form': form})
 
     else:
