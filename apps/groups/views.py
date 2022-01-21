@@ -4,6 +4,7 @@ from .forms import GroupForm, ThreadForm, PostForm
 from .models import Group, Thread, ThreadPost, PrivateGroup, FollowedGroup, FollowedThread, ThreadPic
 
 from django.db.models import Q, Subquery
+from django.core.exceptions import ValidationError
 
 from django.contrib.auth.models import User
 from django.utils.translation import gettext as _
@@ -138,7 +139,6 @@ class ThreadView(View):
     def get(self, request, gid=0, tid=0):
         user = request.user
         page = 20
-        photos = {}
         followed = False
         if gid > 0 and tid > 0:
             thread = Thread.objects.get(id=tid)
@@ -172,16 +172,20 @@ class ThreadView(View):
                     
                     if not ThreadPost.objects.filter(group=group, thread=thread, text=text,
                                                      added_at__lte=self.time_threshold).exists():
-                        post = ThreadPost.objects.create(user=user, group=group, thread=thread, text=text)                                                     
                         if request.FILES:
+                            post = ThreadPost.objects.create(user=user, group=group, thread=thread, text=text,   attachments=True)
                             photos = request.FILES.getlist('pic')
                             for photo in photos:
                                 ThreadPic.objects.create(user=user, group=group, thread=thread, post=post, pic=photo)
+                        else:
+                            post = ThreadPost.objects.create(user=user, group=group, thread=thread, text=text, attachments=False)
 
                         if post:
                             return redirect('/groups/' + str(group.id) + '/' + str(thread.id) + '/')
                         else:
                             pass
+                    else:
+                        raise ValidationError(_('This post was just added'))
                 else:
                     pass
 

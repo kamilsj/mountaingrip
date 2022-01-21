@@ -30,7 +30,7 @@ class ThreadPost(models.Model):
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE, related_name="posted_in_thread", blank=False)
     group = models.ForeignKey(Group, on_delete=models.CASCADE, related_name="thread_post_in_group", blank=False)
     text = models.TextField(max_length=4096, blank=False)
-    pic = models.ImageField(upload_to='group_post', null=True, blank=True)
+    attachments = models.BooleanField(blank=False, default=False)
     added_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
