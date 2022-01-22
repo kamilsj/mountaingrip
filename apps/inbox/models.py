@@ -19,4 +19,6 @@ class Message(models.Model):
 
 
 class Attachment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name="user_sent_pic", blank=False)
     message = models.ForeignKey(Message, on_delete=models.DO_NOTHING, related_name='message_files', blank=False)
+    pic = models.FileField(upload_to='message_files', null=True, blank=True)

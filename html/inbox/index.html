@@ -44,9 +44,12 @@
                     <input class="form-control" type="text" id="id_title" name="title" placeholder="{% trans 'Title' %}" />
                 </div>
                 <div class="mb-2">
-                    <textarea class="form-control" id="id_text" name="text" placeholder="{% trans 'Type your message' %}" required></textarea>
+                    <textarea class="form-control" id="id_text" name="text" placeholder="{% trans 'Type your message' %}" style="height: 150px;" required></textarea>
                 </div>
-                <div class="text-center"><button type="submit" class="btn btn-primary btn-sm">{% trans 'Send' %}</button></div>
+                <div class="mb-2">
+                    <input type="file" class="form-control" id="id_pic" name="pic" multiple />
+                </div>
+                <div class="text-center mt-3"><button type="submit" class="btn btn-primary btn-sm">{% trans 'Send' %}</button></div>
             </form>
           </div>
         </div>

@@ -19,11 +19,16 @@ class Notifications(APIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, id):
+    def get(self, request, how=0, what=0):
         pass
 
     def post(self, request, id):
         pass
+
+
+class Desire(APIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
 
 class Autocomplete(APIView):
@@ -55,7 +60,6 @@ class Autocomplete(APIView):
                 'suggestions': suggestions
             }
         return Response(data)
-
 
 
 class AutocompleteInbox(APIView):
