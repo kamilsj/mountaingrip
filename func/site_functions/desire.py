@@ -2,5 +2,8 @@
 
 
 class Desire:
-    def __init__(self):
-        pass
+    def __init__(self, cat):
+        self.cat = cat
+    
+
+    

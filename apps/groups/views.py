@@ -84,11 +84,6 @@ class GroupView(View):
                         'group': group,
                         'threads': threads
                     }
-
-
-
-
-
             else:
                 self.data = {
                     'nogroup': 1,
@@ -175,8 +170,11 @@ class ThreadView(View):
                         if request.FILES:
                             post = ThreadPost.objects.create(user=user, group=group, thread=thread, text=text,   attachments=True)
                             photos = request.FILES.getlist('pic')
-                            for photo in photos:
-                                ThreadPic.objects.create(user=user, group=group, thread=thread, post=post, pic=photo)
+                            if len(photos) < 30:
+                                for photo in photos:
+                                    ThreadPic.objects.create(user=user, group=group, thread=thread, post=post, pic=photo)
+                            else:
+                                raise ValidationError(_('You can upload a maximum of 30 photos per post.'))
                         else:
                             post = ThreadPost.objects.create(user=user, group=group, thread=thread, text=text, attachments=False)
 

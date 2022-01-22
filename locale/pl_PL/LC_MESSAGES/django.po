@@ -4,16 +4,16 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Kamil Boberek <kboberek@gmail.com>, 2021
+# Kamil Boberek <kboberek@gmail.com>, 2022
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-22 12:04+0100\n"
+"POT-Creation-Date: 2022-01-22 13:28+0100\n"
 "PO-Revision-Date: 2018-09-02 08:58+0000\n"
-"Last-Translator: Kamil Boberek <kboberek@gmail.com>, 2021\n"
+"Last-Translator: Kamil Boberek <kboberek@gmail.com>, 2022\n"
 "Language-Team: Polish (Poland) (https://www.transifex.com/mountiangrip/teams/90567/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,43 +21,59 @@ msgstr ""
 "Language: pl_PL\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: apps/groups/forms.py:17 apps/groups/forms.py:67 apps/groups/forms.py:103
-msgid "Your description is a little bit too long."
-msgstr "Twój opis jest za długi."
+#: apps/groups/forms.py:24
+msgid "Your post is a little bit too long."
+msgstr "Twój post jest trochę za długi."
 
-#: apps/groups/forms.py:25 apps/groups/forms.py:35
+#: apps/groups/forms.py:32
 msgid "Cannot add post to this group."
 msgstr "Nie mogę dodać posta do tej grupy "
 
-#: apps/groups/forms.py:27 apps/groups/forms.py:37
+#: apps/groups/forms.py:34
 msgid "There is a problem with this group"
 msgstr "Jest jakiś problem z tą grupą"
 
-#: apps/groups/forms.py:52
+#: apps/groups/forms.py:42
+msgid "Cannot add post to this thread."
+msgstr "Nie możesz dodać wiadomości do tego wątku."
+
+#: apps/groups/forms.py:44
+msgid "There is a problem with this thread"
+msgstr "Jest jakiś problem z tym wątkiem."
+
+#: apps/groups/forms.py:59
 msgid "This group was added just few minutes ago."
 msgstr "Taka sama grupa została dodana przed chwilą."
 
-#: apps/groups/forms.py:60 apps/groups/forms.py:96
+#: apps/groups/forms.py:67 apps/groups/forms.py:103
 msgid "Groups has to have a name :)"
 msgstr "Twoja grupa musi mieć jakaś nazwę :)"
 
-#: apps/groups/forms.py:87
+#: apps/groups/forms.py:74 apps/groups/forms.py:110
+msgid "Your description is a little bit too long."
+msgstr "Twój opis jest za długi."
+
+#: apps/groups/forms.py:94
 msgid "Group does not exists."
 msgstr "Taka grupa nie istnieje. "
 
-#: apps/groups/forms.py:89
+#: apps/groups/forms.py:96
 msgid "Invalid group code"
 msgstr "Błędny kod grupy"
 
-#: apps/inbox/views.py:29
+#: apps/groups/views.py:183
+msgid "This post was just added"
+msgstr "Ten post już został dodany."
+
+#: apps/inbox/views.py:36
 msgid "No sent messages"
 msgstr "Brak wiadomości wysłanych"
 
-#: apps/inbox/views.py:103
+#: apps/inbox/views.py:114
 msgid "No messages"
 msgstr "Brak wiadomości"
 
-#: apps/inbox/views.py:105
+#: apps/inbox/views.py:116
 msgid "You cannot be here. Space only for beta testers ;)."
 msgstr "Jeszcze nie możesz zobaczyć, co jest w środku :)"
 
@@ -98,20 +114,24 @@ msgstr "Plus/minus"
 msgid "Groups - Mountain Grip"
 msgstr "Grupy - Mountain Grip"
 
-#: html/groups/create.html:23
+#: html/groups/create.html:22
 msgid "Group name"
 msgstr "Nazwa grupy"
 
-#: html/groups/create.html:30
+#: html/groups/create.html:29
 msgid "Private group"
 msgstr "Prywatna grupa"
 
-#: html/groups/create.html:32
+#: html/groups/create.html:31
 msgid "Add"
 msgstr "Dodaj"
 
-#: html/groups/index.html:4 html/groups/index.html:10
-#: html/groups/thread.html:15 html/groups/view.html:13
+#: html/groups/index.html:4
+msgid "Explore groups"
+msgstr "Przeszukaj grupy"
+
+#: html/groups/index.html:10 html/groups/thread.html:15
+#: html/groups/view.html:16
 msgid "Create a group"
 msgstr "Stwórz grupę"
 
@@ -119,20 +139,15 @@ msgstr "Stwórz grupę"
 msgid "Groups you follow"
 msgstr "Grupy, które śledzisz"
 
-#: html/groups/index.html:20
+#: html/groups/index.html:31
 msgid "Your groups"
 msgstr "Twoje grupy"
 
-#: html/groups/index.html:37
+#: html/groups/index.html:57
 msgid "Recent groups"
 msgstr "Ostatnio dodane grupy"
 
-#: html/groups/thread.html:5
-#, python-format
-msgid "%(data.thread.name)s"
-msgstr ""
-
-#: html/groups/thread.html:10 html/groups/view.html:9
+#: html/groups/thread.html:10 html/groups/view.html:12
 msgid "Group does not exist."
 msgstr "Taka grupa nie istnieje. "
 
@@ -140,28 +155,43 @@ msgstr "Taka grupa nie istnieje. "
 msgid "Add a post"
 msgstr "Dodaj posta"
 
-#: html/groups/thread.html:44 html/groups/view.html:34
+#: html/groups/thread.html:30
+msgid "Unfollow"
+msgstr "Przestań obserwować"
+
+#: html/groups/thread.html:32
+msgid "Follow thread"
+msgstr "Obserwuj wątek"
+
+#: html/groups/thread.html:69 html/groups/view.html:37
 #: html/inbox/message.html:31
 msgid "Submit"
 msgstr "Dodaj"
 
-#: html/groups/view.html:4
-#, python-format
-msgid "%(data.group.name)s"
-msgstr ""
+#: html/groups/view.html:9
+msgid "You are not added to this private group."
+msgstr "Nie zostałaś/eś dodany do tej prywatnej grupy."
 
-#: html/groups/view.html:14
+#: html/groups/view.html:17
 msgid "Add a thread"
 msgstr "Dodaj wątek. "
 
-#: html/groups/view.html:28 html/inbox/index.html:44
-#: html/start/addtrip.html:21 start/forms.py:63
+#: html/groups/view.html:31 html/inbox/index.html:44
+#: html/start/addtrip.html:26 start/forms.py:64
 msgid "Title"
 msgstr "Tytuł"
 
-#: html/groups/view.html:31
+#: html/groups/view.html:34
 msgid "First post"
 msgstr "Pierwszy post. "
+
+#: html/groups/view.html:52 html/main.html:66 html/settings/index.html:3
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: html/groups/view.html:52
+msgid "Follow"
+msgstr "Obserwuj"
 
 #: html/health/analytics.html:10 html/health/summary.html:4
 msgid "Summary"
@@ -182,6 +212,10 @@ msgstr "Importuj aktywności"
 #: html/health/import_activities.html:7
 msgid "Import your activiteis from >"
 msgstr "Importuj swoje aktywności"
+
+#: html/health/index.html:3
+msgid "Health data analysis"
+msgstr "Analiza zdrowia"
 
 #: html/health/index.html:7
 msgid "Analytics"
@@ -227,7 +261,7 @@ msgstr "Wysłane"
 msgid "Type your message"
 msgstr "Napisz swoją wiadomość"
 
-#: html/inbox/index.html:49 html/start/trip.html:104
+#: html/inbox/index.html:52 html/start/trip.html:108
 msgid "Send"
 msgstr "Wyślij"
 
@@ -239,81 +273,77 @@ msgstr "Nie kombinuj :)"
 msgid "Type your reply"
 msgstr "Odpowiedz"
 
-#: html/main.html:52 html/start/index.html:17 html/start/signup.html:59
+#: html/main.html:56 html/start/index.html:17 html/start/signup.html:60
 msgid "Sign up"
 msgstr "Dołącz"
 
-#: html/main.html:57
+#: html/main.html:61
 msgid "Account"
 msgstr "Konto"
 
-#: html/main.html:60
+#: html/main.html:64
 msgid "Profile"
 msgstr "Profil"
 
-#: html/main.html:61
+#: html/main.html:65
 msgid "Health"
 msgstr "Zdrowie"
 
-#: html/main.html:62
-msgid "Settings"
-msgstr "Ustawienia"
-
-#: html/main.html:67
+#: html/main.html:71
 msgid "Your trips"
 msgstr "Twoje wyprawy"
 
-#: html/main.html:70 html/start/addtrip.html:53
+#: html/main.html:74 html/start/addtrip.html:58
 msgid "Add a trip"
 msgstr "Dodaj wyprawę"
 
-#: html/main.html:71
+#: html/main.html:75
 msgid "Explore"
 msgstr "Przeszukaj"
 
-#: html/main.html:72
+#: html/main.html:76
 msgid "Past activities"
 msgstr "Ostatnie wyprawy"
 
-#: html/main.html:77
+#: html/main.html:81
 msgid "Messages"
 msgstr "Wiadomości"
 
-#: html/main.html:82
+#: html/main.html:86
 msgid "Groups"
 msgstr "Grupy"
 
-#: html/main.html:87
+#: html/main.html:91
 msgid "Shop"
 msgstr "Sklep"
 
-#: html/main.html:100 html/main.html:101
+#: html/main.html:104 html/main.html:105
 msgid "Search"
 msgstr "Szukaj"
 
-#: html/main.html:105
+#: html/main.html:109
 msgid "Logout"
 msgstr "Wyloguj"
 
-#: html/main.html:108 html/registration/login.html:27
+#: html/main.html:112 html/registration/login.html:27
 msgid "Log in"
 msgstr "Zaloguj"
 
-#: html/main.html:144
+#: html/main.html:148
 msgid "about"
 msgstr "o nas"
 
-#: html/main.html:145
+#: html/main.html:149
 msgid "code"
 msgstr "kod"
 
-#: html/main.html:146
+#: html/main.html:150
 msgid "donate"
 msgstr "dotacja"
 
-#: html/main.html:150
-msgid "Buy me a coffee"
-msgstr "Zaproś mnie na kawę"
+#: html/main.html:151
+msgid "buy me a coffee"
+msgstr "zaproś mnie na kawę "
 
 #: html/notifications/index.html:10
 msgid "Read all"
@@ -327,11 +357,11 @@ msgstr "Posty"
 msgid "Comments"
 msgstr "Komentarze"
 
-#: html/registration/login.html:20 html/start/signup.html:31
+#: html/registration/login.html:20 html/start/signup.html:36
 msgid "Username"
 msgstr "Nazwa użytkownika"
 
-#: html/registration/login.html:24 html/start/signup.html:48
+#: html/registration/login.html:24 html/start/signup.html:52
 msgid "Password"
 msgstr "Hasło"
 
@@ -351,6 +381,11 @@ msgstr "Email został wysłany."
 msgid "Send intructions"
 msgstr "Wyślij instrukcje"
 
+#: html/settings/index.html:8 html/start/profile.html:25
+#: html/start/profile_update.html:4
+msgid "Update your profile"
+msgstr "Zaktualizuj swój profil "
+
 #: html/shop/index.html:4
 msgid "Sell and buy outdoor clothes and equipment"
 msgstr "Kupuj i sprzedawaj swoje outdoorowe ubrania i sprzęt"
@@ -367,31 +402,31 @@ msgstr "Kupione"
 msgid "Look for people ready for an adventure."
 msgstr "Znajdź nową przygodę dla siebie"
 
-#: html/start/addtrip.html:25 start/forms.py:64
+#: html/start/addtrip.html:30 start/forms.py:65
 msgid "Description"
 msgstr "Opis"
 
-#: html/start/addtrip.html:29
+#: html/start/addtrip.html:34
 msgid "Starting place"
-msgstr ""
+msgstr "Miejsce startowe"
 
-#: html/start/addtrip.html:33
+#: html/start/addtrip.html:38
 msgid "Mountain/Destination name"
-msgstr ""
+msgstr "Nazwa góry/miejsca docelowego"
 
-#: html/start/addtrip.html:37 start/forms.py:67
+#: html/start/addtrip.html:42 start/forms.py:68
 msgid "Start date"
 msgstr "Dzień rozpoczęcia"
 
-#: html/start/addtrip.html:42
+#: html/start/addtrip.html:47
 msgid "One day trip"
 msgstr "Jednodniowa wyczieczka"
 
-#: html/start/addtrip.html:45 start/forms.py:68
+#: html/start/addtrip.html:50 start/forms.py:69
 msgid "End date"
 msgstr "Dzień zakończenia"
 
-#: html/start/addtrip.html:49
+#: html/start/addtrip.html:54
 msgid "Choose a file"
 msgstr "Wybierz plik"
 
@@ -411,27 +446,59 @@ msgstr "Twoja kolejna wyprawa zaczyna się tutaj ..."
 msgid "Start searching for people"
 msgstr "Znajdź ludzi do wspólnych wypraw"
 
-#: html/start/mountiangrip.html:46
+#: html/start/mountiangrip.html:11
+msgid "I"
+msgstr "Ja"
+
+#: html/start/mountiangrip.html:15
+msgid "want"
+msgstr "chcę"
+
+#: html/start/mountiangrip.html:16
+msgid "need"
+msgstr "potrzebuję"
+
+#: html/start/mountiangrip.html:19
+msgid "to meet"
+msgstr "poznać"
+
+#: html/start/mountiangrip.html:20
+msgid "to hike"
+msgstr "przejść"
+
+#: html/start/mountiangrip.html:21
+msgid "to climb"
+msgstr "wspinać się"
+
+#: html/start/mountiangrip.html:22
+msgid "to ski from"
+msgstr "zjechać z"
+
+#: html/start/mountiangrip.html:23
+msgid "to visit"
+msgstr "odwiedzić"
+
+#: html/start/mountiangrip.html:59
 msgid "What can you do here?"
 msgstr "Co możesz tutaj zrobić?"
 
-#: html/start/mountiangrip.html:49
+#: html/start/mountiangrip.html:62
 msgid "Organize a trip and invite your friends."
 msgstr "Zorganizować wycieczkę i zaprosić przyjaciół."
 
-#: html/start/mountiangrip.html:50
+#: html/start/mountiangrip.html:63
 msgid "Share your adventure stories."
 msgstr "Podziel się swoimi wyprawami."
 
-#: html/start/mountiangrip.html:51
+#: html/start/mountiangrip.html:64
 msgid "Collect and analyze your helath data."
 msgstr "Dodawaj i analizuj swoje parametry zdrowotne."
 
-#: html/start/mountiangrip.html:52
+#: html/start/mountiangrip.html:65
 msgid "Meet other outdoor enthusiasts."
 msgstr "Poznaj  innych miłośników outdooru."
 
-#: html/start/mountiangrip.html:53
+#: html/start/mountiangrip.html:66
 msgid "Sell and buy outdoor clothes and equipment."
 msgstr "Sprzedawaj i kupuj swój sprzęt wyprawowy."
 
@@ -439,19 +506,19 @@ msgstr "Sprzedawaj i kupuj swój sprzęt wyprawowy."
 msgid "Does not exist."
 msgstr "Nie ma takiego użytkownika."
 
-#: html/start/profile.html:22 html/start/profile_update.html:4
-msgid "Update your profile"
-msgstr "Zaktualizuj swój profil "
+#: html/start/profile.html:15
+msgid "Go back"
+msgstr "Powrót"
 
-#: html/start/profile.html:38
+#: html/start/profile.html:42
 msgid "Add as a friend"
 msgstr "Dodaj do przyjaciół"
 
-#: html/start/profile.html:48
+#: html/start/profile.html:52
 msgid "Send a public message"
 msgstr "Wyślij wiadomość publiczną"
 
-#: html/start/profile.html:49 html/start/trip.html:66
+#: html/start/profile.html:53 html/start/trip.html:70
 msgid "Post"
 msgstr "Dodaj"
 
@@ -464,28 +531,28 @@ msgstr "Zaktualizuj"
 msgid "Search results for: %(q)s "
 msgstr "Wyniki wyszukiwania dla: %(q)s"
 
-#: html/start/signup.html:11
+#: html/start/signup.html:10
 msgid "Activation email was sent to you. Check your SPAM box as well."
 msgstr ""
 "Email z linkiem aktywacyjnym został wysłany. Sprawdź również swój SPAM."
 
-#: html/start/signup.html:13
+#: html/start/signup.html:12
 msgid "Accunt was created, but activation email was not sent"
 msgstr "Konto zostało utworzone, ale link aktywacyjny nie został wysłany."
 
-#: html/start/signup.html:36
+#: html/start/signup.html:40
 msgid "First name"
 msgstr "Imię"
 
-#: html/start/signup.html:40
+#: html/start/signup.html:44
 msgid "Last name"
 msgstr "Nazwisko"
 
-#: html/start/signup.html:44
+#: html/start/signup.html:48
 msgid "Email"
 msgstr "Email"
 
-#: html/start/signup.html:52
+#: html/start/signup.html:56
 msgid "Confirm password"
 msgstr "Potwierdź hasło"
 
@@ -505,17 +572,33 @@ msgstr "Dołącz"
 msgid "Invite"
 msgstr "Zaproś"
 
-#: html/start/trip.html:90
+#: html/start/trip.html:94
 msgid "Invite your friends "
 msgstr "Zaproś znajomych"
 
-#: mountaingrip/ajax/func.py:48
+#: mountaingrip/ajax/func.py:78
 msgid " sent you a message: "
 msgstr "wysłał/a Ci wiadomość."
 
-#: mountaingrip/ajax/func.py:52
+#: mountaingrip/ajax/func.py:83
 msgid " added you as a friend."
 msgstr "dodał/a Cię do znajomych."
+
+#: mountaingrip/ajax/func.py:89
+msgid " added a post to your group:"
+msgstr "dodał posta do Twojej grupy."
+
+#: mountaingrip/ajax/func.py:93
+msgid " added a post to your profile:"
+msgstr "dodał posta na Twoim profilu."
+
+#: mountaingrip/ajax/func.py:98
+msgid " joined your trip."
+msgstr "dołączył do Twojej wyprawy."
+
+#: mountaingrip/forms.py:20
+msgid "This username is already in use."
+msgstr "Nazwa użytkownika jest już używana."
 
 #: mountaingrip/forms.py:27
 msgid "This email is already in use."
@@ -525,51 +608,51 @@ msgstr "Ten email już jest używany."
 msgid "Activate your Mountain Grip account."
 msgstr "Aktywuj swoje konto na https://mountaingrip.com"
 
-#: start/forms.py:13
+#: start/forms.py:14
 msgid "Your profile photo"
 msgstr "Zdjęcie profilowe"
 
-#: start/forms.py:14
+#: start/forms.py:15
 msgid "Your cover photo"
 msgstr "Zdjęcie w tle"
 
-#: start/forms.py:15
+#: start/forms.py:16
 msgid "Birthday"
 msgstr "Urodziny"
 
-#: start/forms.py:16
+#: start/forms.py:17
 msgid "Gender"
 msgstr "Płeć"
 
-#: start/forms.py:17
+#: start/forms.py:18
 msgid "Country"
 msgstr "Państwo"
 
-#: start/forms.py:18
+#: start/forms.py:19
 msgid "Height"
 msgstr "Wysokość"
 
-#: start/forms.py:36
+#: start/forms.py:37
 msgid "Your post is too long."
 msgstr "Twój post jest za długi. "
 
-#: start/forms.py:38
+#: start/forms.py:39
 msgid "You have to write something :)"
 msgstr "Napisz coś :)"
 
-#: start/forms.py:65
+#: start/forms.py:66
 msgid "Base place"
 msgstr "Miejse spotkania"
 
-#: start/forms.py:66
+#: start/forms.py:67
 msgid "Mountain name"
 msgstr "Nazwa góry"
 
-#: start/forms.py:69
+#: start/forms.py:70
 msgid "Cover photo"
 msgstr "Zdjęcie wyróżniające"
 
-#: start/forms.py:84
+#: start/forms.py:85
 msgid "Something is wrong"
 msgstr "Coś jest nie tak."
 
