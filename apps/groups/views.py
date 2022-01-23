@@ -157,9 +157,13 @@ class ThreadView(View):
 
     def post(self, request, gid=0, tid=0):
         user = request.user
+        self.data = {
+            'user': user,
+        }
         form = self.form_class(request.POST or None, request.FILES or None)
         if request.method == 'POST' and user.is_authenticated:
             if form.is_valid():
+                print('OK')
                 if gid > 0 and tid > 0:
                     text = form.clean_text()
                     group = form.clean_group()
@@ -167,25 +171,22 @@ class ThreadView(View):
                     
                     if not ThreadPost.objects.filter(group=group, thread=thread, text=text,
                                                      added_at__lte=self.time_threshold).exists():
-                        if request.FILES:
-                            post = ThreadPost.objects.create(user=user, group=group, thread=thread, text=text,   attachments=True)
+                        post = ThreadPost.objects.create(user=user, group=group, thread=thread, text=text, attachments=False)
+                        if request.FILES:                            
                             photos = request.FILES.getlist('pic')
                             if len(photos) < 30:
                                 for photo in photos:
                                     ThreadPic.objects.create(user=user, group=group, thread=thread, post=post, pic=photo)
+                                ThreadPost.objects.filter(id=post.id).update(attachments=True)
                             else:
                                 raise ValidationError(_('You can upload a maximum of 30 photos per post.'))
-                        else:
-                            post = ThreadPost.objects.create(user=user, group=group, thread=thread, text=text, attachments=False)
 
-                        if post:
                             return redirect('/groups/' + str(group.id) + '/' + str(thread.id) + '/')
-                        else:
-                            pass
+
                     else:
                         raise ValidationError(_('This post was just added'))
                 else:
-                    pass
+                    raise ValidationError(_('There is another serious problem'))
 
             return render(request, 'groups/thread.html', {'data': self.data, 'from': form})
 

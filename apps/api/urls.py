@@ -13,7 +13,7 @@ urlpatterns = [
     path('autocomplete/inbox/', views.AutocompleteInbox.as_view(), name='autocomplete_inbox'),
     path('suggestions/', views.Suggestions.as_view(), name='suggestions'),
     path('notifications/<int:id>/',  views.Notifications.as_view(), name='notifications'),
-    path('desire/<int:how>/<int:what>/', views.Desire.as_view(), name='desire'),
+    path('desire/', views.Desire.as_view(), name='desire'),
     path('shop/', include('api.shop.urls'), name='shop'),
     path('auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

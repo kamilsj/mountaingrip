@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'apps.notifications',
     'apps.inbox',
     'apps.ejp',
+    'apps.desire',
     'start',
     'apps.api',
     'apps.settings',

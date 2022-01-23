@@ -9,7 +9,7 @@
     <div class="container-fluid page-background-main">
         <div class="d-flex justify-content-center align-items-center h-100">
                 <h1 class="p-3"style="color:white;">{% trans 'I' %}</h1></span>
-                <form >
+                <form>
                     <div class="input-group">
                         <select class="form-select form-select-lg" id="id_how" name="how" style="width: 200px">
                             <option value="1">{% trans 'want' %}</option>
@@ -71,8 +71,26 @@
         </div>
     </div>
     <script type="text/javascript">
-        let how = $('#id_how option:selected').val();
-        let what = $('#id_what option:selected').val();
+        $(document).ready(function(){
+            $("#id_desire").keyup(function(){
+                var desire = $("#id_desire").val();
+                var how = $("#id_how").val();
+                var what = $("#id_what").val();
+                $.ajax({
+                    url: "/api/desire/",
+                    type: "POST",
+                    data: {
+                        "desire": desire,
+                        "how": how,
+                        "what": what
+                    },
+                    success: function(data){
+                        $("#suggestions").html(data);
+                    }
+                });
+            });
+        });
+        
         $('#id_desire').autocomplete({
             serviceUrl: '/api/desire/'+how+'/'+what+'/',
             dataType: 'json',
