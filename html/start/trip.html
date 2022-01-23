@@ -31,7 +31,7 @@
         <div class="col-5">
             <img src="{{ data.url }}" class="img-fluid rounded" /><br>
             <a href="#" onclick="jointrip({{ data.id }});" id="join_trip_button" class="btn btn-sm mt-2
-            {% if data.user_joined == 1 %}
+            {% if data.user_joined %}
                btn-secondary disabled
             {% else %}
                btn-primary
@@ -42,25 +42,33 @@
             <button type="button" class="btn btn-secondary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">{% trans "Invite" %}</button>
         </div>
         <div class="col mt-3">
-            <h1 class="leader">{{ data.title }}</h1>
+            <h1 class="leader">
+                {% show_avatar_small data.trip_user %}
+                {{ data.title }}
+            </h1>
             <small class="badge bg-dark"><b>{{ data.startDate }}
             {% if data.endDate %}
                 - {{ data.endDate }}
             {% endif %}
             </b></small>
-            <p class="lead">{{ data.description }}</p><br>
+            <div class="card mt-3">
+                <div class="card-body">{{ data.description }}</div>
+            </div>
             <div class="row">
             <!-- joined users avatars -->
-                <div class="col">
-                    {% for user in data.users %}
 
-                    {% endfor %}
-                </div>
             </div>
         </div>
     </div>
     <div class="row mt-5">
+
+
         <div class="col col-sm-5">
+            <div class="mb-3">
+                {% for user in data.joined_users %}
+                    {% show_avatar_small user.user %}
+                {% endfor %}
+            </div>
             <div id="map"></div>
         </div>
         <div class="col col-sm-7">

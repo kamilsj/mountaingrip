@@ -16,9 +16,6 @@
         <div class="btn-group" role="group"><a href="/groups/create/" class="btn btn-outline-primary btn-sm">{% trans 'Create a group' %}</a>
         <a class="btn btn-outline-primary btn-sm" data-bs-toggle="collapse" href="#showaddthread" role="button" aria-expanded="false" aria-controls="showaddthread">{% trans 'Add a thread' %}</a></div>
     </div>
-
-
-
     <div class="row mt-3">
         <div class="col">
             <div class="collapse multi-collapse" id="showaddthread">
@@ -49,7 +46,15 @@
         </h4>
     </div>
     <div class="d-flex mt-1">
-        {% if data.is_admin %}<button class="btn btn-sm btn-outline-dark">{% trans 'Settings' %}</button>{% else %}<button onclick="followgroup({{ data.group.id }})" id="follow_group" class="btn btn-sm btn-outline-dark">{% trans 'Follow' %}</button>{% endif %}
+        {% if data.is_admin %}
+            <button class="btn btn-sm btn-outline-dark">{% trans 'Settings' %}</button>
+        {% else %}
+            {% if data.group_followed %}
+                <button onclick="" id="unfollow_group" class="btn btn-sm btn-outline-dark" disabled>{% trans 'Unfollow' %}</button>
+            {% else %}    
+                <button onclick="followgroup({{ data.group.id }})" id="follow_group" class="btn btn-sm btn-outline-dark">{% trans 'Follow' %}</button>                
+            {% endif %}                
+        {% endif %}
     </div>
     <div class="d-flex mt-3">
         <div class="list-group list-group-flush w-100">

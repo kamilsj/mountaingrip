@@ -1,3 +1,5 @@
+from errno import ESTALE
+from http.client import FORBIDDEN
 from django.shortcuts import render, redirect
 from django.views import View
 from .forms import GroupForm, ThreadForm, PostForm
@@ -56,40 +58,51 @@ class GroupView(View):
     data = {}
 
     def get(self, request, id=0):
-        if id > 0:
-            if Group.objects.filter(id=id).exists():
-                group = Group.objects.get(id=id)
-                if group.user == request.user:
-                    is_admin = True
-                else:
-                    is_admin = False
-                if group.private:
-                    if PrivateGroup.objects.filter(user=request.user,
-                                                   group=group).exists() or request.user == group.user:
+        user = request.user
+        if user.is_authenticated:
+            if id > 0:
+                if Group.objects.filter(id=id).exists():
+                    group = Group.objects.get(id=id)
+                    if group.user == request.user:
+                        is_admin = True
+                    else:
+                        is_admin = False
+                    if FollowedGroup.objects.filter(user=user, group=group).exists():
+                        group_followed = True
+                    else:
+                        group_followed = False 
+                          
+                    if group.private:
+                        if PrivateGroup.objects.filter(user=request.user,
+                                                    group=group).exists() or request.user == group.user:
+                            threads = Thread.objects.filter(group=group).order_by('-added_at').all()[:20]
+                            self.data = {
+                                'is_admin': is_admin,
+                                'group': group,
+                                'threads': threads,
+                                'group_followed': group_followed
+                            }
+                        else:
+                            self.data = {
+                                'private': 1
+                            }
+
+                    else:
                         threads = Thread.objects.filter(group=group).order_by('-added_at').all()[:20]
                         self.data = {
                             'is_admin': is_admin,
                             'group': group,
-                            'threads': threads
+                            'threads': threads,
+                            'group_followed': group_followed
                         }
-                    else:
-                        self.data = {
-                            'private': 1
-                        }
-
                 else:
-                    threads = Thread.objects.filter(group=group).order_by('-added_at').all()[:20]
                     self.data = {
-                        'is_admin': is_admin,
-                        'group': group,
-                        'threads': threads
+                        'nogroup': 1,
                     }
             else:
-                self.data = {
-                    'nogroup': 1,
-                }
+                return redirect('/groups/')
         else:
-            return redirect('/groups/')
+            return redirect('/') 
 
         return render(request, 'groups/view.html', {'data': self.data, 'form': self.form_class})
 
@@ -185,7 +198,7 @@ class ThreadView(View):
                             else:
                                 raise ValidationError(_('You can upload a maximum of 30 photos per post.'))
 
-                            return redirect('/groups/' + str(group.id) + '/' + str(thread.id) + '/')
+                        return redirect('/groups/' + str(group.id) + '/' + str(thread.id) + '/')
 
                     else:
                         raise ValidationError(_('This post was just added'))

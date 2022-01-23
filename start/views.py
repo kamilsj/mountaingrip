@@ -205,83 +205,89 @@ class Explore(View):
 
 class TripView(View):
 
-    def get(self, request, id = 0):
+    def get(self, request, id=0):
         data = {}
         location_m_name = {}
         location_b_place = {}
         comments = {}
         posts = {}
         user = request.user
-        if id and id != 0:
-            if Trip.objects.filter(id=id).exists():
-                trip = Trip.objects.get(id=id)
-                if trip:
-                    joined = TripJoined.objects.filter(trip=trip).count()
-                    user_joined = TripJoined.objects.filter(trip=trip, user=user).exists()
-                    if Post.objects.filter(trip_id=id).count() > 0:
-                        posts = Post.objects.filter(trip_id=id).order_by('-added_at').all()
-                        if Comment.objects.filter(trip_id=id).count() > 0:
-                            comments = {}
-
-                    if trip.blat == 0 and trip.blng == 0 and trip.mlat == 0 and trip.mlng == 0:
-
-                        b_place = gmaps.geocode(trip.basePlace)
-                        m_name = gmaps.geocode(trip.mountainName)
-
-                        location_b_place = {
-                            'name': b_place[0]['formatted_address'],
-                            'lat': b_place[0]['geometry']['location']['lat'],
-                            'lng': b_place[0]['geometry']['location']['lng']
+        if user.is_authenticated:
+            if id > 0:
+                if Trip.objects.filter(id=id).exists():
+                    trip = Trip.objects.get(id=id)
+                    if trip:
+                        joined = TripJoined.objects.filter(trip=trip).count()
+                        user_joined = TripJoined.objects.filter(trip=trip, user=user).exists()
+                        joined_users = TripJoined.objects.filter(trip=trip).values('user')
+                        if Post.objects.filter(trip_id=id).count() > 0:
+                            posts = Post.objects.filter(trip_id=id).order_by('-added_at').all()
+                            if Comment.objects.filter(trip_id=id).count() > 0:
+                                comments = {}
+    
+                        if trip.blat == 0 and trip.blng == 0 and trip.mlat == 0 and trip.mlng == 0:
+    
+                            b_place = gmaps.geocode(trip.basePlace)
+                            m_name = gmaps.geocode(trip.mountainName)
+    
+                            location_b_place = {
+                                'name': b_place[0]['formatted_address'],
+                                'lat': b_place[0]['geometry']['location']['lat'],
+                                'lng': b_place[0]['geometry']['location']['lng']
+                            }
+                            location_m_name = {
+                                'name': m_name[0]['formatted_address'],
+                                'lat': m_name[0]['geometry']['location']['lat'],
+                                'lng': m_name[0]['geometry']['location']['lng']
+                            }
+    
+                            Trip.objects.filter(id=id).update(
+                                blat=b_place[0]['geometry']['location']['lat'],
+                                blng=b_place[0]['geometry']['location']['lng'],
+                                mlat=m_name[0]['geometry']['location']['lat'],
+                                mlng=m_name[0]['geometry']['location']['lng']
+                            )
+                        else:
+                            location_b_place = {
+                                'name': trip.basePlace,
+                                'lat': trip.blat,
+                                'lng': trip.blng
+                            }
+                            location_m_name = {
+                                'name': trip.mountainName,
+                                'lat': trip.mlat,
+                                'lng': trip.mlng
+                            }
+    
+                        if trip.cover:
+                            url = trip.cover.url
+                        else:
+                            url = 'https://mountiangrip.s3-eu-west-1.amazonaws.com/assets/default_trip_cover.jpg'
+    
+                        data = {
+                            'id': trip.id,
+                            'trip_user': trip.user.id,
+                            'user_joined': user_joined,
+                            'joined_users': joined_users,
+                            'posts': posts,
+                            'comments': comments,
+                            'joined': joined,
+                            'gmaps_key': gkey,
+                            'basePlace': location_b_place,
+                            'mountainName': location_m_name,
+                            'url': url,
+                            'title': trip.title,
+                            'description': trip.description,
+                            'startDate': trip.startDate,
+                            'endDate': trip.endDate
                         }
-                        location_m_name = {
-                            'name': m_name[0]['formatted_address'],
-                            'lat': m_name[0]['geometry']['location']['lat'],
-                            'lng': m_name[0]['geometry']['location']['lng']
-                        }
-
-                        Trip.objects.filter(id=id).update(
-                            blat=b_place[0]['geometry']['location']['lat'],
-                            blng=b_place[0]['geometry']['location']['lng'],
-                            mlat=m_name[0]['geometry']['location']['lat'],
-                            mlng=m_name[0]['geometry']['location']['lng']
-                        )
+    
                     else:
-                        location_b_place = {
-                            'name': trip.basePlace,
-                            'lat': trip.blat,
-                            'lng': trip.blng
-                        }
-                        location_m_name = {
-                            'name': trip.mountainName,
-                            'lat': trip.mlat,
-                            'lng': trip.mlng
-                        }
-
-                    if trip.cover:
-                        url = trip.cover.url
-                    else:
-                        url = 'https://mountiangrip.s3-eu-west-1.amazonaws.com/assets/default_trip_cover.jpg'
-
-                    data = {
-                        'id': trip.id,
-                        'posts': posts,
-                        'comments': comments,
-                        'joined': joined,
-                        'user_joined': user_joined,
-                        'gmaps_key': gkey,
-                        'basePlace': location_b_place,
-                        'mountainName': location_m_name,
-                        'url': url,
-                        'title': trip.title,
-                        'description': trip.description,
-                        'startDate': trip.startDate,
-                        'endDate': trip.endDate
-                    }
-
+                        data = {'notrip': 1}
                 else:
                     data = {'notrip': 1}
             else:
-                data = {'notrip': 1}
+                return redirect('/')
 
         else:
             return redirect('/start/trip/explore/')
