@@ -37,3 +37,17 @@ def show_user_avatar(user_id, level=0):
 def link_to_html(link):
     pass
 
+
+def text_url_to_html(text):
+    from urlextract import URLExtract
+    from urllib.parse import urlparse
+    extractor = URLExtract()
+
+    urls = extractor.find_urls(text)
+    for url in urls:
+        if urlparse(url).netloc == 'www.youtube.com':
+            text = text.replace(url, '<iframe width="560" height="315" src="' + url + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
+        else:
+            text = text.replace(url, '<a href="' + url + '" target="_blank">' + url + '</a>')
+
+    return text
