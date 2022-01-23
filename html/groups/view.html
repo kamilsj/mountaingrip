@@ -49,7 +49,7 @@
         </h4>
     </div>
     <div class="d-flex mt-1">
-        {% if data.is_admin %}<button class="btn btn-sm btn-outline-dark">{% trans 'Settings' %}</button>{% else %}<button onclick="followgroup({{ data.group.id }})" class="btn btn-sm btn-outline-dark">{% trans 'Follow' %}</button>{% endif %}
+        {% if data.is_admin %}<button class="btn btn-sm btn-outline-dark">{% trans 'Settings' %}</button>{% else %}<button onclick="followgroup({{ data.group.id }})" id="follow_group" class="btn btn-sm btn-outline-dark">{% trans 'Follow' %}</button>{% endif %}
     </div>
     <div class="d-flex mt-3">
         <div class="list-group list-group-flush w-100">

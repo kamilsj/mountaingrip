@@ -5,6 +5,9 @@
     {{ data.title }}
 {% endblock %}
 
+{% get_current_language as LANGUAGE_CODE %}
+
+
 {% block content %}
 <style>
   #map {
@@ -95,7 +98,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
                 <div class="input-group mb-2">
                     <div class="input-group-prepend">
@@ -113,24 +116,37 @@
       </div>
     </div>
 
+    
+    <script type="text/javascript">
+    let map;
+    let lat_b = {{ data.basePlace.lat }}
+    let lng_b = {{ data.basePlace.lng }}
+    let lat_m = {{ data.mountainName.lat }}
+    let lng_m = {{ data.mountainName.lng }}
 
-    <script>
     function initMap() {
-        var b_place = {lat: {{ data.basePlace.lat }}, lng: {{ data.basePlace.lng }}};
-        var m_name  = {lat: {{ data.mountainName.lat }}, lng: {{ data.mountainName.lng }}};
+        var b_place = {
+            lat: lat_b, 
+            lng: lng_b
+        };
+        var m_name  = {
+            lat: lat_m, 
+            lng: lng_m
+        };
         var map = new google.maps.Map(
         document.getElementById('map'), {zoom: 7, center: b_place});
         var miejsce = new google.maps.Marker({position: b_place, map,
             draggable: false,
             animation: google.maps.Animation.DROP,
-            title: "{{data.basePlace.name}}"});
+            title: "{{ data.basePlace.name }}"});
         var gora    = new google.maps.Marker({position: m_name, map,
             draggable: false,
             animation: google.maps.Animation.DROP,
-            title: "{{data.mountainName.name}}"});
+            title: "{{ data.mountainName.name }}"});
     }
     </script>
-    <script defer src="https://maps.googleapis.com/maps/api/js?key={{ data.gmaps_key }}&callback=initMap"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ data.gmaps_key }}&language=en&callback=initMap"></script>
+    
 
 
 

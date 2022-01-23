@@ -61,12 +61,12 @@
         </div>
     </div>
 <script type="text/javascript">
-$('#oneday').click(function(){
-    if($(this.checked)){
-        $('#id_endDate').prop('disabled', true);
+$('#oneday').change(function(){
+    if($($('#id_endDate').prop('disabled'))){
+        $('#id_endDate').prop('disabled', false);
     }
     else {
-        $('#id_endDate').prop('disabled', false);
+        $('#id_endDate').prop('disabled', true);
     }
 });
 
