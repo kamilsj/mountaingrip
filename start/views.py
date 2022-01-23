@@ -207,8 +207,8 @@ class TripView(View):
         data = {}
         location_m_name = {}
         location_b_place = {}
-        comments = ''
-        posts = ''
+        comments = {}
+        posts = {}
         user = request.user
         if id and id != 0:
             if Trip.objects.filter(id=id).exists():
@@ -219,7 +219,7 @@ class TripView(View):
                     if Post.objects.filter(trip_id=id).count() > 0:
                         posts = Post.objects.filter(trip_id=id).order_by('-added_at').all()
                         if Comment.objects.filter(trip_id=id).count() > 0:
-                            comments = ''
+                            comments = {}
 
                     if trip.blat == 0 and trip.blng == 0 and trip.mlat == 0 and trip.mlng == 0:
 
@@ -255,6 +255,11 @@ class TripView(View):
                             'lng': trip.mlng
                         }
 
+                    if trip.cover:
+                        url = trip.cover.url
+                    else:
+                        url = 'https://mountiangrip.s3-eu-west-1.amazonaws.com/assets/default_trip_cover.jpg'
+
                     data = {
                         'id': trip.id,
                         'posts': posts,
@@ -264,7 +269,7 @@ class TripView(View):
                         'gmaps_key': gkey,
                         'basePlace': location_b_place,
                         'mountainName': location_m_name,
-                        'url': trip.cover.url,
+                        'url': url,
                         'title': trip.title,
                         'description': trip.description,
                         'startDate': trip.startDate,
