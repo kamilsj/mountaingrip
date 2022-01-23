@@ -24,6 +24,7 @@ Pillow = "*"
 django-widget-tweaks = "*"
 bokeh = "*"
 cryptography = "*"
+urlextract = "*"    
 
 # upload files
 boto3 = "*"
