@@ -185,7 +185,7 @@ class ThreadView(View):
                             else:
                                 raise ValidationError(_('You can upload a maximum of 30 photos per post.'))
 
-                            return redirect('/groups/' + str(group.id) + '/' + str(thread.id) + '/')
+                        return redirect('/groups/' + str(group.id) + '/' + str(thread.id) + '/')
 
                     else:
                         raise ValidationError(_('This post was just added'))
