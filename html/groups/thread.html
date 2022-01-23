@@ -29,17 +29,17 @@
         {% if data.followed %}
             <button type="button" class="btn btn-outline-primary btn-sm" disabled>{% trans 'Unfollow' %}</button>
         {% else %}
-           <button onclick="followthread({{ data.thread.id }})" class="btn btn-sm btn-light">{% trans 'Follow thread' %}</button>
+           <button onclick="followthread({{ data.thread.id }})" id="follow_thread" class="btn btn-sm btn-light">{% trans 'Follow thread' %}</button>
         {% endif %}   
     </div>
     <div class="d-flex flex-column list-group mt-5">
         {% for post in data.posts %}
-        <div class="list-group-item list-group-item-light w-100">
+        <div class="list-group-item list-group-item-light w-100" id="post_{{ post.id }}">
             <div class="d-inline">
                 <span>{% show_avatar_small post.user.id %}</span>
                 <small class="badge bg-light text-wrap text-dark">{{ post.added_at|naturaltime }}</small><br>
             </div>                
-            <div class="mt-2"><small>{{ post.text|safe }}</small></div>
+            <div class="mt-2"><small>{{ post.text|linebreaks|safe }}</small></div>
             <div class="d-flex mt-3">
                 <section data-featherlight-gallery data-featherlight-filter="a">
                 {% for pic in data.pics %}

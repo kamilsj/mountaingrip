@@ -51,9 +51,12 @@ def index(request):
 
 class ProfileView(View):
 
+
     def get(self, request, id=0):
         form = PostForm()
         data = {}
+        posts = {}
+        trips = {}
         if id > 1:
             try:
                 user = User.objects.get(id=id)
@@ -86,8 +89,8 @@ class ProfileView(View):
 
                         if Post.objects.filter(profile_id=id).count() > 0:
                             posts = Post.objects.filter(profile_id=id).order_by('-added_at').all()
-                        else:
-                            posts = ''
+                        
+                        trips = Trip.objects.filter(user=user).all()[:5]
 
                         data = {
                             'id': id,
@@ -95,6 +98,7 @@ class ProfileView(View):
                             'curl': cover,
                             'purl': pic,
                             'posts': posts,
+                            'trips': trips,
                             #'age': age,
                             'own_profile': own_profile,
                             'request_sent': request_sent,
@@ -128,8 +132,6 @@ class ProfileView(View):
 
                 if Post.objects.filter(profile_id=user.id).count() > 0:
                     posts = Post.objects.filter(profile_id=user.id).order_by('-added_at').all()
-                else:
-                    posts = ''
 
                 data = {
                     'id': user.id,

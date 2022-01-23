@@ -139,8 +139,8 @@ class ThreadView(View):
             thread = Thread.objects.get(id=tid)
             group = Group.objects.get(id=gid)
             if ThreadPost.objects.filter(thread=thread, group=group).count() > 0:
-                posts = ThreadPost.objects.filter(thread=thread, group=group).all()[:page]
-                pics = ThreadPic.objects.filter(thread=thread, group=group).all()
+                posts = ThreadPost.objects.filter(thread=thread, group=group).order_by('added_at').all()[:page]
+                pics = ThreadPic.objects.filter(thread=thread, group=group).order_by('added_at').all()
                 if FollowedThread.objects.filter(user=user, thread=thread).exists():
                     followed = True
             
@@ -151,6 +151,10 @@ class ThreadView(View):
                     'pics': pics,
                     'posts': posts,
 
+                }
+            else:
+                self.data = {
+                    'noposts': 1
                 }
 
             return render(request, 'groups/thread.html', {'data': self.data, 'from': self.form_class})
