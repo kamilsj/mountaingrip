@@ -13,7 +13,7 @@
         </div>
 
         <div class="card-body p-3">
-        {{ data.message.text|linebreaks|safe }}
+        {{ data.message.text|linebreaks|text_to_link|safe }}
         <!-- attachments point -->
         <div class="d-flex mt-3">
             <section data-featherlight-gallery data-featherlight-filter="a">
@@ -52,7 +52,7 @@
             {% for replys in data.messages %}
                 <div class="list-group-item">
                     {% show_avatar_small replys.user.id %}
-                    <small class="text-muted">{{ replys.text|safe }}</small>
+                    <small class="text-muted">{{ replys.text|linebreaks|text_to_link|safe }}</small>
                     <div class="d-flex mt-3">
                         <section data-featherlight-gallery data-featherlight-filter="a">
                         {% for pic in data.photos %}

@@ -1,8 +1,10 @@
 from django.contrib.auth.models import User
 from start.models import Profile
+from func.AI import learn
 
 pic = []
 cover = []
+
 
 def check_pic(pic):
     if pic:
@@ -32,11 +34,7 @@ def show_user_avatar(user_id, level=0):
         photo = Profile.objects.get(user_id=user_id)
 
     return [user.get_full_name(), check_pic(photo.pic)]
-
-
-def link_to_html(link):
-    pass
-
+    
 
 def text_url_to_html(text):
     from urlextract import URLExtract
@@ -46,7 +44,10 @@ def text_url_to_html(text):
     urls = extractor.find_urls(text)
     for url in urls:
         if urlparse(url).netloc == 'www.youtube.com':
-            text = text.replace(url, '<iframe width="560" height="315" src="' + url + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
+            text = text.replace(url, '<iframe width="560" height="315" src="' + url.replace("watch?v=", "embed/") + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
+        elif urlparse(url).netloc == 'youtu.be':
+            text = text.replace(url, '<iframe width="560" height="315" src="' + url.replace("youtu.be/",
+                                                                                            "www.youtube.com/embed/") + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
         else:
             text = text.replace(url, '<a href="' + url + '" target="_blank">' + url + '</a>')
 
