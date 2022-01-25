@@ -22,3 +22,9 @@ def show_avatar_small(user_id):
         'name': avatar[0],
         'pic': avatar[1]
     }
+
+
+@register.filter
+def text_to_link(text):
+    text = common.text_url_to_html(text)
+    return text

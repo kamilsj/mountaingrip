@@ -54,10 +54,6 @@
             <div class="card mt-3">
                 <div class="card-body">{{ data.description }}</div>
             </div>
-            <div class="row">
-            <!-- joined users avatars -->
-
-            </div>
         </div>
     </div>
     <div class="row mt-5">
@@ -87,7 +83,7 @@
                     <div class="list-group-item list-group-item-light d-flex justify-content-between align-items-center" id="post{{ post.id }}">
                         <span>
                             {%  show_avatar_small post.user.id %}
-                            <small>{{ post.text }}</small>
+                            <small>{{ post.text|linebreaks|text_to_link|safe }}</small>
                         </span>
                         <span>
 

@@ -1,15 +1,15 @@
-django_countries>=7.0.0, <8.0.0
-django_cron>=0.5.1 # not compatible with django 4.0
+django_countries==7.2.1
+django_cron==0.5.1 # not compatible with django 4.0
 Django==4.0.1
-django_heroku>=0.3.1, <0.5.0
+django_heroku==0.3.1
 django_storages==1.12.3
 django-s3file==5.4.0
-djangorestframework>=3.12.1, <4.0.0
+djangorestframework==3.13.1
 django-cors-headers==3.11.0
-django_widget_tweaks>=1.4.8
+django_widget_tweaks==1.4.12
 djangorestframework-api-key==2.1.0
 Pillow==9.0.0
-boto3==1.20.37
+boto3==1.20.41
 beautifulsoup4==4.10.0
 urlextract==1.5.0
 # Research
@@ -18,8 +18,8 @@ bokeh==2.4.2   # activities research
 numpy==1.22.1
 cryptography==36.0.1
 #SDK
-stripe==2.64.0
+stripe==2.65.0
 stravalib==0.10.4
 googlemaps==4.5.3
-facebook-sdk>=3.1.0, <4.0.0
-sentry_sdk==1.5.2
+facebook-sdk==3.1.0
+sentry_sdk==1.5.3

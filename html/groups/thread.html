@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load add_func %}
 {% load humanize %}
+
 {% block title %}{{ data.thread.name }}{% endblock %}
 
 {% block content %}
@@ -39,7 +40,7 @@
                 <span>{% show_avatar_small post.user.id %}</span>
                 <small class="badge bg-light text-wrap text-dark">{{ post.added_at|naturaltime }}</small><br>
             </div>                
-            <div class="mt-2"><small>{{ post.text|linebreaks|safe }}</small></div>
+            <div class="mt-2"><small>{{ post.text|linebreaks|text_to_link|safe }}</small></div>
             <div class="d-flex mt-3">
                 <section data-featherlight-gallery data-featherlight-filter="a">
                 {% for pic in data.pics %}
