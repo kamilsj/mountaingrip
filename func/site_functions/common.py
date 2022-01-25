@@ -46,8 +46,10 @@ def text_url_to_html(text):
         if urlparse(url).netloc == 'www.youtube.com':
             text = text.replace(url, '<iframe width="560" height="315" src="' + url.replace("watch?v=", "embed/") + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
         elif urlparse(url).netloc == 'youtu.be':
-            text = text.replace(url, '<iframe width="560" height="315" src="' + url.replace("youtu.be/",
-                                                                                            "www.youtube.com/embed/") + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
+            text = text.replace(url, '<iframe width="560" height="315" src="' + url.replace("youtu.be/", "www.youtube.com/embed/") + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
+        elif urlparse(url).netloc == 'vimeo.com':
+            num_id = urlparse(url).path
+            text = text.replace(url, '<iframe src="https://player.vimeo.com/video/' + num_id[1:] + '?h='+num_id[1:]+'" width="560" height="315" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>')
         else:
             text = text.replace(url, '<a href="' + url + '" target="_blank">' + url + '</a>')
 
