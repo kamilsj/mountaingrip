@@ -34,7 +34,25 @@ def show_user_avatar(user_id, level=0):
         photo = Profile.objects.get(user_id=user_id)
 
     return [user.get_full_name(), check_pic(photo.pic)]
+
+def get_yt_video_id(url):
+    from urllib.parse import urlparse, parse_qs
+
+    if url.startswith(('youtu', 'www')):
+        url = 'http://' + url
+        
+    query = urlparse(url)
     
+    if 'youtube' in query.hostname:
+        if query.path == '/watch':
+            return parse_qs(query.query)['v'][0]
+        elif query.path.startswith(('/embed/', '/v/')):
+            return query.path.split('/')[2]
+    elif 'youtu.be' in query.hostname:
+        return query.path[1:]
+    else:
+        raise ValueError
+
 
 def text_url_to_html(text):
     from urlextract import URLExtract
@@ -44,9 +62,9 @@ def text_url_to_html(text):
     urls = extractor.find_urls(text)
     for url in urls:
         if urlparse(url).netloc == 'www.youtube.com':
-            text = text.replace(url, '<iframe width="560" height="315" src="' + url.replace("watch?v=", "embed/") + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
+            text = '<iframe width="560" height="315" src="https://www.youtube.com/embed/'+get_yt_video_id(url)+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
         elif urlparse(url).netloc == 'youtu.be':
-            text = text.replace(url, '<iframe width="560" height="315" src="' + url.replace("youtu.be/", "www.youtube.com/embed/") + '" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
+            text = '<iframe width="560" height="315" src="https://www.youtube.com/embed/'+get_yt_video_id(url)+'" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
         elif urlparse(url).netloc == 'vimeo.com':
             num_id = urlparse(url).path
             text = text.replace(url, '<iframe src="https://player.vimeo.com/video/' + num_id[1:] + '?h='+num_id[1:]+'" width="560" height="315" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>')
