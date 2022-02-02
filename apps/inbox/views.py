@@ -54,7 +54,6 @@ class MessageView(View):
                     conv = message.conversation
                     messages = Message.objects.filter(conversation=conv, deleted=False).exclude(id=id).order_by('-id').all()[:50]
                     photos = Attachment.objects.filter(message__in=Subquery(Message.objects.filter(conversation=conv, deleted=False, attachments=True).values('id').order_by('-id'))).all()
-                    print(photos)
                     if messages.count() > 0:
                         data = {
                             'photos': photos,
