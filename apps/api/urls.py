@@ -1,5 +1,6 @@
 from django.urls import path, include
 from rest_framework import routers
+from apps.api.desire.desire_api import Desire
 from . import views
 
 router = routers.DefaultRouter()
@@ -13,7 +14,7 @@ urlpatterns = [
     path('autocomplete/inbox/', views.AutocompleteInbox.as_view(), name='autocomplete_inbox'),
     path('suggestions/', views.Suggestions.as_view(), name='suggestions'),
     path('notifications/<int:id>/',  views.Notifications.as_view(), name='notifications'),
-    path('desire/', views.Desire.as_view(), name='desire'),
+    path('desire/', Desire.as_view(), name='desire'),
     path('shop/', include('api.shop.urls'), name='shop'),
     path('auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

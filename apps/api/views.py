@@ -26,11 +26,7 @@ class Notifications(APIView):
         pass
 
 
-class Desire(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
-    permission_classes = [IsAuthenticated]
-
-
+        
 class Autocomplete(APIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]

@@ -75,29 +75,10 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $("#id_desire").keyup(function(){
-                var desire = $("#id_desire").val();
-                var how = $("#id_how").val();
-                var what = $("#id_what").val();
-                $.ajax({
-                    url: "/api/desire/",
-                    type: "POST",
-                    data: {
-                        "desire": desire,
-                        "how": how,
-                        "what": what
-                    },
-                    success: function(data){
-                        $("#suggestions").html(data);
-                    }
-                });
-            });
-        });
-        
+    <script type="text/javascript">        
         $('#id_desire').autocomplete({
-            serviceUrl: '/api/desire/'+how+'/'+what+'/',
+            serviceUrl: '/api/desire/',
+            type: 'POST',
             dataType: 'json',
             minChar: 3,
             onSelect: function (suggestion) {

@@ -34,6 +34,25 @@
 
     <script src="//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.gallery.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <!---- Go squered -->
+    <script>
+      !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(arguments)};
+      d=s.createElement(q);d.src='//d1l6p2sc9645hc.cloudfront.net/gosquared.js';q=
+      s.getElementsByTagName(q)[0];q.parentNode.insertBefore(d,q)}(window,document
+      ,'script','_gs');
+    
+      _gs('GSN-293738-I');
+      _gs('set', 'anonymizeIP', true);
+      {% if user.is_authenticated %}
+      _gs('identify', {
+          email: '{{ user.email }}',
+          username: '{{ user.username }}',
+
+      });
+      {% endif %}
+    </script>
+    <!---- End Go squered -->
 </head>
 <body data-gr-c-s-loaded="true" class="d-flex flex-column h-100">
 <div id="page">
