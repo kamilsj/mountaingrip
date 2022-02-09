@@ -43,7 +43,8 @@ class Predictions(View):
             import numpy as np
             from bokeh.plotting import figure
             from bokeh.embed import components
-            from .lab.lab import EJPModel
+            # tensorflow is not yet implemented, so this function is not needed
+            # from .lab.lab import EJPModel
 
             n = []
             p = []
