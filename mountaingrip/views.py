@@ -21,6 +21,10 @@ def about(request):
     return render(request, 'about.html')
 
 
+def privacy(request):
+    return render(request, 'privacy.html')
+
+
 def index(request):
     if request.user.is_authenticated:
         return redirect('/start/')
@@ -58,7 +62,7 @@ def signup(request):
                 token = str(uuid.uuid4())
                 # Token(user=user.pk, token=token, activated=0).save()
                 current_site = get_current_site(request)
-                Profile(user_id=user.pk).save()
+                Profile(user_id=user.pk, beta=True).save()
                 mail_subject = _('Activate your Mountain Grip account.')
 
                 # this part has to be rebuild for better, more professional email template

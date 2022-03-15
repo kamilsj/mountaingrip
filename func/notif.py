@@ -12,8 +12,8 @@ class Notif:
     5 - trip joined
     6 - group followed
     7 - trip post
-    8 -
-    9 -
+    8 - new desire the same as yours
+    9 - 
     '''
 
     def __init__(self, cat):

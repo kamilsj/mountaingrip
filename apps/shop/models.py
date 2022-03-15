@@ -1,6 +1,10 @@
 from django.db import models
 
 
+class Category(models.Model):
+    pass
+
+
 class Types(models.Model):
     pass
 

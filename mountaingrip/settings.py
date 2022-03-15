@@ -16,9 +16,10 @@ if os.getenv('DB_NAME') and os.getenv('AWS_KEY') and os.getenv('EMAIL_HOST') and
     email = [os.getenv('EMAIL_HOST'), os.getenv('EMAIL_NAME'), os.getenv('EMAIL_PASSWORD'), os.getenv('EMAIL_PORT')]
     gmaps_key = [os.getenv('GMAPS')]
     strava_api = [os.getenv('STRAVA_ID'), os.getenv('STRAVA_KEY')]
+    google_api = [os.getenv('GOOGLE_API_ID'), os.getenv('GOOGLE_API_SEC')]
 else:
     try:
-        from .config.config import db, aws, email, gmaps_key, secret_key, strava_api
+        from .config.config import db, aws, email, gmaps_key, secret_key, strava_api, google_api
     except ImportError:
         exit('No configuration')
 
@@ -67,6 +68,12 @@ INSTALLED_APPS = [
     'storages',
     'corsheaders',
     's3file',
+    # social
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
     # other
     'django.contrib.humanize',
     'django.contrib.admin',
@@ -183,6 +190,7 @@ django_heroku.settings(locals())
 # My settings
 AUTHENTICATION_BACKENDS = {
     'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 }
 
 
@@ -217,6 +225,21 @@ EMAIL_HOST = email[0]
 EMAIL_HOST_USER = email[1]
 EMAIL_HOST_PASSWORD = email[2]
 EMAIL_PORT = email[3]
+
+# SOCIAL AUTH
+
+SITE_ID = 1
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': google_api[0],
+            'secret': google_api[1],
+            'key': ''
+        }
+    }
+}
 
 # DJANGO3.2
 

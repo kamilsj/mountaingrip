@@ -10,8 +10,7 @@ class EJPView(View):
 
     def get(self, request):
         user = request.user
-        if request.session['beta'] == True and settings.BETA == True and user.is_authenticated and user.id == 6:
-            user = request.user
+        if  user.is_authenticated and user.id == 6:
             results = EJP.objects.order_by('-date').all()[:40]
 
             data = {
@@ -19,7 +18,7 @@ class EJPView(View):
             }
             return render(request, 'ejp/index.html', {'form': self.form_class, 'data': data})
         else:
-            return redirect('/start/')
+            return redirect('/')
 
     def post(self, request):
         if request.method == 'POST':
@@ -36,10 +35,7 @@ class Predictions(View):
     def get(self, request):
         user = request.user
 
-        if not request.session['beta']:
-            request.session['beta'] = False
-
-        if request.session['beta'] is True and settings.BETA is True and user.is_authenticated and user.id == 6:
+        if  user.is_authenticated and user.id == 6:
             import numpy as np
             from bokeh.plotting import figure
             from bokeh.embed import components
@@ -183,7 +179,9 @@ class PlusMinus(View):
     def get(self, request):
         data = {}
         user = request.user
-        if request.session['beta'] == True and settings.BETA == True and user.is_authenticated and user.id == 6:
+        if user.is_authenticated and user.id == 6:
+            # this code has to be changed
+            # it does not work as expected and predictions are not accurate 
             results = EJP.objects.filter(my=1).order_by('-date').all()
             draws = EJP.objects.filter(my=0, date__in=[var.date for var in results]).order_by('-date').all()
             won = 0
@@ -216,10 +214,9 @@ class PlusMinus(View):
         if request.method == 'POST':
             user = request.user
             form = self.form_class(request.POST or None)
-            if form.is_valid():
-                if not EJP.objects.filter(my=1, date=form.cleaned_data['date']).exists():
-                    obj = form.save(commit=False)
-                    obj.my = 1
-                    obj.save()
+            if form.is_valid():    
+                obj = form.save(commit=False)
+                obj.my = 1
+                obj.save()
 
-        return redirect('ejp/plusminus/')
+        return redirect('/ejp/plusminus/')
