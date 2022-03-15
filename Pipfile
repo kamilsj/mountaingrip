@@ -15,6 +15,7 @@ django-allauth = "*"
 stravalib = "*"
 facebook-sdk = "*"
 googlemaps = "*"
+stripe = "*"
 
 # Important packages
 psycopg2-binary = "*"
