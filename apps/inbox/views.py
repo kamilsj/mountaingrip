@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render, redirect
 from django.views import View
 from django.conf import settings
@@ -24,18 +25,21 @@ class DeletedView(View):
 
 class SentView(View):
     def get(self, request):
-        data = {}
-        user = request.user
-        if settings.BETA is True and request.session['beta'] is True:
-            if Message.objects.filter(user=user, deleted=False).count() > 0:
-                sent = Message.objects.filter(user=user, deleted=False).order_by('-id').all()[:50]
-                data = {
-                    'no_reply': 1,
-                    'sent': sent
-                }
-            else:
-                data = {'nonew:': _('No sent messages')}
-        return render(request, 'inbox/sent.html', {'data': data})
+        if request.user.is_authenticated:
+            data = {}
+            user = request.user
+            if settings.BETA is True and request.session['beta'] is True:
+                if Message.objects.filter(user=user, deleted=False).count() > 0:
+                    sent = Message.objects.filter(user=user, deleted=False).order_by('-id').all()[:50]
+                    data = {
+                        'no_reply': 1,
+                        'sent': sent
+                    }
+                else:
+                    data = {'nonew:': _('No sent messages')}
+            return render(request, 'inbox/sent.html', {'data': data})
+        else:
+            return redirect('/')
 
     def post(self, request):
         pass
@@ -43,31 +47,34 @@ class SentView(View):
 
 class MessageView(View):
     def get(self, request, id):
-        data = {}
-        if id > 0:
-            if settings.BETA is True and request.session['beta'] is True:
-                if Message.objects.filter(Q(id=id) & (Q(user=request.user) | Q(to=request.user))).exists():
-                    message = Message.objects.get(id=id)
-                    if message.to.id == request.user.id:
-                        message.read = True
-                        message.save()
-                    conv = message.conversation
-                    messages = Message.objects.filter(conversation=conv, deleted=False).exclude(id=id).order_by('-id').all()[:50]
-                    photos = Attachment.objects.filter(message__in=Subquery(Message.objects.filter(conversation=conv, deleted=False, attachments=True).values('id').order_by('-id'))).all()
-                    if messages.count() > 0:
-                        data = {
-                            'photos': photos,
-                            'message': message,
-                            'messages': messages
-                        }
+        if request.user.is_authenticated:
+            data = {}
+            if id > 0:
+                if settings.BETA is True and request.session['beta'] is True:
+                    if Message.objects.filter(Q(id=id) & (Q(user=request.user) | Q(to=request.user))).exists():
+                        message = Message.objects.get(id=id)
+                        if message.to.id == request.user.id:
+                            message.read = True
+                            message.save()
+                        conv = message.conversation
+                        messages = Message.objects.filter(conversation=conv, deleted=False).exclude(id=id).order_by('-id').all()[:50]
+                        photos = Attachment.objects.filter(message__in=Subquery(Message.objects.filter(conversation=conv, deleted=False, attachments=True).values('id').order_by('-id'))).all()
+                        if messages.count() > 0:
+                            data = {
+                                'photos': photos,
+                                'message': message,
+                                'messages': messages
+                            }
+                        else:
+                            data = {
+                                'photos': photos,
+                                'message': message
+                            }
                     else:
-                        data = {
-                            'photos': photos,
-                            'message': message
-                        }
-                else:
-                    return redirect('/inbox/')
-        return render(request, 'inbox/message.html', {'data': data})
+                        return redirect('/inbox/')
+            return render(request, 'inbox/message.html', {'data': data})
+        else:
+            return redirect('/')
 
     def post(self, request, id):
         if request.method == 'POST':
@@ -106,23 +113,26 @@ class Inbox(View):
     n = Notif(1)
 
     def get(self, request):
-        data = {}
-        if settings.BETA is True and request.session['beta'] is True:
-            count = Message.objects.filter(to=request.user, deleted=False).count()
-            if count > 0:
-                # messages = Message.objects.filter(to=request.user).order_by('-id').all()[:50]
-                messages = Message.objects.filter(deleted=False, id__in=Subquery(
-                    Message.objects.filter(to=request.user).order_by('conversation', '-id').distinct('conversation').
-                        values('id'))).order_by('-id').all()
-                data = {
-                    'messages': messages,
-                }
+        if request.user.is_authenticated:
+            data = {}
+            if settings.BETA is True and request.session['beta'] is True:
+                count = Message.objects.filter(to=request.user, deleted=False).count()
+                if count > 0:
+                    # messages = Message.objects.filter(to=request.user).order_by('-id').all()[:50]
+                    messages = Message.objects.filter(deleted=False, id__in=Subquery(
+                        Message.objects.filter(to=request.user).order_by('conversation', '-id').distinct('conversation').
+                            values('id'))).order_by('-id').all()
+                    data = {
+                        'messages': messages,
+                    }
+                else:
+                    data = {'nonew': _('No messages')}
             else:
-                data = {'nonew': _('No messages')}
+                data = {'info': _('You cannot be here. Space only for beta testers ;).')}
+            return render(request, 'inbox/inbox.html', {'data': data})
         else:
-            data = {'info': _('You cannot be here. Space only for beta testers ;).')}
-        return render(request, 'inbox/inbox.html', {'data': data})
-
+            return redirect('/')
+                        
     def post(self, request):
         if request.method == 'POST':
             form = self.form_class(request.POST or None, request.FILES or None)

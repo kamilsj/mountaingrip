@@ -27,6 +27,7 @@ urlpatterns = [
 urlpatterns += i18n_patterns(
     path('', views.index, name='index'),
     path('about/', views.about, name='about'),
+    path('privacy/', views.privacy, name='privacy'),
     path('start/', include('start.urls')),
     path('settings/', include('apps.settings.urls')),
     path('groups/', include('apps.groups.urls')),

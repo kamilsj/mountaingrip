@@ -10,7 +10,22 @@ class Desire(APIView):
 
     def get(self, request):
         data = {}
+        suggestions = []
+        
+        if request.method == 'GET':
+            q = request.GET['query']
+            
+            
+            
 
+
+            data = {
+                'query': q,
+                'suggestions': {
+                    'value': 'value',
+                    'data': 'data'
+                }
+            }
 
         return Response(data)
     

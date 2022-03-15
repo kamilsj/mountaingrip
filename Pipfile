@@ -9,6 +9,7 @@ django = "*"
 gunicorn = "*"
 django-heroku = "*"
 django-cors-headers = "*"
+django-allauth = "*"
 
 # SDK
 stravalib = "*"

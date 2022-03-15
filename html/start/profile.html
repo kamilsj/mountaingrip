@@ -41,6 +41,10 @@
                 {% if data.own_profile == 0 and data.request_sent == 0 %}
                 <button id="friend_button" class="btn btn-outline-success btn-sm" onclick="addfriend({{ data.id }})">{% trans 'Add as a friend' %}</button>
                 {% endif %}
+                <div class="mt-5">
+                    <!--users trips-->
+                    
+                </div>
             </div>
             <div class="col-8">
             <form method="post" enctype="multipart/form-data">
@@ -60,7 +64,7 @@
                     <div class="list-group-item list-group-item-light d-flex justify-content-between align-items-center" id="post{{ post.id }}">
                         <span>
                             {%  show_avatar_small post.user.id %}
-                            <small>{{ post.text|linebreaks|text_to_link|safe }}</small>
+                            <small>{{ post.text|text_to_link|safe }}</small>
                         </span>
                         <span>
                             <div class="d-flex">

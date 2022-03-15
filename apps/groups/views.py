@@ -17,23 +17,26 @@ from func.notif import Notif
 class GroupExplore(View):
 
     def get(self, request):
-        data = {}
+        if request.user.is_authenticated:
+            data = {}
 
-        groups = Group.objects.filter(private=False).order_by('-added_at').all()[:20]
-        yours = Group.objects.filter(user=request.user).order_by('-added_at').all()[:20]
-        private = Group.objects.filter(private=True, id__in=Subquery(
-            PrivateGroup.objects.filter(user=request.user).distinct('group_id').values('group_id'))).order_by('-id').all()[:20]
-        followed = Group.objects.filter(id__in=Subquery(
-            FollowedGroup.objects.filter(user=request.user).distinct('group_id').values('group_id'))).order_by('-id').all()[:20]
+            groups = Group.objects.filter(private=False).order_by('-added_at').all()[:20]
+            yours = Group.objects.filter(user=request.user).order_by('-added_at').all()[:20]
+            private = Group.objects.filter(private=True, id__in=Subquery(
+                PrivateGroup.objects.filter(user=request.user).distinct('group_id').values('group_id'))).order_by('-id').all()[:20]
+            followed = Group.objects.filter(id__in=Subquery(
+                FollowedGroup.objects.filter(user=request.user).distinct('group_id').values('group_id'))).order_by('-id').all()[:20]
 
-        data = {
-            'followed': followed,
-            'groups': groups,
-            'yours': yours,
-            'private': private
-        }
+            data = {
+                'followed': followed,
+                'groups': groups,
+                'yours': yours,
+                'private': private
+            }
 
-        return render(request, 'groups/index.html', {'data': data})
+            return render(request, 'groups/index.html', {'data': data})
+        else:
+            return redirect('/')
 
     def post(self, request):
         pass
@@ -41,12 +44,14 @@ class GroupExplore(View):
 
 class GroupViewSettings(View):
     def get(self, request, id=0):
-        data = {}
-        if id > 0:
-            return render(request, 'groups/settings.html', {'data': data})
+        if request.user.is_authenticated:
+            data = {}
+            if id > 0:
+                return render(request, 'groups/settings.html', {'data': data})
+            else:
+                return redirect('/groups/')
         else:
-            return redirect('/groups/')
-
+            return redirect('/')
 
     def post(self, request, id=0):
         pass
@@ -146,31 +151,34 @@ class ThreadView(View):
 
     def get(self, request, gid=0, tid=0):
         user = request.user
-        page = 20
-        followed = False
-        if gid > 0 and tid > 0:
-            thread = Thread.objects.get(id=tid)
-            group = Group.objects.get(id=gid)
-            if ThreadPost.objects.filter(thread=thread, group=group).count() > 0:
-                posts = ThreadPost.objects.filter(thread=thread, group=group).order_by('added_at').all()[:page]
-                pics = ThreadPic.objects.filter(thread=thread, group=group).order_by('added_at').all()
-                if FollowedThread.objects.filter(user=user, thread=thread).exists():
-                    followed = True
-            
-                self.data = {
-                    'user': user,
-                    'followed': followed,
-                    'thread': thread,
-                    'pics': pics,
-                    'posts': posts,
+        if user.is_authenticated:
+            page = 20
+            followed = False
+            if gid > 0 and tid > 0:
+                thread = Thread.objects.get(id=tid)
+                group = Group.objects.get(id=gid)
+                if ThreadPost.objects.filter(thread=thread, group=group).count() > 0:
+                    posts = ThreadPost.objects.filter(thread=thread, group=group).order_by('added_at').all()[:page]
+                    pics = ThreadPic.objects.filter(thread=thread, group=group).order_by('added_at').all()
+                    if FollowedThread.objects.filter(user=user, thread=thread).exists():
+                        followed = True
+                
+                    self.data = {
+                        'user': user,
+                        'followed': followed,
+                        'thread': thread,
+                        'pics': pics,
+                        'posts': posts,
 
-                }
-            else:
-                self.data = {
-                    'noposts': 1
-                }
+                    }
+                else:
+                    self.data = {
+                        'noposts': 1
+                    }
 
-            return render(request, 'groups/thread.html', {'data': self.data, 'from': self.form_class})
+                return render(request, 'groups/thread.html', {'data': self.data, 'from': self.form_class})
+        else:
+            return redirect('/')
 
     def post(self, request, gid=0, tid=0):
         user = request.user
@@ -212,7 +220,11 @@ class GroupCreate(View):
     form_class = GroupForm
 
     def get(self, request):
-        return render(request, 'groups/create.html', {'form': self.form_class})
+        if request.user.is_authenticated:
+            return render(request, 'groups/create.html', {'form': self.form_class})
+        else:
+            return redirect('/')
+    
 
     def post(self, request):
         if request.method == 'POST' and request.user.is_authenticated:

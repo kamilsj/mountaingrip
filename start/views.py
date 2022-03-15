@@ -38,6 +38,7 @@ def index(request):
 
             data = {
                 'user': user.get_full_name(),
+                'id': user.id,
                 'trips': trips,
                 'posts': posts,
             }
@@ -129,6 +130,8 @@ class ProfileView(View):
                     age = (date.today() - profile.birthday) // timedelta(days=365.2425)
                 else:
                     age = ''
+
+                # users' trips
 
                 if Post.objects.filter(profile_id=user.id).count() > 0:
                     posts = Post.objects.filter(profile_id=user.id).order_by('-added_at').all()

@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-
+from apps.desire.views import DesireView
 app_name = 'start'
 urlpatterns = [
     path('', views.index, name='index'),
@@ -12,4 +12,6 @@ urlpatterns = [
     path('trip/explore/', views.Explore.as_view(), name='explore'),
     path('add/', views.AddTrip.as_view(), name='add'),
     path('q/', views.q, name='q'),
+
+    path('desire/', DesireView.as_view(), name='desire'),
 ]

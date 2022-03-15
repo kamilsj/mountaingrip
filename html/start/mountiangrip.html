@@ -8,12 +8,11 @@
 {% now 'Y-m-d' as today %}
     <div class="container-fluid page-background-main">
         <div class="d-flex justify-content-center align-items-center h-100">
-                <h1 class="p-3"style="color:white;">{% trans 'I' %}</h1></span>
-                <form>
+                <h1 class="p-3"style="color:white;">{% show_avatar_small data.id %}</h1></span>
+                <form method="get" action="desire/">
                     <div class="input-group">
                         <select class="form-select form-select-lg" id="id_how" name="how" style="width: 200px">
                             <option value="1">{% trans 'want' %}</option>
-                            <option value="2">{% trans 'need' %}</option>
                         </select>
                         <select class="form-select form-select-lg" id="id_what" name="what" style="width: 200px">                            
                             <option value="1">{% trans 'to meet' %}</option>
@@ -23,7 +22,7 @@
                             <option value="5">{% trans 'to visit' %}</option>
                         </select>
                             <input type="text" class="form-control-lg rounded" id="id_desire" name="desire" />
-                            
+                            <div class="autocomplete-suggestions"></div>
                     </div>    
                 </form>
             </div>        
@@ -78,11 +77,11 @@
     <script type="text/javascript">        
         $('#id_desire').autocomplete({
             serviceUrl: '/api/desire/',
-            type: 'POST',
             dataType: 'json',
-            minChar: 3,
+            
+            minChar: 3,            
             onSelect: function (suggestion) {
-                $('#id_desire').val(suggestion.data)
+                
             }
         });
     </script>

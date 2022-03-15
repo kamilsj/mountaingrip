@@ -43,7 +43,7 @@ class Autocomplete(APIView):
                 pass
             else:
                 ''' write an intelligent query to predict the most common questions '''
-                places = Trip.objects.filter(Q(basePlace__startswith=q) | Q(mountainName__startswith=q)).all()
+                places = Trip.objects.filter(Q(basePlace__icontains=q) | Q(mountainName__icontains=q)).all()
                 for place in places:
                     if not place.basePlace in excluded:
                         suggestions.append({'value': place.basePlace, 'data': place.id})
@@ -68,7 +68,7 @@ class AutocompleteInbox(APIView):
         if request.method == 'GET':
             q = request.GET['query']
             '''suggestions users in new message user box'''
-            users = User.objects.filter(Q(first_name__startswith=q) | Q(last_name__startswith=q)).all()
+            users = User.objects.filter(Q(first_name__icontains=q) | Q(last_name__icontains=q)).all()
             for user in users:
                 suggestions.append(
                     {'value': user.first_name + ' ' + user.last_name + ' (' + user.username + ')', 'data': user.id})

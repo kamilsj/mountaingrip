@@ -31,6 +31,7 @@ class Trip(models.Model):
     mlng = models.FloatField(default=0)
     startDate = models.DateField(blank=False)
     endDate = models.DateField(blank=True, null=True)
+    done = models.SmallIntegerField(default=0)
     added_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
