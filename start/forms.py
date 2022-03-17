@@ -55,11 +55,11 @@ class TripForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ModelForm, self).__init__(*args, **kwargs)
-        self.order_fields(['title', 'description', 'basePlace', 'mountainName', 'startDate', 'endDate', 'cover'])
+        self.order_fields(['title', 'description', 'basePlace', 'mountainName', 'startDate', 'endDate', 'cover', 'private'])
 
     class Meta:
         model = Trip
-        fields = {'title', 'description', 'basePlace', 'mountainName', 'startDate', 'endDate', 'cover'}
+        fields = {'title', 'description', 'basePlace', 'mountainName', 'startDate', 'endDate', 'cover', 'private'}
         labels = {
             'title': _('Title'),
             'description': _('Description'),

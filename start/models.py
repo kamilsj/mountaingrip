@@ -32,6 +32,7 @@ class Trip(models.Model):
     startDate = models.DateField(blank=False)
     endDate = models.DateField(blank=True, null=True)
     done = models.SmallIntegerField(default=0)
+    private = models.BooleanField(default=False)
     added_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -82,13 +83,13 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=False)
     pic = models.ImageField(upload_to='profile/pic/', default='', blank=True)
     cover = models.ImageField(upload_to='profile/cover/', default='', blank=True)
-    gender = models.BooleanField(choices=((0, "Male"), (1, "Female")), default=0)
+    gender = models.IntegerField(choices=((0, "Male"), (1, "Female")), default=0)
     birthday = models.DateField(blank=True, null=True)
     country = CountryField(blank=True)
     height = models.PositiveSmallIntegerField(blank=True, default=0)
     public_key = models.CharField(max_length=1024, blank=True, default='')
     private_key = models.CharField(max_length=1024, blank=True, default='')
-    #SPECIAL TESTING FUNCTION CHANGED MANUALLY
+    # SPECIAL TESTING FUNCTION CHANGED MANUALLY
     beta = models.BooleanField(default=False)
 
     def __str__(self):

@@ -4,6 +4,7 @@ from django.conf.urls.i18n import i18n_patterns
 from . import views
 from .ajax import func
 
+
 '''Error views'''
 from django.conf.urls import handler404, handler500, handler403, handler400
 
@@ -26,8 +27,10 @@ urlpatterns = [
 
 urlpatterns += i18n_patterns(
     path('', views.index, name='index'),
-    path('about/', views.about, name='about'),
+    path('public/', include('apps.public.urls')),
+    path('about/', views.about, name='about'),    
     path('privacy/', views.privacy, name='privacy'),
+    path('donate/', views.donate, name='donate'),
     path('start/', include('start.urls')),
     path('settings/', include('apps.settings.urls')),
     path('groups/', include('apps.groups.urls')),

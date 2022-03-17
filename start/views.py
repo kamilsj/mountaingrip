@@ -340,8 +340,11 @@ class AddTrip(View):
     template_name = 'start/addtrip.html'
 
     def get(self, request):
-        form = self.form_class()
-        return render(request, self.template_name, {'form': form})
+        if request.user.is_authenticated:
+            form = self.form_class()
+            return render(request, self.template_name, {'form': form})
+        else:
+            return redirect('/')
 
     def post(self, request):
         if request.method == 'POST' and request.user.is_authenticated:

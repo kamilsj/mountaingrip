@@ -8,3 +8,6 @@ class AddProduct(APIView):
 
 class ShowProduct(APIView):
     pass
+
+class IndexProduct(APIView):
+    pass
