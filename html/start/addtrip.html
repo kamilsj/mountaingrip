@@ -20,41 +20,46 @@
                         {% endfor %}
                     </div>    
                     {% endif %}
-                    {% for field in form %}
-                        {% if field.name == 'title' %}
-                            <div class="mb-2">
-                                <input class="form-control" type="text" name="title" id="id_title" placeholder="{% trans "Title" %}" required>
-                            </div>
-                        {% elif field.name == 'description' %}
-                            <div class="mb-2">
-                                <textarea class="form-control" rows="5" name="description" id="id_description" placeholder="{% trans "Description" %}"></textarea>
-                            </div>
-                        {% elif field.name == 'basePlace' %}
-                            <div class="mb-2">
-                                <input class="form-control" type="text" name="basePlace" id="id_basePlace" placeholder="{% trans "Starting place" %}" required>
-                            </div>
-                        {% elif field.name == 'mountainName' %}
-                            <div class="mb-2">
-                                <input class="form-control" type="text" name="mountainName " id="id_mountainName" placeholder="{% trans "Mountain/Destination name" %}" required>
-                            </div>
-                        {% elif field.name == 'startDate' %}
-                            <div class="mb-2">
-                                <input class="form-control" type="date" name="startDate " id="id_startDate" placeholder="{% trans "Start date" %}" required>
-                            </div>
-                         {% elif field.name == 'endDate' %}
-                            <div class="mb-2 form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="oneday" name="oneday">
-                                <label class="form-check-label" >{% trans 'One day trip' %}</label>
-                            </div>
-                            <div class="mb-2 align-left">
-                                <input class="form-control" type="date" name="endDate " id="id_endDate" placeholder="{% trans "End date" %}">
-                            </div>
-                         {% elif field.name == 'cover' %}
-                            <div class="mb-3">
-                                <input type="file" class="form-control" id="id_cover" name="cover" placeholder="{% trans 'Choose a file' %}" />
-                            </div><br><br>
-                        {% endif %}
-                    {% endfor %}
+
+                    <div class="mb-2">
+                        <input class="form-control" type="text" name="title" id="id_title" placeholder="{% trans "Title" %}" required>
+                    </div>
+
+                    <div class="mb-2">
+                        <textarea class="form-control" rows="5" name="description" id="id_description" placeholder="{% trans "Description" %}"></textarea>
+                    </div>
+
+                    <div class="mb-2">
+                        <input class="form-control" type="text" name="basePlace" id="id_basePlace" placeholder="{% trans "Starting place" %}" required>
+                    </div>
+
+                    <div class="mb-2">
+                        <input class="form-control" type="text" name="mountainName " id="id_mountainName" placeholder="{% trans "Mountain/Destination name" %}" required>
+                    </div>
+
+                    <div class="mb-2">
+                        <input class="form-control" type="date" name="startDate " id="id_startDate" placeholder="{% trans "Start date" %}" required>
+                    </div>
+
+                    <div class="mb-2 form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="oneday" name="oneday">
+                        <label class="form-check-label" >{% trans 'One day trip' %}</label>
+                    </div>
+                    <div class="mb-2 align-left">
+                        <input class="form-control" type="date" name="endDate " id="id_endDate" placeholder="{% trans "End date" %}">
+                    </div>
+                    <div class="mb-3">
+                        <input type="file" class="form-control" id="id_cover" name="cover" placeholder="{% trans 'Choose a file' %}" />
+                    </div>
+
+                    <div class="form-check form-switch mb-5">
+                        <input type="checkbox" class="form-check-input" id="id_private" name="private" value="1" />
+                        <label class="form-check-label" for="id_private">{% trans 'Private trip' %}</label>
+                    </div>
+                    
+                    <br><br>
+
+
                     <div class="text-center"><button class="btn btn-sm btn-primary btn-block" type="submit">{% trans 'Add a trip' %}</button></div>
                 </form>
             </div>

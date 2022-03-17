@@ -50,6 +50,7 @@ else:
 ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'apps.ranking',
+    'apps.public',
     'apps.shop',
     'apps.groups',
     'apps.health',

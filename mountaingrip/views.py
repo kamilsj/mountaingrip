@@ -24,6 +24,8 @@ def about(request):
 def privacy(request):
     return render(request, 'privacy.html')
 
+def donate(request):
+    return render(request, 'donate.html')
 
 def index(request):
     if request.user.is_authenticated:

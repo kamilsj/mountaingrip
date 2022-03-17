@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-22 13:28+0100\n"
+"POT-Creation-Date: 2022-03-16 10:37+0100\n"
 "PO-Revision-Date: 2018-09-02 08:58+0000\n"
 "Last-Translator: Kamil Boberek <kboberek@gmail.com>, 2022\n"
 "Language-Team: Polish (Poland) (https://www.transifex.com/mountiangrip/teams/90567/pl_PL/)\n"
@@ -21,61 +21,81 @@ msgstr ""
 "Language: pl_PL\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
-#: apps/groups/forms.py:24
+#: apps/groups/forms.py:22
 msgid "Your post is a little bit too long."
 msgstr "Twój post jest trochę za długi."
 
-#: apps/groups/forms.py:32
+#: apps/groups/forms.py:30
 msgid "Cannot add post to this group."
 msgstr "Nie mogę dodać posta do tej grupy "
 
-#: apps/groups/forms.py:34
+#: apps/groups/forms.py:32
 msgid "There is a problem with this group"
 msgstr "Jest jakiś problem z tą grupą"
 
-#: apps/groups/forms.py:42
+#: apps/groups/forms.py:40
 msgid "Cannot add post to this thread."
 msgstr "Nie możesz dodać wiadomości do tego wątku."
 
-#: apps/groups/forms.py:44
+#: apps/groups/forms.py:42
 msgid "There is a problem with this thread"
 msgstr "Jest jakiś problem z tym wątkiem."
 
-#: apps/groups/forms.py:59
+#: apps/groups/forms.py:57
 msgid "This group was added just few minutes ago."
 msgstr "Taka sama grupa została dodana przed chwilą."
 
-#: apps/groups/forms.py:67 apps/groups/forms.py:103
+#: apps/groups/forms.py:65 apps/groups/forms.py:101
 msgid "Groups has to have a name :)"
 msgstr "Twoja grupa musi mieć jakaś nazwę :)"
 
-#: apps/groups/forms.py:74 apps/groups/forms.py:110
+#: apps/groups/forms.py:72 apps/groups/forms.py:108
 msgid "Your description is a little bit too long."
 msgstr "Twój opis jest za długi."
 
-#: apps/groups/forms.py:94
+#: apps/groups/forms.py:92
 msgid "Group does not exists."
 msgstr "Taka grupa nie istnieje. "
 
-#: apps/groups/forms.py:96
+#: apps/groups/forms.py:94
 msgid "Invalid group code"
 msgstr "Błędny kod grupy"
 
-#: apps/groups/views.py:183
+#: apps/groups/views.py:207
+msgid "You can upload a maximum of 30 photos per post."
+msgstr "Możesz wgrać maksymalnie 30 zdjęć do 1 wiadomości."
+
+#: apps/groups/views.py:212
 msgid "This post was just added"
 msgstr "Ten post już został dodany."
 
-#: apps/inbox/views.py:36
+#: apps/groups/views.py:214
+msgid "There is another serious problem"
+msgstr "Pojawił się inny poważny problem."
+
+#: apps/inbox/views.py:39
 msgid "No sent messages"
 msgstr "Brak wiadomości wysłanych"
 
-#: apps/inbox/views.py:114
+#: apps/inbox/views.py:105
+msgid "You can not send more than 30 photos"
+msgstr "Nie możesz wysłać więcej niż 30 zdjęć. "
+
+#: apps/inbox/views.py:129
 msgid "No messages"
 msgstr "Brak wiadomości"
 
-#: apps/inbox/views.py:116
+#: apps/inbox/views.py:131
 msgid "You cannot be here. Space only for beta testers ;)."
 msgstr "Jeszcze nie możesz zobaczyć, co jest w środku :)"
+
+#: apps/inbox/views.py:163
+msgid "You can upload maximum 30 photos at once"
+msgstr "Możesz wgrać maksymalnie 30 zdjęć za jednym razem."
+
+#: html/desire/index.html:4 html/shop/index.html:4 html/shop/purchases.html:4
+msgid "Sell and buy outdoor clothes and equipment"
+msgstr "Kupuj i sprzedawaj swoje outdoorowe ubrania i sprzęt"
 
 #: html/ejp/index.html:3
 msgid "Eurojeckpot Predictions"
@@ -130,7 +150,7 @@ msgstr "Dodaj"
 msgid "Explore groups"
 msgstr "Przeszukaj grupy"
 
-#: html/groups/index.html:10 html/groups/thread.html:15
+#: html/groups/index.html:10 html/groups/thread.html:16
 #: html/groups/view.html:16
 msgid "Create a group"
 msgstr "Stwórz grupę"
@@ -147,24 +167,29 @@ msgstr "Twoje grupy"
 msgid "Recent groups"
 msgstr "Ostatnio dodane grupy"
 
-#: html/groups/thread.html:10 html/groups/view.html:12
+#: html/groups/settings.html:4 html/groups/view.html:50 html/main.html:85
+#: html/settings/index.html:3
+msgid "Settings"
+msgstr "Ustawienia"
+
+#: html/groups/thread.html:11 html/groups/view.html:12
 msgid "Group does not exist."
 msgstr "Taka grupa nie istnieje. "
 
-#: html/groups/thread.html:16
+#: html/groups/thread.html:17
 msgid "Add a post"
 msgstr "Dodaj posta"
 
-#: html/groups/thread.html:30
+#: html/groups/thread.html:31 html/groups/view.html:53
 msgid "Unfollow"
 msgstr "Przestań obserwować"
 
-#: html/groups/thread.html:32
+#: html/groups/thread.html:33
 msgid "Follow thread"
 msgstr "Obserwuj wątek"
 
-#: html/groups/thread.html:69 html/groups/view.html:37
-#: html/inbox/message.html:31
+#: html/groups/thread.html:70 html/groups/view.html:34
+#: html/inbox/message.html:39
 msgid "Submit"
 msgstr "Dodaj"
 
@@ -176,20 +201,16 @@ msgstr "Nie zostałaś/eś dodany do tej prywatnej grupy."
 msgid "Add a thread"
 msgstr "Dodaj wątek. "
 
-#: html/groups/view.html:31 html/inbox/index.html:44
+#: html/groups/view.html:28 html/inbox/index.html:44
 #: html/start/addtrip.html:26 start/forms.py:64
 msgid "Title"
 msgstr "Tytuł"
 
-#: html/groups/view.html:34
+#: html/groups/view.html:31
 msgid "First post"
 msgstr "Pierwszy post. "
 
-#: html/groups/view.html:52 html/main.html:66 html/settings/index.html:3
-msgid "Settings"
-msgstr "Ustawienia"
-
-#: html/groups/view.html:52
+#: html/groups/view.html:55
 msgid "Follow"
 msgstr "Obserwuj"
 
@@ -261,7 +282,7 @@ msgstr "Wysłane"
 msgid "Type your message"
 msgstr "Napisz swoją wiadomość"
 
-#: html/inbox/index.html:52 html/start/trip.html:108
+#: html/inbox/index.html:52 html/start/trip.html:119
 msgid "Send"
 msgstr "Wyślij"
 
@@ -269,79 +290,83 @@ msgstr "Wyślij"
 msgid "Don't be too smart."
 msgstr "Nie kombinuj :)"
 
-#: html/inbox/message.html:30
+#: html/inbox/message.html:38
 msgid "Type your reply"
 msgstr "Odpowiedz"
 
-#: html/main.html:56 html/start/index.html:17 html/start/signup.html:60
+#: html/main.html:75 html/start/index.html:17 html/start/signup.html:60
 msgid "Sign up"
 msgstr "Dołącz"
 
-#: html/main.html:61
+#: html/main.html:80
 msgid "Account"
 msgstr "Konto"
 
-#: html/main.html:64
+#: html/main.html:83
 msgid "Profile"
 msgstr "Profil"
 
-#: html/main.html:65
+#: html/main.html:84
 msgid "Health"
 msgstr "Zdrowie"
 
-#: html/main.html:71
+#: html/main.html:90
 msgid "Your trips"
 msgstr "Twoje wyprawy"
 
-#: html/main.html:74 html/start/addtrip.html:58
+#: html/main.html:93 html/start/addtrip.html:58
 msgid "Add a trip"
 msgstr "Dodaj wyprawę"
 
-#: html/main.html:75
+#: html/main.html:94
 msgid "Explore"
 msgstr "Przeszukaj"
 
-#: html/main.html:76
+#: html/main.html:95
 msgid "Past activities"
 msgstr "Ostatnie wyprawy"
 
-#: html/main.html:81
+#: html/main.html:100
 msgid "Messages"
 msgstr "Wiadomości"
 
-#: html/main.html:86
+#: html/main.html:105
 msgid "Groups"
 msgstr "Grupy"
 
-#: html/main.html:91
+#: html/main.html:110
 msgid "Shop"
 msgstr "Sklep"
 
-#: html/main.html:104 html/main.html:105
+#: html/main.html:123 html/main.html:124
 msgid "Search"
 msgstr "Szukaj"
 
-#: html/main.html:109
+#: html/main.html:128
 msgid "Logout"
 msgstr "Wyloguj"
 
-#: html/main.html:112 html/registration/login.html:27
+#: html/main.html:131 html/registration/login.html:27
 msgid "Log in"
 msgstr "Zaloguj"
 
-#: html/main.html:148
+#: html/main.html:167
 msgid "about"
 msgstr "o nas"
 
-#: html/main.html:149
+#: html/main.html:168
+msgid "privacy & terms"
+msgstr "prywatność i zasady"
+
+#: html/main.html:169
 msgid "code"
 msgstr "kod"
 
-#: html/main.html:150
+#: html/main.html:170
 msgid "donate"
 msgstr "dotacja"
 
-#: html/main.html:151
+#: html/main.html:171
 msgid "buy me a coffee"
 msgstr "zaproś mnie na kawę "
 
@@ -386,11 +411,7 @@ msgstr "Wyślij instrukcje"
 msgid "Update your profile"
 msgstr "Zaktualizuj swój profil "
 
-#: html/shop/index.html:4
-msgid "Sell and buy outdoor clothes and equipment"
-msgstr "Kupuj i sprzedawaj swoje outdoorowe ubrania i sprzęt"
-
-#: html/shop/index.html:13
+#: html/shop/index.html:13 html/shop/purchases.html:13
 msgid "Add new product"
 msgstr "Dodaj nową rzecz"
 
@@ -446,61 +467,29 @@ msgstr "Twoja kolejna wyprawa zaczyna się tutaj ..."
 msgid "Start searching for people"
 msgstr "Znajdź ludzi do wspólnych wypraw"
 
-#: html/start/mountiangrip.html:11
-msgid "I"
-msgstr "Ja"
-
 #: html/start/mountiangrip.html:15
 msgid "want"
 msgstr "chcę"
 
-#: html/start/mountiangrip.html:16
-msgid "need"
-msgstr "potrzebuję"
-
-#: html/start/mountiangrip.html:19
+#: html/start/mountiangrip.html:18
 msgid "to meet"
 msgstr "poznać"
 
-#: html/start/mountiangrip.html:20
+#: html/start/mountiangrip.html:19
 msgid "to hike"
 msgstr "przejść"
 
-#: html/start/mountiangrip.html:21
+#: html/start/mountiangrip.html:20
 msgid "to climb"
 msgstr "wspinać się"
 
-#: html/start/mountiangrip.html:22
+#: html/start/mountiangrip.html:21
 msgid "to ski from"
 msgstr "zjechać z"
 
-#: html/start/mountiangrip.html:23
+#: html/start/mountiangrip.html:22
 msgid "to visit"
 msgstr "odwiedzić"
-
-#: html/start/mountiangrip.html:59
-msgid "What can you do here?"
-msgstr "Co możesz tutaj zrobić?"
-
-#: html/start/mountiangrip.html:62
-msgid "Organize a trip and invite your friends."
-msgstr "Zorganizować wycieczkę i zaprosić przyjaciół."
-
-#: html/start/mountiangrip.html:63
-msgid "Share your adventure stories."
-msgstr "Podziel się swoimi wyprawami."
-
-#: html/start/mountiangrip.html:64
-msgid "Collect and analyze your helath data."
-msgstr "Dodawaj i analizuj swoje parametry zdrowotne."
-
-#: html/start/mountiangrip.html:65
-msgid "Meet other outdoor enthusiasts."
-msgstr "Poznaj  innych miłośników outdooru."
-
-#: html/start/mountiangrip.html:66
-msgid "Sell and buy outdoor clothes and equipment."
-msgstr "Sprzedawaj i kupuj swój sprzęt wyprawowy."
 
 #: html/start/profile.html:14
 msgid "Does not exist."
@@ -514,11 +503,11 @@ msgstr "Powrót"
 msgid "Add as a friend"
 msgstr "Dodaj do przyjaciół"
 
-#: html/start/profile.html:52
+#: html/start/profile.html:56
 msgid "Send a public message"
 msgstr "Wyślij wiadomość publiczną"
 
-#: html/start/profile.html:53 html/start/trip.html:70
+#: html/start/profile.html:57 html/start/trip.html:81
 msgid "Post"
 msgstr "Dodaj"
 
@@ -556,23 +545,23 @@ msgstr "Email"
 msgid "Confirm password"
 msgstr "Potwierdź hasło"
 
-#: html/start/trip.html:20
+#: html/start/trip.html:23
 msgid "You've just added a new trip."
 msgstr "Właśnie dodałeś nową wyprawę."
 
-#: html/start/trip.html:22
+#: html/start/trip.html:25
 msgid "Trip does not exist."
 msgstr "Nie ma takiej wycieczki."
 
-#: html/start/trip.html:36
+#: html/start/trip.html:39
 msgid "Join"
 msgstr "Dołącz"
 
-#: html/start/trip.html:39
+#: html/start/trip.html:42
 msgid "Invite"
 msgstr "Zaproś"
 
-#: html/start/trip.html:94
+#: html/start/trip.html:105
 msgid "Invite your friends "
 msgstr "Zaproś znajomych"
 
@@ -604,7 +593,7 @@ msgstr "Nazwa użytkownika jest już używana."
 msgid "This email is already in use."
 msgstr "Ten email już jest używany."
 
-#: mountaingrip/views.py:62
+#: mountaingrip/views.py:66
 msgid "Activate your Mountain Grip account."
 msgstr "Aktywuj swoje konto na https://mountaingrip.com"
 
@@ -656,6 +645,6 @@ msgstr "Zdjęcie wyróżniające"
 msgid "Something is wrong"
 msgstr "Coś jest nie tak."
 
-#: start/views.py:107 start/views.py:148
+#: start/views.py:112 start/views.py:153
 msgid "User does not exist"
 msgstr "Nie ma takiego użytkownika."
