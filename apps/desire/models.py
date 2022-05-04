@@ -14,4 +14,5 @@ class Desire(models.Model):
 class DesireSearch(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="desire_search", blank=False)
     desire = models.ForeignKey(Desire, on_delete=models.CASCADE, related_name="desire_id", blank=False)
+    count = models.IntegerField(default=0, blank=False)
     added_at = models.DateTimeField(auto_now_add=True)

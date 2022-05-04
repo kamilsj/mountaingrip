@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.views import View
-from start.models import Trip
+from start.models import Trip, TripJoined
 
 class PublicIndex(View):
     def get(self, request):
@@ -24,17 +24,19 @@ class PublicTrip(View):
 
                 gkey = settings.GKEY
                 gmaps = googlemaps.Client(key=gkey)
-            
 
                 if trip.cover:
                     url = trip.cover.url
                 else:
                     url = 'https://mountiangrip.s3-eu-west-1.amazonaws.com/assets/default_trip_cover.jpg'
+                
+                joined_users = TripJoined.objects.filter(trip=trip).values('user')
 
                 data = {
                     'trip': trip,
                     'url': url,
                     'gmaps_key': gkey,
+                    'joined_users': joined_users,
                 }
                 return render(request, 'public/public_trip.html', {'data': data})
             else:

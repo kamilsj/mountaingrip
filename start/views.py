@@ -63,7 +63,6 @@ class ProfileView(View):
                 user = User.objects.get(id=id)
                 if user:
                     name = user.get_full_name()
-                    print(datetime.now())
                     if Profile.objects.filter(user_id=id).exists():
                         profile = Profile.objects.get(user_id=id)
                         if not profile.height > 0:
@@ -136,6 +135,11 @@ class ProfileView(View):
                 if Post.objects.filter(profile_id=user.id).count() > 0:
                     posts = Post.objects.filter(profile_id=user.id).order_by('-added_at').all()
 
+                if Trip.objects.filter(user=user).count() > 0:
+                    trips = Trip.objects.filter(user=user).all()[:5]
+                else:
+                    trips = ''
+
                 data = {
                     'id': user.id,
                     'name': name,
@@ -143,6 +147,7 @@ class ProfileView(View):
                     'purl': pic,
                     'posts': posts,
                     'age': age,
+                    'trips': trips,
                     'own_profile': 1,
 
                 }

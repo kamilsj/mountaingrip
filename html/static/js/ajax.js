@@ -56,7 +56,7 @@ function addfriend(user_id) {
             url: '/ajax/addfriend/' + user_id + '/',
             success: function (data) {
                 if(data.OK === 1) {
-                    $('#join_trip_button').fadeOut('slow', function(){});
+                    $('#friend_button').fadeOut('slow', function(){});
                 }
             }
         });

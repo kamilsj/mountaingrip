@@ -1,9 +1,33 @@
 {% extends 'shop/index.html' %}
 {% load i18n %}
 {% block shop %}
-<div class="d-flex" style="width: 80%">
-    <div class="input-group">
+<div class="d-flex justify-content-center mt-5">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+       
+            <input class="form-control mt-2" placeholder="{% trans 'Name' %}" id="id_name" type="text" name="name" required />
+            <textarea class="form-control mt-2" placeholder="{% trans 'Description' %}" id="id_description"  name="description" required></textarea>
+            <input type="file" class="form-control mt-2" id="id_pic" name="pic" required />
+            <select class="form-control mt-2" id="id_brand" name="brand">
+            {% for brand in data.brands %}
+                <option value="{{ brand.id }}">{{ brand.name }}</option>
+            {% endfor %}        
+            </select>
+            <select class="form-control mt-2" id="id_category" name="category">
+            {% for cat in data.categories %}
+                <option value="{{ cat.id }}">{{ cat.name }}</option>
+            {% endfor %}
+            </select>
+            <select class="form-control mt-2" id="id_used" name="used">
+                <option value="0">{% trans 'Used' %}</option>
+                <option value="1">{% trans 'New' %}</option>
+            </select>
+            <div class="input-group mt-2">                
+                <input class="form-control" id="id_price" type="number" name="price" step="any"  placeholder="{% trans 'Price' %}" required />                
+            </div>
+            <input class="form-control mt-2" id="id_quantity" type="number" name="qunatity" step="any" placeholder="{% trans 'Quantity' %}" required />
+            <button class="btn btn-sm btn-primary mt-2" type="submit">{% trans "Add" %}</button>
 
-    </div>
+    </form>
 </div>
 {% endblock %}

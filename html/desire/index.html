@@ -1,5 +1,6 @@
 {% extends 'main.html' %}
 {% load i18n %}
+{% load add_func %}
 {% load humanize %}
 {% block title %}{% blocktrans %}Sell and buy outdoor clothes and equipment{% endblocktrans %}{% endblock %}
 
@@ -7,19 +8,68 @@
 <div class="container" style="margin-top: 70px">
     <div class="d-flex-inline">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-8">
+                    
+                    <h5 class="title">
+                        <a href="/" class="p-2"> < </a>
+                        {% show_avatar_small data.user.id %}
+                        {{ data.how }}
+                        {{ data.what }}
+                       <small class="text-muted"> {{ data.query }} </small>
+                    </h5>                            
+                {% if data.results != 0 %}    
+                    <div class="card mt-3">
+                        <div class="card-body w-100">                        
+                            <ul class="list-group">
+                            {% for item in data.results %}
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                           {% show_avatar_small item.user.id %}
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>                       
+                {% else %}
+                    <div class="mt-4">                        
+                        <span class="alert alert-sm alert-success">{% trans 'Nobody wants the same as you :)' %}</span>
+                    </div>    
+                {% endif %}
+                
+            </div>
+            <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">{{ data.query }}</h5>
-                            
+                        <h6 class="card-title">{% trans 'Trips' %}</h6>
+                            <ul class="list-group">
+                            {% for trip in data.left_panel_trip %}
+                                 <li class="list-group-item">
+                                    <a href="{% url 'start:trip' trip.id %}">
+                                        <div class="row">
+
+                                                <div class="col-sm-9 lh-sm">
+                                                    {{ trip.title }}
+                                                </div>
+                                                <div class="col-auto">
+                                                   
+
+                                                </div>    
+                                        </div>
+                                    </a>
+                                 </li>   
+                            {% endfor %}
+                            </ul>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card">
+                <div class="card mt-2">
                     <div class="card-body">
-                        <h5 class="card-title"></h5>
-
+                        <h6 class="card-title">{% trans 'Users' %}</h6>
+                        {% for user in data.left_panel_user %}
+                            {% show_avatar_small user.id %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>

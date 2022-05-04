@@ -112,6 +112,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'mountaingrip.urls'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
