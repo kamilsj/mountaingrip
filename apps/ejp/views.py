@@ -78,7 +78,7 @@ class Predictions(View):
                 x_y_pro.append(round((y[i - 1] / num_1_50) * 100, 2))
                 prob.append(y[i - 1] / num_1_50)
 
-            for i in range(1, 11, 1):
+            for i in range(1, 13, 1):
                 y2.append(np.count_nonzero(p_flat == i))
 
             # count range of most frequent values 1-10 and so on
@@ -139,7 +139,7 @@ class Predictions(View):
             plot2 = figure(title="Plus numbers occurance (1-10)",
                            sizing_mode="stretch_width",
                            tooltips="@x -> @top")
-            plot2.vbar(x=range(1, 11, 1), top=y2, width=0.7)
+            plot2.vbar(x=range(1, 13, 1), top=y2, width=0.7)
             (div2, script2) = components(plot2)
 
             data = {

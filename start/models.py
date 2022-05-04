@@ -80,12 +80,12 @@ class Friend(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=False)
-    pic = models.ImageField(upload_to='profile/pic/', default='', blank=True)
-    cover = models.ImageField(upload_to='profile/cover/', default='', blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=False, null=False)
+    pic = models.ImageField(upload_to='profile/pic/', default='', blank=True, null=True)
+    cover = models.ImageField(upload_to='profile/cover/', default='', blank=True, null=True)
     gender = models.IntegerField(choices=((0, "Male"), (1, "Female")), default=0)
     birthday = models.DateField(blank=True, null=True)
-    country = CountryField(blank=True)
+    country = CountryField(blank=True, null=True)
     height = models.PositiveSmallIntegerField(blank=True, default=0)
     public_key = models.CharField(max_length=1024, blank=True, default='')
     private_key = models.CharField(max_length=1024, blank=True, default='')

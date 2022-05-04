@@ -29,21 +29,34 @@
 
     <div class="row align-items-start">
         <div class="col-5">
+
             <img src="{{ data.url }}" class="img-fluid rounded" /><br>
-            <a href="#" onclick="jointrip({{ data.id }});" id="join_trip_button" class="btn btn-sm mt-2
-            {% if data.user_joined %}
-               btn-secondary disabled
-            {% else %}
-               btn-primary
-            {% endif %}"
-            >{% trans "Join" %}
-            <span class="badge bg-light text-dark" id="trip_joined">{{ data.joined }}</span>
-            </a>
-            <button type="button" class="btn btn-secondary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">{% trans "Invite" %}</button>
-            <select class="form-select mt-2">
-                <option></option>
-                <option></option>
-            </select>
+            <div class="row">
+                <div class="col-auto">
+                    <a href="#" onclick="jointrip({{ data.id }});" id="join_trip_button" class="btn btn-sm mt-2
+                    {% if data.user_joined %}
+                       btn-secondary disabled
+                    {% else %}
+                       btn-primary
+                    {% endif %}"
+                    >{% trans "Join" %}
+                    <span class="badge bg-light text-dark" id="trip_joined">{{ data.joined }}</span>
+                    </a>    
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-secondary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">{% trans "Invite" %}</button>
+                </div>
+                <div class="col-auto">
+                    <select class="form-select form-select-sm mt-2">
+                        <option>{% trans '' %}</option>
+                        <option>{% trans 'Done' %}</option>
+                        <option>{% trans 'Cancelled' %}</option>
+                    </select>
+                </div>
+            </div>
+
+            
+
         </div>
         <div class="col mt-3">
             <h1 class="leader">
