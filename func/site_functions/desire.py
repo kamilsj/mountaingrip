@@ -1,4 +1,3 @@
-from tkinter.messagebox import NO
 from apps.desire.models import Desire, DesireSearch
 from start.models import Trip, Profile
 from django.contrib.auth.models import User
