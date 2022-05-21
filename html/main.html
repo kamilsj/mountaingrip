@@ -18,9 +18,9 @@
     <!-- charts ------>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>              <!-- to be removed soon -->
     <script src="{% static "js/chart_plugin.js" %}"></script>                                                      <!-- to be removed soon -->
-    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.2.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.2.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.3.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.3.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.3.min.js" crossorigin="anonymous"></script>
     <!---------------->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2160021536917489" crossorigin="anonymous"></script>
     <!-------------->
@@ -35,14 +35,24 @@
     <script src="//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="//cdn.jsdelivr.net/npm/featherlight@1.7.14/release/featherlight.gallery.min.js" type="text/javascript" charset="utf-8"></script>
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-STD6S4PM77"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-STD6S4PM77');
+    </script>
+
     <!---- Go squered -->
     <script>
       !function(g,s,q,r,d){r=g[r]=g[r]||function(){(r.q=r.q||[]).push(arguments)};
       d=s.createElement(q);d.src='https://d1l6p2sc9645hc.cloudfront.net/gosquared.js';q=
       s.getElementsByTagName(q)[0];q.parentNode.insertBefore(d,q)}(window,document
       ,'script','_gs');
-      _gs('set', 'chat', false)
       _gs('GSN-293738-I');
+      _gs('set', 'chat', { button: false });
       {% if user.is_authenticated %}
       _gs('identify', {
           email: '{{ user.email }}',
@@ -204,18 +214,6 @@
             });
         {% endif %}
     </script>
-
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-124583577-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-124583577-1');
-    </script>
-    <!-- Cloudflare Web Analytics -->
-    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{'token': 'e6811d3cd92e4211b2de42bd079c2602'}"></script>
-    <!-- End Cloudflare Web Analytics -->
 </div>
 </body>
 </html>
