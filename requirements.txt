@@ -10,17 +10,17 @@ django-cors-headers==3.11.0
 django_widget_tweaks==1.4.12
 djangorestframework-api-key==2.2.0
 Pillow==9.1.0
-boto3==1.22.6
+boto3==1.22.9
 beautifulsoup4==4.11.1
 urlextract==1.5.0
 # Research
 bokeh==2.4.2   # activities research
-# tensorflow==2.8.0
+tensorflow==2.8.0
 numpy==1.22.3
 cryptography==37.0.2
 requests==2.27.1
 # SDK
-stripe==2.75.0
+stripe==2.76.0
 stravalib==0.10.4
 googlemaps==4.6.0
 facebook-sdk==3.1.0

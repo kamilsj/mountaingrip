@@ -5,10 +5,11 @@ from django.utils.translation import gettext as _
 
 
 class MessageForm(forms.ModelForm):
-    pic = forms.ImageField()
+    pic = forms.ImageField(required=False)
+    
     class Meta:
         model = Message
         fields = ['to', 'text', 'title', 'pic']
         widgets = {
-            'pic': forms.ClearableFileInput(attrs={'multiple': True})
+            'pic': forms.ClearableFileInput(attrs={'required': False, 'multiple': True})
         }
