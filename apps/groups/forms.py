@@ -7,12 +7,11 @@ from django.forms.widgets import ClearableFileInput
 
 
 class PostForm(forms.ModelForm):
-    pic = forms.ImageField(required=False, widget=ClearableFileInput(attrs={'multiple': True}))
+    pic = forms.ImageField(required=False, widget=ClearableFileInput(attrs={'required': False, 'multiple': True}))
 
     class Meta:
         model = ThreadPost
         fields = ['thread', 'group', 'text', 'pic']
-
 
     def clean_text(self):
         text = self.cleaned_data['text']
