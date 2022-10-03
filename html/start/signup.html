@@ -3,16 +3,14 @@
 
 {% block content %}
 
- <div class="container">
-            <div class="row justify-content-center align-items-center" style="margin-top: 10%">
-
+ <div class="container" style="margin-top: 100px;">
             {% if data.activation == 1 %}
                 <div class="alert alert-success" role="alert">{% trans "Activation email was sent to you. Check your SPAM box as well." %}</div>
             {% elif data.activation == 0 %}
                 <div class="alert alert-danger" role="alert">{% trans 'Accunt was created, but activation email was not sent' %}</div>
             {% else %}
               {% if form.errors %}
-                  <div class="row justify-content-center align-items-center">
+                  <div class="d-flex justify-content-center align-items-center">
                       <div class="alert alert-danger" role="alert">
                       {% for field in form %}
                         {% for error in field.errors %}
@@ -22,46 +20,37 @@
                       </div>
                   </div>
               {% endif %}
-              <div class="row justify-content-center">
-                <div class="col-5">
+              <div class="d-flex justify-content-center">
                   <form method="post">
                     {% csrf_token %}
 
-                      {% for field in form %}
-                              {% if field.name == 'username' %}
-                                <div class="input-group mb-2 mr-sm-2">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">@</div>
-                                    </div>
-                                    <input type="text" {{ value }} class="form-control" id="id_username" name="username" placeholder="{% trans "Username"  %}" required>
-                                </div>
-                              {% elif field.name == 'first_name' %}
-                                <div class="mb-2">
-                                    <input class="form-control" type="text" placeholder="{% trans "First name"  %}" id="id_first_name" name="first_name" required>
-                                </div>
-                              {% elif field.name == 'last_name' %}
-                                 <div class="mb-2">
-                                    <input class="form-control" type="text" placeholder="{% trans "Last name"  %}" id="id_last_name" name="last_name" required>
-                                </div>
-                              {% elif field.name == 'email' %}
-                                  <div class="mb-2">
-                                       <input class="form-control" type="email" placeholder="{% trans "Email"  %}" id="id_email" name="email" required>
-                                  </div>
-                              {% elif field.name == 'password1' %}
-                                 <div class="mb-2">
-                                       <input class="form-control" type="password" placeholder="{% trans "Password"  %}" id="id_password1" name="password1" required>
-                                 </div>
-                              {% elif field.name == 'password2' %}
-                                  <div class="mb-5">
-                                        <input class="form-control" type="password" placeholder="{% trans "Confirm password"  %}" id="id_password2" name="password2" required>
-                                  </div>
-                              {% endif %}
-                      {% endfor %}
+                    <div class="form-floating mb-2">
+                        <input type="text" class="form-control" id="id_username" name="username" placeholder="{% trans "Username"  %}" required>
+                        <label for="id_username">{% trans "Username"  %}</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input class="form-control" type="text" placeholder="{% trans "First name"  %}" id="id_first_name" name="first_name" required>
+                        <label for="id_first_name">{% trans "First name"  %}</label>
+                    </div>
+                     <div class="form-floating mb-2">
+                        <input class="form-control" type="text" placeholder="{% trans "Last name"  %}" id="id_last_name" name="last_name" required>
+                        <label for="id_last_name">{% trans "Last name"  %}</label>
+                    </div>
+                      <div class="form-floating mb-2">
+                           <input class="form-control" type="email" placeholder="{% trans "Email"  %}" id="id_email" name="email" required>
+                           <label for="id_email">{% trans "Email"  %}</label>
+                      </div>
+                     <div class="form-floating  mb-2">
+                       <input class="form-control" type="password" placeholder="{% trans "Password"  %}" id="id_password1" name="password1" required>
+                       <label for="id_password1">{% trans "Password"  %}</label>
+                     </div>
+                      <div class="form-floating mb-5">
+                          <input class="form-control" type="password" placeholder="{% trans "Confirm password"  %}" id="id_password2" name="password2" required>
+                          <label for="id_password2">{% trans "Confirm password"  %}</label>
+                      </div>
                       <div class="text-center"><button class="btn btn-sm btn-primary btn-block" type="submit">{% trans "Sign up" %}</button></div>
                   </form>
-                </div>
               </div>
-        </div>
-    </div>
+</div>
 {% endif %}
 {% endblock %}

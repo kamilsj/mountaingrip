@@ -40,6 +40,7 @@ if prod == 0:
     DEBUG = True
 else:
     DEBUG = False
+    SECURE_SSL_HOST = True
     import sentry_sdk
     from sentry_sdk.integrations.django import DjangoIntegration
     sentry_sdk.init(
@@ -56,14 +57,17 @@ INSTALLED_APPS = [
     'apps.health',
     'apps.notifications',
     'apps.inbox',
+    #
+    'apps.fx',
     'apps.ejp',
+    #
     'apps.desire',
     'start',
     'apps.api',
     'apps.settings',
     'rest_framework',
     'rest_framework_api_key',
-    # 'django_cron',
+    'django_cron',
     'django_countries',
     'widget_tweaks',
     'storages',
@@ -221,12 +225,9 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'mountaingrip.storage.MediaStorage'
 
 # Email configuration
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = email[0]
-EMAIL_HOST_USER = email[1]
-EMAIL_HOST_PASSWORD = email[2]
-EMAIL_PORT = email[3]
+EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
+SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+SENDGRID_API_KEY = email[2]
 
 # SOCIAL AUTH
 

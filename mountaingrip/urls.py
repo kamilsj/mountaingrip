@@ -39,6 +39,7 @@ urlpatterns += i18n_patterns(
     path('shop/', include('apps.shop.urls')),                        #store
     path('ranking/', include('apps.ranking.urls')),                  #user's ranking
     path('notifications/', include('apps.notifications.urls')),
+    path('fx/', include('apps.fx.urls')),
     path('ejp/', include('apps.ejp.urls')),                          #ejp analysis ... just to make some new content and learn something new
     path('admin/', admin.site.urls),
     path('accounts/signup/', views.signup, name='signup'),
