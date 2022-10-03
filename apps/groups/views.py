@@ -188,7 +188,6 @@ class ThreadView(View):
         form = self.form_class(request.POST or None, request.FILES or None)
         if request.method == 'POST' and user.is_authenticated:
             if form.is_valid():
-                print('OK')
                 if gid > 0 and tid > 0:
                     text = form.clean_text()
                     group = form.clean_group()

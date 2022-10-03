@@ -14,13 +14,11 @@ class DesireClass:
         self.desire = desire
         self.user = user
 
-
     def ParseHow(self):
         if self.how == 1:
             return _('wants')
         else:
             return ''          
-
 
     def ParseWhat(self):
         if self.what == 1:
@@ -36,7 +34,6 @@ class DesireClass:
         else:
             return ''
 
-
     def SearchResults(self):
         if len(self.desire) > 1:
             proxy = Desire.objects.filter(desire__icontains=self.desire).exclude(user=self.user)
@@ -44,17 +41,14 @@ class DesireClass:
                 id = proxy.get()
                 data = DesireSearch.objects.filter(id=id.id).exclude(user=self.user).order_by('-id').all()
             else:
-                data = 0
-
+                data = ''
         return data
-
 
     def TripData(self):
         if self.what > 1:
             data = Trip.objects.filter(Q(mountainName__icontains=self.desire) | Q(basePlace__icontains=self.desire)).order_by('-id').all()            
         else:
             data = ''
-        
         return data
 
     def UserData(self):
@@ -62,5 +56,4 @@ class DesireClass:
             data = User.objects.filter(Q(username__icontains=self.desire) | Q(first_name__icontains=self.desire) | Q(last_name__icontains=self.desire)).order_by('-id').all()
         else:
             data = ''
-
         return data 

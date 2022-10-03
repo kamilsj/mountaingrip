@@ -3,9 +3,9 @@
 {% block title %} Login {% endblock %}
 
 {% block content %}
-<div class="container" style="margin-top: 70px">
+<div class="container-fluid" style="margin-top: 100px;">
       {% if form.errors %}
-          <div class="row justify-content-center align-items-center">
+          <div class="d-flex justify-content-center align-items-center">
               <div class="alert alert-danger" role="alert">
               {% for error in form.non_field_errors %}
                   {{ error|escape }}
@@ -13,19 +13,20 @@
               </div>
           </div>
       {% endif %}
-     <div class="d-flex justify-content-center">
+     <div class="d-flex justify-content-center align-items-center">
         <form method="post">
             {% csrf_token %}
-              <div class="mb-2">
-                <input placeholder="{% trans "Username" %}" type="text" class="form-control form-control-lg" id="id_username" name="username" aria-describedby="emailHelp" required>
-                <small id="emailHelp" class="form-text text-muted"></small>
+              <div class="form-floating mb-2">
+                <input placeholder="{% trans "Username" %}" type="text" class="form-control form-control-lg" id="id_username" name="username" required>
+                <label for="id_username">{% trans "Username" %}</label>
               </div>
-              <div class="mb-5">
+              <div class="form-floating mb-5">
                 <input placeholder="{% trans "Password" %}" type="password" class="form-control form-control-lg" id="id_password" name="password" required>
+                <label for="id_password">{% trans "Password" %}</label>
               </div>
               <div class="text-center">
                 <button class="btn btn-sm btn-primary btn-block" type="submit">{%  trans "Log in" %}</button><br><br>
-                <p><a class="text-decoration-none" href="{% url 'password_reset' %}">Lost password?</a></p>
+                <p><a class="text-decoration-none small" href="{% url 'password_reset' %}">Lost password?</a></p>
               </div>
         </form>
      </div>

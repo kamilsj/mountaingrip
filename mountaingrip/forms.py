@@ -18,7 +18,6 @@ class SignUpForm(UserCreationForm):
         username = self.cleaned_data.get('username')
         if User.objects.filter(username=username).exists():
             raise ValidationError(_('This username is already in use.'), code='username_exists')
-
         return username
 
     def clean_email(self):

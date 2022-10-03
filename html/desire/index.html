@@ -9,7 +9,6 @@
     <div class="d-flex-inline">
         <div class="row">
             <div class="col-md-8">
-                    
                     <h5 class="title">
                         <a href="/" class="p-2"> < </a>
                         {% show_avatar_small data.user.id %}
@@ -38,7 +37,6 @@
                         <span class="alert alert-sm alert-success">{% trans 'Nobody wants the same as you :)' %}</span>
                     </div>    
                 {% endif %}
-                
             </div>
             <div class="col-md-4">
                 <div class="card">
@@ -47,7 +45,7 @@
                             <ul class="list-group">
                             {% for trip in data.left_panel_trip %}
                                  <li class="list-group-item">
-                                    <a href="{% url 'start:trip' trip.id %}">
+                                    <a href="/start/trip/{{ trip.id }}/">
                                         <div class="row">
 
                                                 <div class="col-sm-9 lh-sm">
