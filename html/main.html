@@ -21,9 +21,9 @@
     <!-- charts ------>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.min.js"></script>              <!-- to be removed soon -->
     <script src="{% static "js/chart_plugin.js" %}"></script>                                                      <!-- to be removed soon -->
-    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.3.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-2.4.3.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-2.4.3.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-3.0.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-widgets-3.0.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.bokeh.org/bokeh/release/bokeh-tables-3.0.1.min.js" crossorigin="anonymous"></script>
     <!---------------->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2160021536917489" crossorigin="anonymous"></script>
     <!-------------->
@@ -176,18 +176,14 @@
                     <a href="/about/" target="_blank">{% trans 'about' %}</a><b> | </b>
                     <a href="/privacy/" target="_blank">{% trans 'terms & privacy' %}</a><b> | </b>
                     <a href="https://kamilsj.github.io/mountaingrip/" target="_blank">{% trans 'code' %}</a><b> | </b>
-                    <a href="/donate/" target="_blank">{% trans 'donate' %}</a>
+                    <a href="https://www.buymeacoffee.com/mountaingrip/" target="_blank">{% trans 'donate' %}</a>
                     </p>
                 </div>
                 <div class="mb-3"></div>
             </div>
         </div>
     </footer>
-    <style>
-    .bk-logo, .bk-tool-icon-help {
-        display:none !important;
-    }
-    </style>
+
     <script src="{% static 'js/ajax.js' %}"></script>
     <script src="{% static 'js/mg.js' %}"></script>
     <script src="{% static 'js/tipped.js' %}"></script>

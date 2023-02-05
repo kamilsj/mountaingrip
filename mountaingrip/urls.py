@@ -1,8 +1,16 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.i18n import i18n_patterns
+from django.contrib.sitemaps.views import sitemap
 from . import views
 from .ajax import func
+from .sitemaps import ThreadPostSitemap
+
+sitemaps = {
+    # 'static': views.StaticViewSitemap,
+    'threadpost': ThreadPostSitemap,
+
+}
 
 
 '''Error views'''
