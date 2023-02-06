@@ -144,10 +144,12 @@ class Analytics(View):
 
             if len(data) > 0:
                 plot = figure(title="", x_axis_label="Date", x_axis_type='datetime', y_axis_label="Weight",
-                            plot_height=500,
+                            height=500,
                             sizing_mode="stretch_width",
                             toolbar_location="above",
-                            tooltips="@y")
+                            tooltips="@y",
+                            tools = "pan,wheel_zoom,box_zoom,reset,save")
+                plot.toolbar.logo = None
 
                 x = []
                 y = []
@@ -192,13 +194,16 @@ class Analytics(View):
                 for i in range(len(strava)):
                     dots.append(datetime.strptime(strava[i]['start_date'], "%Y-%m-%d %H:%M:%S+00:00"))
                     distance.append(strava[i]['distance'] / 1000)
+
                 plot2 = figure(title="Activities", x_axis_type='datetime',
                             sizing_mode="stretch_width",
-                            plot_height=500,
+                            height=500,
                             tooltips='@y',
                             x_axis_label='Date',
                             y_axis_label='Distance',
-                            toolbar_location="above")
+                            toolbar_location="above",
+                            tools="pan,wheel_zoom,box_zoom,reset,save")
+                plot2.toolbar.logo = None
 
                 plot2.circle(dots, distance, size=10)
                 (div2, script2) = components(plot2)

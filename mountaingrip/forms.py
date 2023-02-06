@@ -26,3 +26,4 @@ class SignUpForm(UserCreationForm):
             raise ValidationError(_('This email is already in use.'), code='email_exists')
         return email
 
+

@@ -80,6 +80,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 
     # other
+    'django.contrib.sitemaps',
     'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.auth',

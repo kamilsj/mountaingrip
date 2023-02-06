@@ -24,8 +24,10 @@ def about(request):
 def privacy(request):
     return render(request, 'privacy.html')
 
+
 def donate(request):
     return render(request, 'donate.html')
+
 
 def index(request):
     if request.user.is_authenticated:
@@ -44,7 +46,7 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        login(request, user)
+        login(request, user, backend='django.contrib.auth.backends.ModelBackend')
         return redirect('/start/')
     else:
         return redirect('/')

@@ -1,12 +1,8 @@
 .idea
-.nova
-.vs
-__pycache__
 migrations
-venv
-node_modules
-.DS_Store
-mountaingrip/config/config.py
-wing.wpr
-wing.wpu
+__pycache__
 
+
+
+# private configuration settings for MountainGrip
+/mountaingrip/config/config.py
