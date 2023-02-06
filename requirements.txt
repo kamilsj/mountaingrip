@@ -1,4 +1,4 @@
-django_countries==7.5
+django_countries==7.5.1
 django_cron==0.6.0 # not compatible with django 4.0
 Django==4.1.6
 django_heroku==0.3.1
@@ -9,23 +9,22 @@ django-allauth==0.52.0
 djangorestframework==3.14.0
 django-cors-headers==3.13.0
 django_widget_tweaks==1.4.12
-djangorestframework-api-key==2.2.0
+djangorestframework-api-key==2.3.0
 Pillow==9.4.0
-boto3==1.26.41
-beautifulsoup4==4.11.1
+boto3==1.26.64
+beautifulsoup4==4.11.2
 urlextract==1.8.0
 django-model-utils==4.3.1
-
 # Research
 bokeh==3.0.3   # activities research
-tensorflow-macos==2.11.0
-numpy==1.24.1
+# tensorflow-macos==2.11.0
+numpy==1.24.2
 cryptography==39.0.0
-requests==2.28.1
+requests==2.28.2
 
 # SDK
 stripe==5.1.0
 stravalib==1.1.0
 googlemaps==4.10.0
 facebook-sdk==3.1.0
-sentry_sdk==1.12.1
+sentry_sdk==1.14.0
