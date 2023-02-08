@@ -19,7 +19,7 @@ django-model-utils==4.3.1
 bokeh==3.0.3   # activities research
 # tensorflow-macos==2.11.0
 numpy==1.24.2
-cryptography==39.0.0
+cryptography==39.0.1
 requests==2.28.2
 
 # SDK
