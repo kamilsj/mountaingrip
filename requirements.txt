@@ -1,6 +1,6 @@
 django_countries==7.5.1
 django_cron==0.6.0 # not compatible with django 4.0
-Django==4.1.6
+Django==4.1.7
 django_heroku==0.3.1
 django_storages==1.13.2
 django-sendgrid-v5==1.2.2
