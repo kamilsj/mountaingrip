@@ -11,7 +11,7 @@ class DesireClass:
     def __init__(self, how, what, desire, user):
         self.how = int(how)  
         self.what = int(what)
-        self.desire = desire
+        self.desire = str(desire)
         self.user = user
 
     def ParseHow(self):
@@ -36,10 +36,10 @@ class DesireClass:
 
     def SearchResults(self):
         if len(self.desire) > 1:
-            proxy = Desire.objects.filter(desire__icontains=self.desire).exclude(user=self.user)
-            if proxy.count() > 0:
-                id = proxy.get()
-                data = DesireSearch.objects.filter(id=id.id).exclude(user=self.user).order_by('-id').all()
+            proxy = Desire.objects.filter(desire=self.desire).exclude(user=self.user)
+            if proxy.count() == 1:
+                des_id = proxy.get()
+                data = DesireSearch.objects.filter(id=des_id.id).exclude(user=self.user).order_by('-id').all()
             else:
                 data = ''
         return data
