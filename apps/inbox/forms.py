@@ -11,5 +11,5 @@ class MessageForm(forms.ModelForm):
         model = Message
         fields = ['to', 'text', 'title', 'pic']
         widgets = {
-            'pic': forms.ClearableFileInput(attrs={'required': False, 'multiple': True})
+            'pic': forms.ClearableFileInput(attrs={'allow_multiple_selected': True}),
         }
