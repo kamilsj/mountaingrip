@@ -8,8 +8,8 @@ from django.db.models import F
 
 from datetime import date, datetime, timedelta
 
-class DesireView(View):
 
+class DesireView(View):
     def get(self, request):
         data = {}
              
@@ -24,16 +24,15 @@ class DesireView(View):
                 query = desire.lower()
 
                 # save desire
-                already_is = Desire.objects.filter(desire__icontains=query)          
+                already_is = Desire.objects.filter(desire=query)
                 if not already_is.exists():
                     Desire(user=request.user, desire=desire, how=how, what=what, lang=lang).save()
                 else:
-                    desire_data = already_is.get()                                
+                    desire_data = already_is.get()
                     if not DesireSearch.objects.filter(user=request.user, desire=desire_data).exists():
                         DesireSearch(user=request.user, desire=desire_data).save()
                     else:
                         # add parameter when it was already added few mintues
-                                                
                         DesireSearch.objects.filter(user=request.user, desire=desire_data).update(count=F('count')+1)
                 
                 left_panel_trip = d.TripData()

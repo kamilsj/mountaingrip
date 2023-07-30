@@ -7,7 +7,7 @@ from django.forms.widgets import ClearableFileInput
 
 
 class PostForm(forms.ModelForm):
-    pic = forms.ImageField(required=False, widget=ClearableFileInput(attrs={'required': False, 'multiple': True}))
+    pic = forms.ImageField(required=False, widget=ClearableFileInput(attrs={'allow_multiple_selected': True}))
 
     class Meta:
         model = ThreadPost

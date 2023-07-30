@@ -144,12 +144,13 @@ WSGI_APPLICATION = 'mountaingrip.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': db[0],
         'USER': db[1],
         'PASSWORD': db[2],
         'HOST': db[3],
-        'PORT': db[4]
+        'PORT': db[4],
+        'OPTIONS': {'sslmode': 'require'},
     }
 }
 
@@ -205,7 +206,6 @@ LOGIN_REDIRECT_URL = '/start/'
 LOGOUT_REDIRECT_URL = '/'
 
 # S3
-
 AWS_DEFAULT_ACL = 'public-read'
 AWS_AUTO_CREATE_BUCKET = True
 AWS_ACCESS_KEY_ID = aws[0]
@@ -222,7 +222,6 @@ STATICFILES_DIRS = [
 ]
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
 DEFAULT_FILE_STORAGE = 'mountaingrip.storage.MediaStorage'
 
 # Email configuration
