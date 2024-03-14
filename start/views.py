@@ -27,7 +27,7 @@ def index(request):
             beta = Profile.objects.values('beta').get(user=user)
             request.session['beta'] = beta['beta']
             ##################
-            date = datetime.now(tz=timezone.utc)
+            date = datetime.now()
             posts = {}
 
             from_date = date - timedelta(days=14)

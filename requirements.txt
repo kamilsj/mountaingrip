@@ -5,7 +5,7 @@ django_heroku==0.3.1
 django_storages==1.14.2
 django-sendgrid-v5==1.2.3
 django-s3file==5.5.5
-django-allauth==0.60.1
+django-allauth==0.61.1
 djangorestframework==3.14.0
 django-cors-headers==4.3.1
 django_widget_tweaks==1.5.0
@@ -17,10 +17,10 @@ urlextract==1.8.0
 django-model-utils==4.3.1
 
 # Research
-bokeh==3.3.3   # activities research
-tensorflow-macos==2.15.0
+bokeh==3.3.4   # activities research
+# tensorflow-macos==2.15.0
 numpy==1.26.3
-cryptography==41.0.7
+cryptography==42.0.5
 requests==2.31.0
 
 # SDK

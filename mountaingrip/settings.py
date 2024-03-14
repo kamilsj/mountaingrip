@@ -102,6 +102,7 @@ MIDDLEWARE = [
     # My main middleware
     'mountaingrip.middleware.MGMiddleware',
     # added
+    'allauth.account.middleware.AccountMiddleware',
     's3file.middleware.S3FileMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     # djnago
