@@ -3,14 +3,6 @@
 
 
 Welcome to Mountain Grip, an open-source website that aims to provide outdoor enthusiasts with valuable resources and information about various mountain activities. Whether you're a seasoned mountaineer or a beginner hiker, we've got you covered!
-Table of Contents
-
-Introduction
-Features
-Installation
-Usage
-Contributing
-License
 
 ### Introduction
 
@@ -34,7 +26,6 @@ To run Mountain Grip locally, follow these steps:
 Clone the repository: git clone https://github.com/kamilsj/mountaingrip.git
 Navigate to the project directory: cd mountaingrip
 Update settings in: mountaingrip/config/config_example.py
-
 
 ### Usage
 
