@@ -48,6 +48,10 @@ else:
     )
 
 ALLOWED_HOSTS = ['mountaingrip.com', '192.168.0.10']
+
+CSRF_TRUSTED_ORIGINS = ['https://mountaingrip.com']
+CORS_ALLOW_ALL_ORIGINS = True
+
 INSTALLED_APPS = [
     'apps.ranking',
     'apps.public',
@@ -203,6 +207,9 @@ LOGOUT_REDIRECT_URL = '/'
 
 # S3
 AWS_DEFAULT_ACL = 'public-read'
+AWS_IS_GZIPPED = True
+AWS_S3_USE_SSL = True
+AWS_QUERYSTRING_AUTH = False
 AWS_AUTO_CREATE_BUCKET = True
 AWS_ACCESS_KEY_ID = aws[0]
 AWS_SECRET_ACCESS_KEY = aws[1]
