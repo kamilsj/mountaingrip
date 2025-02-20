@@ -66,7 +66,6 @@ INSTALLED_APPS = [
     'apps.settings',
     'rest_framework',
     'rest_framework_api_key',
-    'django_cron',
     'django_countries',
     'widget_tweaks',
     'storages',
@@ -144,7 +143,7 @@ WSGI_APPLICATION = 'mountaingrip.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': db[0],
         'USER': db[1],
         'PASSWORD': db[2],
@@ -240,7 +239,5 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-
-# DJANGO3.2
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
