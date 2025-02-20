@@ -1,31 +1,29 @@
-django_countries==7.5.1
-django_cron==0.6.0 # not compatible with django 4.0
-Django==5.0.4
-django_heroku==0.3.1
-django_storages==1.14.2
-django-sendgrid-v5==1.2.3
-django-s3file==5.5.5
-django-allauth==0.61.1
-djangorestframework==3.14.0
-django-cors-headers==4.3.1
-django_widget_tweaks==1.5.0
-djangorestframework-api-key==3.0.0
-Pillow==10.2.0
-boto3==1.34.23
-beautifulsoup4==4.12.3
-urlextract==1.8.0
-django-model-utils==4.3.1
+django_countries
+Django
+django_storages
+django-sendgrid-v5
+django-s3file
+django-allauth
+djangorestframework
+django-cors-headers
+django_widget_tweaks
+djangorestframework-api-key
+Pillow
+boto3
+beautifulsoup4
+urlextract
+django-model-utils
 
 # Research
-bokeh==3.3.4   # activities research
+bokeh   # activities research
 # tensorflow-macos==2.15.0
-numpy==1.26.3
-cryptography==42.0.5
-requests==2.31.0
+numpy
+cryptography
+requests
 
 # SDK
-stripe==7.13.0
-stravalib==1.5
-googlemaps==4.10.0
-facebook-sdk==3.1.0
-sentry_sdk==1.39.2
+stripe
+stravalib
+googlemaps
+facebook-sdk
+sentry_sdk

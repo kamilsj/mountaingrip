@@ -1,6 +1,5 @@
 import os
 import sys
-import django_heroku
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
@@ -67,7 +66,6 @@ INSTALLED_APPS = [
     'apps.settings',
     'rest_framework',
     'rest_framework_api_key',
-    'django_cron',
     'django_countries',
     'widget_tweaks',
     'storages',
@@ -145,7 +143,7 @@ WSGI_APPLICATION = 'mountaingrip.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': db[0],
         'USER': db[1],
         'PASSWORD': db[2],
@@ -191,9 +189,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
-
-# Static files (CSS, JavaScript, Images)
-django_heroku.settings(locals())
 
 
 # My settings
@@ -244,7 +239,5 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
-
-# DJANGO3.2
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
