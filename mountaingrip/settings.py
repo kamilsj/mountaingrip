@@ -47,7 +47,7 @@ else:
         integrations=[DjangoIntegration()]
     )
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mountaingrip.com', '192.168.0.10']
 INSTALLED_APPS = [
     'apps.ranking',
     'apps.public',
